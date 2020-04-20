@@ -1,6 +1,6 @@
 const { ownerid } = require("../../botconfig.json");
 const { inspect } = require("util")
-var { RichEmbed } = require("discord.js")
+var { MessageEmbed } = require("discord.js")
 
 module.exports = {
     config: {

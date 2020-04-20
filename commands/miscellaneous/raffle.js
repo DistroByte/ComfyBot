@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
     config: {
@@ -9,7 +9,7 @@ module.exports = {
         accessableby: "Members"
     },
     run: async (bot, message, args) => {
-		let embed = new RichEmbed()
+		let embed = new MessageEmbed()
 		
 		
 	}

@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     aliases: ["si", "serverdesc"],
   },
   run: async (bot, message, args) => {
-    let sEmbed = new RichEmbed()
+    let sEmbed = new MessageEmbed()
       .setColor("GREEN")
       .setTitle("Server Info")
       .setThumbnail(message.guild.iconURL)

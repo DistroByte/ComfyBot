@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     config: {
@@ -25,7 +25,7 @@ module.exports = {
 
         message.channel.send(`**${kickMember.user.tag}** has been kicked`).then(m => m.delete(5000))
 
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setColor("GREEN")
             .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
             .addField("Moderation:", "kick")

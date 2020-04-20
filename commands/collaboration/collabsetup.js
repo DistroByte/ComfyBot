@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     config: {
@@ -19,7 +19,7 @@ module.exports = {
         let user = message.mentions.members.first();
         let parent = message.channel.parent;
 
-        const embed = new RichEmbed()
+        const embed = new MessageEmbed()
             .setTitle("Project Update")
             .setDescription("")
 

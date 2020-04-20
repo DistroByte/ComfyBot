@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     config: {
@@ -18,18 +18,18 @@ module.exports = {
 
         message.delete()
 
-        const embed = new RichEmbed()
+        const embed = new MessageEmbed()
             .setDescription(argsresult)
 
         if (mChannel) {
             argsresult = args.slice(1).join(" ")
-            const embed = new RichEmbed()
+            const embed = new MessageEmbed()
                 .setDescription(argsresult)
                 .setColor("GREEN")
             mChannel.send(embed)
         } else {
             argsresult = args.join(" ")
-            const embed = new RichEmbed()
+            const embed = new MessageEmbed()
                 .setDescription(argsresult)
                 .setColor("GREEN")
             message.channel.send(embed)

@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     config: {
@@ -29,7 +29,7 @@ module.exports = {
             message.channel.send(`The role, ${role.name}, has been removed from ${rMember.displayName}.`)
         }
 
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setColor("GREEN")
             .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
             .addField("Moderation:", "Addrole")

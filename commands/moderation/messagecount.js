@@ -1,5 +1,5 @@
 const storage = require("storage-to-json");
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     config: {
@@ -12,7 +12,7 @@ module.exports = {
 	if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You dont have permission to perform this command!")
 
 	const count = new storage(`${message.guild.id}`)
-	let embed = new RichEmbed()
+	let embed = new MessageEmbed()
 		.setTitle(`Message Count for ${message.guild.name}`)
 		.setColor("GREEN")
 		.setThumbnail(message.guild.iconURL)

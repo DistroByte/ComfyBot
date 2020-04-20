@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
                 if (!res) return message.channel.send("No results found for this comic, sorry!");
                 let { safe_title, img, day, month, year, num, alt } = res;
 
-                let embed = new RichEmbed()
+                let embed = new MessageEmbed()
                     .setColor("GREEN")
                     .setDescription(alt ? alt : "*crickets* - No Description")
                     .setAuthor(`XKCD | ${safe_title} [${num}]`)

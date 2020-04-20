@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     config: {
@@ -34,7 +34,7 @@ module.exports = {
         })
 
         //send an embed to the modlogs channel
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setColor("GREEN")
             .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
             .addField("Moderation:", "unmute")

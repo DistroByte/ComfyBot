@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
             message.channel.send(`${mutee.user.username} was successfully muted.`)
         })
 
-        let embed = new RichEmbed()
+        let embed = new MessageEmbed()
             .setColor("GREEN")
             .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
             .addField("Moderation:", "mute")

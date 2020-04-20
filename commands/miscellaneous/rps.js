@@ -1,5 +1,5 @@
 const storage = require("storage-to-json");
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     config: {

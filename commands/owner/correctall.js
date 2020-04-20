@@ -1,6 +1,6 @@
 const store = require("storage-to-json")
 const correct = new store('correct.json')
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 const { ownerid } = require("../../botconfig.json")
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
         let second = message.content.split(' ').splice(2).join(' ')
 
         if (!correct.get(first)) {
-            let sEmbed = new RichEmbed()
+            let sEmbed = new MessageEmbed()
                 .setColor('BLUE')
                 .setTitle("Created!")
                 .setDescription(`I will now correct everyone saying **${first}** with **${second}**`);

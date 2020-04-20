@@ -1,5 +1,5 @@
 const storage = require("storage-to-json");
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   config: {
@@ -11,7 +11,7 @@ module.exports = {
   run: async (bot, message, args) => {
     const leaderboards = new storage(`rpsLeaderboards`);
 
-    const embed = new RichEmbed()
+    const embed = new MessageEmbed()
       .setTitle("Leaderboards of Rock, Paper, Scissors!")
       .setColor("GREEN")
       .setFooter(
