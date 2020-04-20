@@ -9,7 +9,7 @@ module.exports = {
       let ping = m.createdTimestamp - message.createdTimestamp;
 
       m.edit(
-        `Bot Latency: \`${ping}ms\`\nAPI Latency: \`${Math.round(bot.ping)}ms\``
+        `Bot Latency: \`${ping}ms\``
       );
     });
   },
