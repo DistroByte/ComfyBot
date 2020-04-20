@@ -20,7 +20,7 @@ module.exports = {
       .addField("**Role Count:**", `${message.guild.roles.size}`, true)
       .addField("**Channel Count:**", `${message.guild.channels.size}`, true)
       .setFooter(
-        `ComfyBot | Developed by JammyGamer`,
+        `James's Bot | Developed by JammyGamer`,
         bot.user.displayAvatarURL
       );
     message.channel.send(sEmbed);
