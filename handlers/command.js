@@ -15,11 +15,10 @@ module.exports = (bot) => {
     }
   };
   [
-    //"collaboration",
-    //"miscellaneous",
-    //"moderation",
-    //"music",
-    //"owner",
+    "collaboration",
+    "miscellaneous",
+    "moderation",
+    "owner",
     "basic"
   ].forEach((x) => load(x));
 };
