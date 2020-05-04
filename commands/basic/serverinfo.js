@@ -5,7 +5,7 @@ module.exports = {
 		name: 'serverinfo',
 		description: 'Pulls the serverinfo of the guild!',
 		usage: '(command)',
-		category: 'miscellaneous',
+		category: 'basic',
 		aliases: ['si', 'serverdesc'],
 	},
 	run: async (bot, message, args) => {
@@ -17,8 +17,12 @@ module.exports = {
 			.addField('**Guild Name:**', `${message.guild.name}`, true)
 			.addField('**Guild Owner:**', `${message.guild.owner}`, true)
 			.addField('**Member Count:**', `${message.guild.memberCount}`, true)
-			.addField('**Role Count:**', `${message.guild.roles.size}`, true)
-			.addField('**Channel Count:**', `${message.guild.channels.size}`, true)
+			.addField('**Role Count:**', `${message.guild.roles.cache.size}`, true)
+			.addField(
+				'**Channel Count:**',
+				`${message.guild.channels.cache.size}`,
+				true
+			)
 			.setFooter(
 				`James's Bot | Developed by JammyGamer`,
 				bot.user.displayAvatarURL()

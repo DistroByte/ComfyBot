@@ -36,7 +36,7 @@ module.exports = {
 
 		//remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
 		mutee.roles.remove(muterole.id).then(() => {
-			message.delete();
+			message.delete({ timeout: 5000, reason: 'tidying up' });
 			mutee
 				.send(
 					`Hello, you have been unmuted in ${message.guild.name} for: ${reason}`

@@ -28,7 +28,7 @@ module.exports = {
 			return (
 				message.channel.send(
 					"I don't have permission to perform this command!"
-				) | message.delete()
+				) | message.delete({ timeout: 5000, reason: 'tidying up' })
 			);
 		try {
 			message.guild.unban(bannedMember, reason);

@@ -7,7 +7,7 @@ module.exports = {
 		name: 'userinfo',
 		description: 'Pulls the userinfo of yourself or a user!',
 		usage: '(@mention)',
-		category: 'miscellaneous',
+		category: 'basic',
 		aliases: ['ui'],
 	},
 	run: async (bot, message, args) => {
@@ -15,7 +15,7 @@ module.exports = {
 
 		const joined = formatDate(member.joinedAt);
 		const roles =
-			member.roles
+			member.roles.cache
 				.filter((r) => r.id !== message.guild.id)
 				.map((r) => r)
 				.join(', ') || 'none';

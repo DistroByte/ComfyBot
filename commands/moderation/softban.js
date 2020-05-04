@@ -41,7 +41,7 @@ module.exports = {
 
 		message.channel
 			.send(`**${banMember.user.tag}** has been banned`)
-			.then((m) => m.delete(5000));
+			.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
 
 		let embed = new MessageEmbed()
 			.setColor('GREEN')

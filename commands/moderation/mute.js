@@ -50,7 +50,7 @@ module.exports = {
 		}
 
 		mutee.addRole(muterole.id).then(() => {
-			message.delete();
+			message.delete({ timeout: 5000, reason: 'tidying up' });
 			mutee
 				.send(`Hello, you have been in ${message.guild.name} for: ${reason}`)
 				.catch((err) => console.log(err));

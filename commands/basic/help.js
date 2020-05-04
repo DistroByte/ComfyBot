@@ -8,7 +8,7 @@ module.exports = {
 		name: 'help',
 		aliases: ['h', 'halp', 'commands'],
 		usage: '(command)',
-		category: 'miscellaneous',
+		category: 'basic',
 		description: 'Displays all available commands',
 		accessableby: 'Members',
 	},

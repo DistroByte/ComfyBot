@@ -20,8 +20,9 @@ module.exports = {
 			);
 
 		leaderboards.each(function (value, key) {
+			let user = bot.users.cache.get(key);
 			embed.addField(
-				`${bot.users.fetch(key).username}`,
+				`${user.username}`,
 				`Won | Drawn | Lost 	\`${value}\``,
 				true
 			);
