@@ -1,41 +1,41 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    config: {
-        name: "kick",
-        description: "Kick a user from the guild",
-        usage: "<user> (reason)",
-        category: "moderation",
-        accessableby: "Moderator",
-        aliases: ["k"]
-    },
-    run: async (bot, message, args) => {
-        if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You dont have permission to perform this command!")
+	config: {
+		name: 'kick',
+		description: 'Kicks a user from the guild',
+		usage: '<user> (reason)',
+		category: 'moderation',
+		accessableby: 'Moderator',
+		aliases: ['k'],
+	},
+	run: async (bot, message, args) => {
+		if (!message.member.hasPermission(['KICK_MEMBERS', 'ADMINISTRATOR']))
+			return message.channel.send(
+				'You dont have permission to perform this command!'
+			);
 
-        let kickMember = message.mentions.members.first() || message.guild.members.get(args[0])
-        if (!kickMember) return message.channel.send("Please provide a user to kick!")
-
-        let reason = args.slice(1).join(" ")
-        if (!reason) reason = "No reason given!"
-
-        if (!message.guild.me.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("I dont have permission to do this!")
-
-        kickMember.send(`Hello, you have been kicked from ${message.guild.name} for: ${reason}`).then(() =>
-            kickMember.kick()).catch(err => console.log(err))
-
-        message.channel.send(`**${kickMember.user.tag}** has been kicked`).then(m => m.delete(5000))
-
-        let embed = new MessageEmbed()
-            .setColor("GREEN")
-            .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-            .addField("Moderation:", "kick")
-            .addField("Kicked:", kickMember.user.username)
-            .addField("Moderator:", message.author.username)
-            .addField("Reason:", reason)
-            .addField("Date:", message.createdAt.toLocaleString())
-
-        let sChannel = message.guild.channels.find(c => c.name === "mod-logs")
-        sChannel.send(embed)
-
-    }
-}
+		let kickMember = message.mentions.members.first();
+		let reason = args.slice(1).join(' ');
+		if (kickMember) {
+			const member = message.guild.member(kickMember);
+			if (member) {
+				if (reason) {
+					member
+						.send(
+							`\`Hello, you have been kicked from ${message.guild.name}: ${reason}\``
+						)
+						.then(() => member.kick(`${reason}`))
+						.catch((err) => console.log(err));
+					message.reply(`${member} was kicked`);
+				} else {
+					message.reply('Please provide a reason to kick');
+				}
+			} else {
+				message.reply("That user isn't in the guild");
+			}
+		} else {
+			message.reply('Please specify a user to kick');
+		}
+	},
+};
