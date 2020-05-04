@@ -10,12 +10,12 @@ module.exports = {
 		aliases: ['cs', 'setup'],
 	},
 	run: async (bot, message, args) => {
-		message.delete(5000);
+		message.delete({ timeout: 5000, reason: 'tidying up' });
 
 		if (!args[0])
 			return message.channel
 				.send('Please specify what you would like to set up')
-				.then((m) => m.delete(5000));
+				.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
 
 		let chan = message.channel.name;
 		let role = message.guild.roles.cache.find((role) => role.name === chan);
