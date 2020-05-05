@@ -8,7 +8,7 @@ module.exports = {
 		name: 'help',
 		aliases: ['h', 'halp', 'commands'],
 		usage: '(command)',
-		category: 'miscellaneous',
+		category: 'basic',
 		description: 'Displays all available commands',
 		accessableby: 'Members',
 	},
@@ -16,17 +16,17 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setColor('GREEN')
 			.setAuthor(`${message.guild.me.displayName} Help`, message.guild.iconURL)
-			.setThumbnail(bot.user.displayAvatarURL);
+			.setThumbnail(bot.user.displayAvatarURL());
 
 		if (!args[0]) {
-			let categories = readdirSync('./commands/');
+			const categories = readdirSync('./commands/');
 
 			embed.setDescription(
 				`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`
 			);
 			embed.setFooter(
 				`© ${message.guild.me.displayName} | Developed by JammyGamer | Total Commands: ${bot.commands.size}`,
-				bot.user.displayAvatarURL
+				bot.user.displayAvatarURL()
 			);
 
 			categories.forEach((category) => {
@@ -74,7 +74,7 @@ module.exports = {
 						}`);
 			embed.setFooter(
 				`© ${message.guild.me.displayName} | Developed by JammyGamer`,
-				bot.user.displayAvatarURL
+				bot.user.displayAvatarURL()
 			);
 
 			return message.channel.send(embed);

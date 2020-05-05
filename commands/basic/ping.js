@@ -1,16 +1,14 @@
 module.exports = {
-  config: {
-    name: "ping",
-    description: "PONG! Displays the api & bot latency",
-    category: "miscellaneous",
-  },
-  run: async (bot, message, args) => {
-    message.channel.send("Pinging...").then((m) => {
-      let ping = m.createdTimestamp - message.createdTimestamp;
+	config: {
+		name: 'ping',
+		description: 'PONG! Displays the api & bot latency',
+		category: 'basic',
+	},
+	run: async (bot, message, args) => {
+		message.channel.send('Pinging...').then((m) => {
+			let ping = m.createdTimestamp - message.createdTimestamp;
 
-      m.edit(
-        `Bot Latency: \`${ping}ms\``
-      );
-    });
-  },
+			m.edit(`Bot Latency: \`${ping}ms\``);
+		});
+	},
 };

@@ -1,23 +1,23 @@
-const { ownerid } = require("../../botconfig.json");
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
-    config: {
-        name: "shutdown",
-        description: "Shuts down the bot!",
-        usage: "!shutdown",
-        category: "moderation",
-        accessableby: "Bot Owner",
-        aliases: ["botstop"]
-    },
-    run: async (bot, message, args) => {
+	config: {
+		name: 'shutdown',
+		description: 'Shuts down the bot!',
+		usage: '',
+		category: 'owner',
+		accessableby: 'owner',
+		aliases: ['botstop'],
+	},
+	run: async (bot, message, args) => {
+		if (message.author.id != ownerid)
+			return message.channel.send("You're not the bot the owner!");
 
-        if (message.author.id != ownerid) return message.channel.send("You're not the bot the owner!")
-
-        try {
-            await message.channel.send("Bot is shutting down...")
-            process.exit()
-        } catch (e) {
-            message.channel.send(`ERROR: ${e.message}`)
-        }
-    }
-}
+		try {
+			await message.channel.send('Bot is shutting down...');
+			process.exit();
+		} catch (e) {
+			message.channel.send(`ERROR: ${e.message}`);
+		}
+	},
+};
