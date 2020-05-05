@@ -14,6 +14,10 @@ module.exports = {
 		let id = message.author.id;
 
 		if (args[0] === 'setzone') {
+			if (!args[1])
+				return message.channel
+					.send('Go to https://momentjs.com/timezone/ to find your timezone')
+					.then((m) => m.delete({ timeout: 15000, reason: 'tidying up' }));
 			let userTime = args[1].toString();
 			store.set(id, userTime);
 			message.channel
