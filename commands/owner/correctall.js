@@ -1,5 +1,5 @@
 const store = require('storage-to-json');
-const correct = new store('correct.json');
+const correct = new store('correct');
 const { MessageEmbed } = require('discord.js');
 const { ownerid } = require('../../botconfig.json');
 
