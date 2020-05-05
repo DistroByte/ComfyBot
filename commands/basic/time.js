@@ -5,7 +5,7 @@ const store = new Storage('userTime');
 module.exports = {
 	config: {
 		name: 'time',
-		usage: '(setzone) (zone)',
+		usage: '(set) (zone)',
 		description:
 			'Gets local time and UTC time. Also allows you to set a local timezone. Go to https://momentjs.com/timezone/ to find your timezone',
 		category: 'basic',
@@ -13,7 +13,7 @@ module.exports = {
 	run: async (bot, message, args) => {
 		let id = message.author.id;
 
-		if (args[0] === 'setzone') {
+		if (args[0] === 'set') {
 			if (!args[1])
 				return message.channel
 					.send('Go to https://momentjs.com/timezone/ to find your timezone')
