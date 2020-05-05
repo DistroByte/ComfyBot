@@ -25,9 +25,10 @@ module.exports = {
 				.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
 			return;
 		}
+
 		let timezone = store.get(id);
-		let mL = moment().tz(timezone);
-		let mU = moment.utc();
+		let mL = moment().tz(timezone).format('Do MMM YYYY | HH:mm:ss | Z');
+		let mU = moment.utc().format('Do MMM YYYY | HH:mm:ss |');
 
 		message.channel.send(`Local: ${mL}\nUTC: ${mU}`);
 	},
