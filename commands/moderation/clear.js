@@ -1,5 +1,3 @@
-const { ownerid } = require('../../botconfig.json');
-
 module.exports = {
 	config: {
 		name: 'clear',
@@ -10,7 +8,7 @@ module.exports = {
 	},
 	run: async (bot, message, args) => {
 		if (message.deletable) {
-			message.delete({ timeout: 5000, reason: 'tidying up' });
+			message.delete();
 		}
 
 		if (!message.member.hasPermission('MANAGE_MESSAGES')) {

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	config: {
 		name: 'softban',
-		description: 'Softbans a user from the guild!',
+		description: 'Bans a user from the guild for 1 day',
 		usage: '!softban',
 		category: 'moderation',
 		accessableby: 'Administrators',
@@ -42,17 +42,5 @@ module.exports = {
 		message.channel
 			.send(`**${banMember.user.tag}** has been banned`)
 			.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
-
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'ban')
-			.addField('User:', banMember.user.username)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.find((c) => c.name === 'mod-logs');
-		sChannel.send(embed);
 	},
 };

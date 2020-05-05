@@ -31,26 +31,12 @@ module.exports = {
 				) | message.delete({ timeout: 5000, reason: 'tidying up' })
 			);
 		try {
-			message.guild.unban(bannedMember, reason);
+			message.guild.members.unban(bannedMember, reason);
 			message.channel.send(
 				`${bannedMember.tag} has been unbanned from the guild!`
 			);
 		} catch (e) {
 			console.log(e.message);
 		}
-
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'unban')
-			.addField('Unbanned:', `${bannedMember.username} (${bannedMember.id})`)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.cache.find(
-			(c) => c.name === 'tut-modlogs'
-		);
-		sChannel.send(embed);
 	},
 };

@@ -49,19 +49,5 @@ module.exports = {
 				`The role, ${role.name}, has been removed from ${rMember.displayName}.`
 			);
 		}
-
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'Addrole')
-			.addField('Role Removed From:', rMember.user.username)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.cache.find(
-			(c) => c.name === 'mod-logs'
-		);
-		sChannel.send(embed);
 	},
 };

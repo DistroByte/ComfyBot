@@ -22,13 +22,11 @@ module.exports = {
 		if (!rMember)
 			return message.channel.send('Please provide a user to add a role too.');
 		let role =
-			message.guild.roles.cache.find((r) => r.name == args[1]) ||
-			message.guild.roles.cache.find((r) => r.id == args[1]) ||
+			message.guild.roles.cache.find((r) => r.name === args[1]) ||
+			message.guild.roles.cache.find((r) => r.id === args[1]) ||
 			message.mentions.roles.first();
 		if (!role)
 			return message.channel.send('Please provide a role to add to said user.');
-		let reason = args.slice(2).join(' ');
-		if (!reason) return message.channel.send('Please provide a reason');
 
 		if (!message.guild.me.hasPermission(['MANAGE_ROLES', 'ADMINISTRATOR']))
 			return message.channel.send(

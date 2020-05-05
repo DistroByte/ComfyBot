@@ -44,20 +44,5 @@ module.exports = {
 				.catch((err) => console.log(err));
 			message.channel.send(`${mutee.user.username} was unmuted!`);
 		});
-
-		//send an embed to the modlogs channel
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'unmute')
-			.addField('Unmuted:', mutee.user.username)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.cache.find(
-			(c) => c.name === 'mod-logs'
-		);
-		sChannel.send(embed);
 	},
 };

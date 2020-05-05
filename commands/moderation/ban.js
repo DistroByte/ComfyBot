@@ -10,6 +10,7 @@ module.exports = {
 		aliases: ['b', 'banish', 'remove'],
 	},
 	run: async (bot, message, args) => {
+		message.delete();
 		if (!message.member.hasPermission(['BAN_MEMBERS', 'ADMINISTRATOR']))
 			return message.channel.send(
 				'You do not have permission to perform this command!'
@@ -41,19 +42,5 @@ module.exports = {
 		message.channel
 			.send(`**${banMember.user.tag}** has been banned`)
 			.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
-
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'ban')
-			.addField('Banned:', banMember.user.username)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.cache.find(
-			(c) => c.name === 'mod-logs'
-		);
-		sChannel.send(embed);
 	},
 };

@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
 	config: {
 		name: 'mute',
@@ -56,17 +54,5 @@ module.exports = {
 				.catch((err) => console.log(err));
 			message.channel.send(`${mutee.user.username} was successfully muted.`);
 		});
-
-		let embed = new MessageEmbed()
-			.setColor('GREEN')
-			.setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-			.addField('Moderation:', 'mute')
-			.addField('Mutee:', mutee.user.username)
-			.addField('Moderator:', message.author.username)
-			.addField('Reason:', reason)
-			.addField('Date:', message.createdAt.toLocaleString());
-
-		let sChannel = message.guild.channels.find((c) => c.name === 'mod-logs');
-		sChannel.send(embed);
 	},
 };

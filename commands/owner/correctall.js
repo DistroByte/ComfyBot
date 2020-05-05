@@ -9,7 +9,7 @@ module.exports = {
 		description: 'Replies with a correction to a message',
 		usage: '',
 		category: 'owner',
-		accessableby: 'Owner',
+		accessableby: 'owner',
 	},
 	run: async (bot, message, args) => {
 		if (message.author.id !== ownerid)

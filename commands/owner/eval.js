@@ -6,7 +6,7 @@ module.exports = {
 	config: {
 		name: 'eval',
 		description: 'Evaluates code',
-		accessableby: 'Bot Owner',
+		accessableby: 'owner',
 		category: 'owner',
 		usage: `<input>`,
 	},
