@@ -19,7 +19,7 @@ module.exports = {
 			.setThumbnail(bot.user.displayAvatarURL());
 
 		if (!args[0]) {
-			let categories = readdirSync('./commands/');
+			const categories = readdirSync('./commands/');
 
 			embed.setDescription(
 				`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`
