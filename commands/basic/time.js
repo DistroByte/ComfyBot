@@ -1,6 +1,7 @@
 var moment = require('moment-timezone');
 const Storage = require('storage-to-json');
 const store = new Storage('userTime');
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
 	config: {
@@ -29,7 +30,10 @@ module.exports = {
 		let timezone = store.get(id);
 		let mL = moment().tz(timezone).format('Do MMM YYYY | HH:mm:ss | Z');
 		let mU = moment.utc().format('Do MMM YYYY | HH:mm:ss |');
-
-		message.channel.send(`Local: ${mL}\nUTC: ${mU}`);
+		let embed = new MessageEmbed()
+			.addField(`Local time`, `${mL}`, true)
+			.addField(`UTC time`, `${mU}`, true)
+			.setColor('GREEN')
+		message.channel.send(embed);
 	},
 };
