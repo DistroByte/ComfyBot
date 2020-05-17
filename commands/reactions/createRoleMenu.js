@@ -8,8 +8,8 @@ module.exports = {
   config: {
     name: 'createrolemenu',
     aliases: [],
-    usage: 'usage',
-    category: 'Role Reactions',
+    usage: '<id>',
+    category: 'reactions',
     description: 'Enables the bot to add roles via reactions',
     accessableby: 'Admins'
   },

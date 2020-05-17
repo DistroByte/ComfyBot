@@ -20,6 +20,6 @@ module.exports = (bot) => {
     "miscellaneous",
     "moderation",
     "owner",
-    "rolereactions"
+    "reactions"
   ].forEach((x) => load(x));
 };
