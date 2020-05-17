@@ -11,5 +11,5 @@ module.exports = (bot) => {
       bot.on(eName, evt.bind(null, bot));
     }
   };
-  ["client", "message", "members", "reactions"].forEach((x) => load(x));
+  ["client", "guild"].forEach((x) => load(x));
 };
