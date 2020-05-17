@@ -15,10 +15,11 @@ module.exports = (bot) => {
     }
   };
   [
+    "basic",
     "collaboration",
     "miscellaneous",
     "moderation",
     "owner",
-    "basic"
+    "rolereactions"
   ].forEach((x) => load(x));
 };
