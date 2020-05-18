@@ -48,10 +48,13 @@ module.exports = {
 		});
 		embed.setDescription(
 			`Current time and date: ${date}\nTotal messages since ${lastDate}: \`${
-				runningTotal - oldTotal
+			runningTotal - oldTotal
 			}\`\nTotal messages on server: \`${runningTotal}\``
 		);
 		count.set(`Total`, `${date} ${runningTotal}`);
 		message.channel.send(embed);
 	},
 };
+// TODO
+// var points = [40, 100, 1, 5, 25, 10];
+// points.sort(function (a, b) { return a - b });
