@@ -1,11 +1,11 @@
 const Store = require('storage-to-json');
 let emojiRoleStore = new Store('roleReactions')
 
-module.exports = async (bot, reaction) => {
+module.exports = async (bot, reaction, user) => {
   let addMemberRole = (emojiRoleMappings) => {
-    if (emojiRoleMappings.get(reaction.emoji.id)) {
+    if (emojiRoleMappings[reaction.emoji.id]) {
       let role = reaction.message.guild.roles.cache.get(emojiRoleMappings[reaction.emoji.id]);
-      let member = reaction.message.guild.members.cache.get(reaction.message.member.id);
+      let member = reaction.message.channel.guild.members.cache.get(user.id);
       if (role && member) {
         member.roles.add(role);
       }
