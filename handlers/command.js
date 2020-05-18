@@ -16,7 +16,7 @@ module.exports = (bot) => {
   };
   [
     "basic",
-    "collaboration",
+    // "collaboration",
     "miscellaneous",
     "moderation",
     "owner",
