@@ -24,7 +24,7 @@ module.exports = {
     if (!title || !name || !link || !desc) {
       return message.channel.send('Please follow this format including the `;`:\n<title of track>; <artist name>; <link>; <description>')
     }
-    let msg = `New Release: **${title}** by**${name}** (<@${message.author.id}>)\n${desc}\n${link}`
+    let msg = `<@713774707823870002> **${title}** by**${name}** (<@${message.author.id}>)\n${desc}\n${link}`
 
     bot.channels.cache.get(guildConfig.newReleaseChannel).send(msg);
   }
