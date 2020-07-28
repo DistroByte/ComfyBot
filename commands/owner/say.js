@@ -12,12 +12,12 @@ module.exports = {
 			return message.channel.send("You can't use this command!");
 
 		let argsresult;
-		let mChannel = message.mentions.channels.first();
+		let mentionedChannel = message.mentions.channels.first();
 
 		message.delete();
-		if (mChannel) {
+		if (mentionedChannel) {
 			argsresult = args.slice(1).join(' ');
-			mChannel.send(argsresult);
+			mentionedChannel.send(argsresult);
 		} else {
 			argsresult = args.join(' ');
 			message.channel.send(argsresult);
