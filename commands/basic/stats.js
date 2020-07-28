@@ -24,7 +24,7 @@ module.exports = {
     let nodeVersion = process.version;
     let djsVersion = json.dependencies["discord.js"].slice(1);
 
-    message.channel.send(`\`\`\`apache\n= STATISTICS =\n• Memory Usage   : : ${Math.round(memUsage * 100) / 100} MB\n• Uptime         : : ${duration(bot.uptime)}\n• Total Users    : : ${users}\n• Total Channels : : ${channels}\n• Total Servers  : : ${servers}\n• NodeJS Version : : ${nodeVersion}\n• DJS Version    : : v${djsVersion}\`\`\``);
+    message.channel.send(`\`\`\`apache\n= STATISTICS =\n• Memory_Usage   : : ${Math.round(memUsage * 100) / 100} MB\n• Uptime         : : ${duration(bot.uptime)}\n• Total_Users    : : ${users}\n• Total_Channels : : ${channels}\n• Total_Servers  : : ${servers}\n• NodeJS_Version : : ${nodeVersion}\n• DJS_Version    : : v${djsVersion}\`\`\``);
   },
 };
 
