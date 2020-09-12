@@ -21,7 +21,7 @@
 		"discord.js": "^12.2.0",
 		"fs": "0.0.1-security",
 		"moment-timezone": "^0.5.28",
-		"node-fetch": "^2.6.0",
+		"node-fetch": "^2.6.1",
 		"storage-to-json": "^1.0.30",
 		"ws": "^7.2.5"
 	}
