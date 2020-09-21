@@ -31,7 +31,7 @@ module.exports = {
 		let runningTotal = 0;
 		let oldTotal = count.get('Total').slice(20);
 		let lastDate;
-		let messageCount = count.each(function (value, key) {
+		count.each(function (value, key) {
 			if (!regexTotal.test(key)) {
 				let userKey;
 				if (bot.users.cache.get(key)) {
@@ -47,8 +47,7 @@ module.exports = {
 			}
 		});
 		embed.setDescription(
-			`Current time and date: ${date}\nTotal messages since ${lastDate}: \`${
-			runningTotal - oldTotal
+			`Current time and date: ${date}\nTotal messages since ${lastDate}: \`${runningTotal - oldTotal
 			}\`\nTotal messages on server: \`${runningTotal}\``
 		);
 		count.set(`Total`, `${date} ${runningTotal}`);
