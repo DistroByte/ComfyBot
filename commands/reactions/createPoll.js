@@ -10,6 +10,7 @@ module.exports = {
     accessableby: 'Moderators'
   },
   run: async (bot, message, args) => {
+    message.delete();
     let time = args.shift()
     let title = args.join(' ')
     let regex = new RegExp(/^([0-9]{2}|[0-9]{1})[sSmMhH]$/);
