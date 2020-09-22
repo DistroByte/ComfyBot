@@ -4,7 +4,7 @@ module.exports = {
 	config: {
 		name: 'softban',
 		description: 'Bans a user from the guild for 1 day',
-		usage: '!softban',
+		usage: '<user> (reason)',
 		category: 'moderation',
 		accessableby: 'Administrators',
 		aliases: ['sb', 'sbanish', 'sremove'],
@@ -29,18 +29,13 @@ module.exports = {
 				"I don't have permission to perform this command"
 			);
 
-		banMember
-			.send(
-				`Hello, you have been banned from ${message.guild.name} for: ${reason}`
-			)
+		banMember.send(`You have been banned from ${message.guild.name} for: ${reason} for 1 day`)
 			.then(() =>
 				message.guild.members.ban(banMember, { days: 1, reason: reason })
-			)
-			.then(() => message.guild.unban(banMember.id, { reason: 'Softban' }))
+			).then(() => message.guild.unban(banMember.id, { reason: 'Softban' }))
 			.catch((err) => console.log(err));
 
-		message.channel
-			.send(`**${banMember.user.tag}** has been banned`)
+		message.channel.send(`**${banMember.user.tag}** has been banned`)
 			.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
 	},
 };

@@ -4,7 +4,7 @@ module.exports = {
 	config: {
 		name: 'unmute',
 		description: 'Unmutes a member in the discord!',
-		usage: '!unmute <user> <reason>',
+		usage: '<user> (reason)',
 		category: 'moderation',
 		accessableby: 'Members',
 		aliases: ['unm', 'speak'],

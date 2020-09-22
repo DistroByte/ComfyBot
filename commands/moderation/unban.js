@@ -4,7 +4,7 @@ module.exports = {
 	config: {
 		name: 'unban',
 		description: 'Unban a user from the guild!',
-		usage: '!unban',
+		usage: '<user> (reason)',
 		category: 'moderation',
 		accessableby: 'Administrators',
 		aliases: ['ub', 'unbanish'],
