@@ -11,6 +11,7 @@ module.exports = {
 		usage: `<input>`,
 	},
 	run: async (bot, message, args) => {
+		message.delete();
 		if (message.author.id == ownerid) {
 			try {
 				let toEval = args.join(' ');
@@ -24,12 +25,11 @@ module.exports = {
 					hrDiff = process.hrtime(hrStart);
 					return message.channel
 						.send(
-							`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${
-								hrDiff[1] / 1000000
+							`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000
 							}ms.*\n\`\`\`javascript\n${evaluated}\n\`\`\``,
 							{ maxLength: 1900 }
 						)
-						.then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
+						.then((m) => m.delete({ timeout: 2000, reason: 'tidying up' }));
 				}
 			} catch (e) {
 				return message.channel.send(`Error while evaluating: \`${e.message}\``);
