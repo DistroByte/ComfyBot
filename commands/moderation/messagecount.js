@@ -44,9 +44,11 @@ module.exports = {
 		}
 
 		objArray.sort(compare);
+		// if (args[0]) {
 
+		// }
 		objArray.forEach((x) => {
-
+			console.log(x)
 		})
 
 		count.each(function (value, key) {
