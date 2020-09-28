@@ -32,6 +32,7 @@ module.exports = {
 		});
 
 		let unused = objArray.shift();
+
 		function compare(a, b) {
 			if (a.messages < b.messages) {
 				return 1;
@@ -44,7 +45,9 @@ module.exports = {
 
 		objArray.sort(compare);
 
-		console.log(objArray);
+		objArray.forEach((x) => {
+
+		})
 
 		count.each(function (value, key) {
 			if (!regexTotal.test(key)) {
