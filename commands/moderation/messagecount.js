@@ -26,11 +26,24 @@ module.exports = {
 		let runningTotal = 0;
 
 		let objArray = [];
-		count.each((v, k) => {
-			let obj = { v, k }
+		count.each((messages, user) => {
+			let obj = { messages, user }
 			objArray.push(obj);
-			console.log(obj);
 		});
+
+		let unused = objArray.shift();
+		function compare(a, b) {
+			if (a.messages < b.messages) {
+				return 1;
+			}
+			if (a.messages > b.messages) {
+				return -1;
+			}
+			return 0;
+		}
+
+		objArray.sort(compare);
+
 		console.log(objArray);
 
 		count.each(function (value, key) {
