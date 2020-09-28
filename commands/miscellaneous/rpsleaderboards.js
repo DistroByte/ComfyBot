@@ -15,7 +15,7 @@ module.exports = {
 			.setTitle('Leaderboards of Rock, Paper, Scissors!')
 			.setColor('GREEN')
 			.setFooter(
-				`© ${message.guild.me.displayName} | Developed By JammyGamer`,
+				`© ${message.guild.me.displayName} | Developed By DistroByte`,
 				bot.user.displayAvatarURL()
 			);
 

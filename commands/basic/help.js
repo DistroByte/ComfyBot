@@ -25,7 +25,7 @@ module.exports = {
 				`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`
 			);
 			embed.setFooter(
-				`© ${message.guild.me.displayName} | Developed by JammyGamer | Total Commands: ${bot.commands.size}`,
+				`© ${message.guild.me.displayName} | Developed by DistroByte | Total Commands: ${bot.commands.size}`,
 				bot.user.displayAvatarURL()
 			);
 
@@ -38,7 +38,7 @@ module.exports = {
 						`${capitalise} [${dir.size}]:`,
 						dir.map((c) => `\`${c.config.name}\``).join(' ')
 					);
-				} catch (e) {}
+				} catch (e) { }
 			});
 
 			return message.channel.send(embed);
@@ -57,23 +57,19 @@ module.exports = {
 			command = command.config;
 
 			embed.setDescription(stripIndents`The bot's prefix is: \`${prefix}\`\n
-            **Command:** ${
-							command.name.slice(0, 1).toUpperCase() + command.name.slice(1)
-						}
-            **Description:** ${
-							command.description || 'No Description provided.'
-						}
-            **Usage:** ${
-							command.usage
-								? `\`${prefix}${command.name} ${command.usage}\``
-								: `\`${prefix}${command.name}\``
-						}
+            **Command:** ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)
+				}
+            **Description:** ${command.description || 'No Description provided.'
+				}
+            **Usage:** ${command.usage
+					? `\`${prefix}${command.name} ${command.usage}\``
+					: `\`${prefix}${command.name}\``
+				}
             **Accessible by:** ${command.accessableby || 'Members'}
-            **Aliases:** ${
-							command.aliases ? command.aliases.join(', ') : 'None'
-						}`);
+            **Aliases:** ${command.aliases ? command.aliases.join(', ') : 'None'
+				}`);
 			embed.setFooter(
-				`© ${message.guild.me.displayName} | Developed by JammyGamer`,
+				`© ${message.guild.me.displayName} | Developed by DistroByte`,
 				bot.user.displayAvatarURL()
 			);
 

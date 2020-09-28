@@ -24,7 +24,7 @@ module.exports = {
 				true
 			)
 			.setFooter(
-				`James's Bot | Developed by JammyGamer`,
+				`ComfyBot | Developed by DistroByte`,
 				bot.user.displayAvatarURL()
 			);
 		message.channel.send(sEmbed);
