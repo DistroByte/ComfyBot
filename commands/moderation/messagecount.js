@@ -4,10 +4,10 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	config: {
 		name: 'messagecount',
-		description:
-			'Returns the number of messages since bot started counting per user',
+		description: 'Returns the number of messages since bot started counting per user',
 		category: 'moderation',
 		accessableby: 'Moderators',
+		aliases: ['messages']
 	},
 	run: async (bot, message, args) => {
 		if (!message.member.hasPermission(['ADMINISTRATOR']))
@@ -15,7 +15,7 @@ module.exports = {
 
 		const count = new storage(`${message.guild.id}`);
 		let embed = new MessageEmbed()
-			.setTitle(`Message Count for ${message.guild.name}`)
+			.setTitle(`Leaderboard`)
 			.setColor('GREEN')
 			.setThumbnail(message.guild.iconURL)
 			.setFooter(`© ${message.guild.me.displayName} | Developed By DistroByte`, bot.user.displayAvatarURL())
@@ -32,7 +32,6 @@ module.exports = {
 		});
 
 		let unused = objArray.shift();
-
 		function compare(a, b) {
 			if (a.messages < b.messages) {
 				return 1;
@@ -44,29 +43,36 @@ module.exports = {
 		}
 
 		objArray.sort(compare);
-		// if (args[0]) {
-
-		// }
-		objArray.forEach((x) => {
-			console.log(x)
-		})
-
-		count.each(function (value, key) {
-			if (!regexTotal.test(key)) {
-				let userKey;
-				if (bot.users.cache.get(key)) {
-					userKey = bot.users.cache.get(key).username;
-				} else {
-					userKey = key;
-				}
-				embed.addField(`${userKey}`, `Messages sent: \`${value}\``, true);
-				runningTotal += value;
-			} else if (regexTotal.test(key)) {
-				lastDate = value.slice(0, 20);
+		let leaderboard = [];
+		objArray.slice(0, 9).forEach((x) => {
+			let userKey;
+			if (bot.users.cache.get(x.user)) {
+				userKey = bot.users.cache.get(x.user).username;
+			} else {
+				userKey = bot.users.fetch(x.user).username;
 			}
+			leaderboard.push(`**${userKey}** on **${x.messages}** messages`)
 		});
-		embed.setDescription(`Total messages on server: \`${runningTotal}\``);
-		count.set(`Total`, `${date} ${runningTotal}`);
+
+		let authorMessages = objArray.find(x => { x.messages })
+
+		embed.addField(`You ${message.author.username} are on ${authorMessages}`, leaderboard);
+		// count.each(function (value, key) {
+		// 	if (!regexTotal.test(key)) {
+		// 		let userKey;
+		// 		if (bot.users.cache.get(key)) {
+		// 			userKey = bot.users.cache.get(key).username;
+		// 		} else {
+		// 			userKey = key;
+		// 		}
+		// 		embed.addField(`${ userKey }`, `Messages sent: \`${value}\``, true);
+		// 		runningTotal += value;
+		// 	} else if (regexTotal.test(key)) {
+		// 		lastDate = value.slice(0, 20);
+		// 	}
+		// });
+		// embed.setDescription(`Total messages on server: \`${runningTotal}\``);
+		// count.set(`Total`, `${date} ${runningTotal}`);
 		message.channel.send(embed);
 	},
 };
