@@ -20,7 +20,6 @@ module.exports = async (bot, message) => {
 	}
 
 	if (message.guild !== null) {
-
 		const count = new storage(`${message.guild.id}`);
 		let date = new Date().toString().slice(4, 24);
 		if (!count.get('Total')) {
@@ -54,7 +53,7 @@ module.exports = async (bot, message) => {
 			let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
 			userToVerify.roles.add("760604574217273415");
 			message.reply('Success! Welcome to the server!');
-			console.log(`New member added! ${userToVerify.username}`);
+			console.log(`${message.author.username} added with number ${toFind}!`);
 		}
 	}
 };
