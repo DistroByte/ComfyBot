@@ -54,8 +54,7 @@ module.exports = async (bot, message) => {
 			let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
 			userToVerify.roles.add("760604574217273415");
 			message.reply('Success! Welcome to the server!');
-			console.log('New member added!');
-			podNumbers.remove(toFind);
+			console.log(`New member added! ${userToVerify.username}`);
 		}
 	}
 };
