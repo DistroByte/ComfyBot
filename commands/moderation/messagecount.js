@@ -54,25 +54,9 @@ module.exports = {
 			leaderboard.push(`**${userKey}** on **${x.messages}** messages`)
 		});
 
-		let authorMessages = objArray.find(x => { x.messages })
+		let authorMessages = objArray.find((x) => x.user === message.author.id);
 
-		embed.addField(`You ${message.author.username} are on ${authorMessages}`, leaderboard);
-		// count.each(function (value, key) {
-		// 	if (!regexTotal.test(key)) {
-		// 		let userKey;
-		// 		if (bot.users.cache.get(key)) {
-		// 			userKey = bot.users.cache.get(key).username;
-		// 		} else {
-		// 			userKey = key;
-		// 		}
-		// 		embed.addField(`${ userKey }`, `Messages sent: \`${value}\``, true);
-		// 		runningTotal += value;
-		// 	} else if (regexTotal.test(key)) {
-		// 		lastDate = value.slice(0, 20);
-		// 	}
-		// });
-		// embed.setDescription(`Total messages on server: \`${runningTotal}\``);
-		// count.set(`Total`, `${date} ${runningTotal}`);
+		embed.addField(`You ${message.author.username} are on ${authorMessages.messages}`, leaderboard);
 		message.channel.send(embed);
 	},
 };
