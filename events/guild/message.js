@@ -47,7 +47,8 @@ module.exports = async (bot, message) => {
 		});
 		let toFind = number.find(v => v === message.content)
 		if (!toFind) {
-			message.reply('Sorry! It seems like you are not in this course! Thanks for stopping by :slight_smile:');
+			message.reply('Sorry! It seems like you are not in this course or your student number is incorrect! Thanks for stopping by :slight_smile:');
+			console.log(`${message.author.username} failed with number ${toFind}, (raw content: ${message.content})!`);
 		} else {
 			let CAGuild = bot.guilds.cache.find(guild => guild.id === "759921793422458901");
 			let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
