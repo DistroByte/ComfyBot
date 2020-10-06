@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
   config: {
@@ -15,7 +16,7 @@ module.exports = {
       .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)
       .addField('**Member Count:**', `${message.guild.memberCount}`, true)
       .setFooter(
-        `ComfyBot | Developed by DistroByte`,
+        `ComfyBot | Developed by ${bot.users.cache.get(ownerid).tag}`,
         bot.user.displayAvatarURL()
       );
     message.channel.send(sEmbed);
