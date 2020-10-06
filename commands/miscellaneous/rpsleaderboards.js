@@ -1,5 +1,6 @@
 const storage = require('storage-to-json');
 const { MessageEmbed } = require('discord.js');
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
 	config: {
@@ -15,7 +16,7 @@ module.exports = {
 			.setTitle('Leaderboards of Rock, Paper, Scissors!')
 			.setColor('GREEN')
 			.setFooter(
-				`© ${message.guild.me.displayName} | Developed By DistroByte`,
+				`© ${message.guild.me.displayName} | Developed By ${bot.users.cache.get(ownerid).tag}`,
 				bot.user.displayAvatarURL()
 			);
 

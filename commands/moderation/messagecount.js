@@ -1,5 +1,6 @@
 const storage = require('storage-to-json');
 const { MessageEmbed } = require('discord.js');
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
 	config: {
@@ -10,15 +11,12 @@ module.exports = {
 		aliases: ['messages']
 	},
 	run: async (bot, message, args) => {
-		if (!message.member.hasPermission(['ADMINISTRATOR']))
-			return message.channel.send('You dont have permission to perform this command!');
-
 		const count = new storage(`${message.guild.id}`);
 		let embed = new MessageEmbed()
 			.setTitle(`Leaderboard`)
 			.setColor('GREEN')
 			.setThumbnail(message.guild.iconURL)
-			.setFooter(`© ${message.guild.me.displayName} | Developed By DistroByte`, bot.user.displayAvatarURL())
+			.setFooter(`© ${message.guild.me.displayName} | Developed By ${bot.users.cache.get(ownerid).tag}`, bot.user.displayAvatarURL())
 			.setTimestamp();
 
 		let regexTotal = /Total/;
@@ -44,19 +42,22 @@ module.exports = {
 
 		objArray.sort(compare);
 		let leaderboard = [];
-		objArray.slice(0, 9).forEach((x) => {
+		let n = 1
+		objArray.slice(0, 10).forEach((x) => {
 			let userKey;
 			if (bot.users.cache.get(x.user)) {
 				userKey = bot.users.cache.get(x.user).username;
 			} else {
 				userKey = bot.users.fetch(x.user).username;
 			}
-			leaderboard.push(`**${userKey}** on **${x.messages}** messages`)
+			leaderboard.push(`\`${n}\`\t**${userKey}** on **${x.messages}** messages`);
+			n = n + 1;
 		});
 
 		let authorMessages = objArray.find((x) => x.user === message.author.id);
+		let authPos = objArray.findIndex((x) => x.user === message.author.id) + 1;
 
-		embed.addField(`You ${message.author.username} are on ${authorMessages.messages}`, leaderboard);
+		embed.addField(`You (${message.author.username}) are in position ${authPos} on ${authorMessages.messages} messages`, leaderboard);
 		message.channel.send(embed);
 	},
 };

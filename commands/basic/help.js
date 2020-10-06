@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const { prefix } = require('../../botconfig.json');
 const { readdirSync } = require('fs');
 const { stripIndents } = require('common-tags');
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
 	config: {
@@ -25,7 +26,7 @@ module.exports = {
 				`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`
 			);
 			embed.setFooter(
-				`© ${message.guild.me.displayName} | Developed by DistroByte | Total Commands: ${bot.commands.size}`,
+				`© ${message.guild.me.displayName} | Developed by ${bot.users.cache.get(ownerid).tag} | Total Commands: ${bot.commands.size}`,
 				bot.user.displayAvatarURL()
 			);
 
@@ -69,7 +70,7 @@ module.exports = {
             **Aliases:** ${command.aliases ? command.aliases.join(', ') : 'None'
 				}`);
 			embed.setFooter(
-				`© ${message.guild.me.displayName} | Developed by DistroByte`,
+				`© ${message.guild.me.displayName} | Developed by ${bot.users.cache.get(ownerid).tag}`,
 				bot.user.displayAvatarURL()
 			);
 
