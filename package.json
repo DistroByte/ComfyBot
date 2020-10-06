@@ -22,7 +22,7 @@
 		"fs": "0.0.1-security",
 		"moment-timezone": "^0.5.28",
 		"node-fetch": "^2.6.1",
-		"storage-to-json": "^1.0.30",
+		"storage-to-json": "^1.0.34",
 		"ws": "^7.2.5"
 	}
 }
