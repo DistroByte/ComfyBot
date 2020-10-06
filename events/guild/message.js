@@ -1,13 +1,13 @@
 const { prefix } = require('../../botconfig.json');
 const storage = require('storage-to-json');
 const correct = new storage('correct');
-const podNumbers = new storage('podNumbers')
+
 
 module.exports = async (bot, message) => {
 	let args = message.content.slice(prefix.length).trim().split(/ +/g);
 	let cmd = args.shift().toLowerCase();
 
-	let correctme = correct.get();
+	let correctme = correct.get_storage();
 	if (!message.author.bot) {
 		if (!message.content.includes('correct')) {
 			for (var key in correctme) {
@@ -19,8 +19,9 @@ module.exports = async (bot, message) => {
 		}
 	}
 
-	if (message.guild !== null) {
+	if (message.channel.type != 'dm') {
 		const count = new storage(`${message.guild.id}`);
+		if (!count) return
 		let date = new Date().toString().slice(4, 24);
 		if (!count.get('Total')) {
 			count.set(`Total`, `${date} 1`);
@@ -33,28 +34,14 @@ module.exports = async (bot, message) => {
 			messageCount++;
 			count.set(`${message.author.id}`, messageCount);
 		}
+	}
 
-		if (message.author.bot) return;
-		if (!message.content.startsWith(prefix)) return;
-		let commandfile =
-			bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+	if (message.author.bot) return;
+	if (!message.content.startsWith(prefix)) return;
+	try {
+		let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 		if (commandfile) commandfile.run(bot, message, args);
-	} else {
-		if (message.author.bot) return
-		let number = [];
-		podNumbers.each((v, k) => {
-			number.push(k);
-		});
-		let toFind = number.find(v => v === message.content)
-		if (!toFind) {
-			message.reply('Sorry! It seems like you are not in this course or your student number is incorrect! Thanks for stopping by :slight_smile:');
-			console.log(`${message.author.username} failed with number ${toFind}, (raw content: ${message.content})!`);
-		} else {
-			let CAGuild = bot.guilds.cache.find(guild => guild.id === "759921793422458901");
-			let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
-			userToVerify.roles.add("760604574217273415");
-			message.reply('Success! Welcome to the server!');
-			console.log(`${message.author.username} added with number ${toFind}!`);
-		}
+	} catch (e) {
+		console.log(e);
 	}
 };
