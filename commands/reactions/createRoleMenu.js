@@ -9,14 +9,14 @@ module.exports = {
     name: 'createrolemenu',
     usage: '<id>',
     category: 'reactions',
-    description: 'Enables the bot to add roles via reactions',
+    description: 'Enables the bot to add roles via reactions. Type !done when finished',
     accessableby: 'Admins'
   },
   run: async (bot, message, args) => {
     if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('You don\'t have permission to use that command!')
 
-    if (args.length !== 1) {
-      message.channel.send('Please include only 1 message ID!').then(m => {
+    if (!args[0]) {
+      message.channel.send('Please include a message ID!').then(m => {
         m.delete({ timeout: 5000 }).catch(err => console.log(err))
       })
     } else {
@@ -59,7 +59,7 @@ module.exports = {
         console.log(err);
         message.channel.send('Message was not found!').then(m => {
           m.delete({ timeout: 5000 }).catch(err => console.log(err))
-        })
+        });
       }
     }
   }
