@@ -1,4 +1,4 @@
-# DiscordBot
+# ComfyBot
 A simple Discord bot
 
 ## Installation
