@@ -28,6 +28,7 @@ module.exports = {
 		}
 
 		let timezone = store.get(id);
+		if (!timezone) return message.channel.send('Please set your timezone with `!time set <timezone>`.\nGo to https://momentjs.com/timezone/ to find your timezone!')
 		let mL = moment().tz(timezone).format('Do MMM YYYY | HH:mm:ss | Z');
 		let mU = moment.utc().format('Do MMM YYYY | HH:mm:ss |');
 		let embed = new MessageEmbed()
