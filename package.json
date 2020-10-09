@@ -18,11 +18,11 @@
 	"homepage": "https://github.com/James-Hackett/DiscordBot#readme",
 	"dependencies": {
 		"common-tags": "^1.8.0",
-		"discord.js": "^12.2.0",
+		"discord.js": "^12.3.1",
 		"fs": "0.0.1-security",
-		"moment-timezone": "^0.5.28",
+		"moment-timezone": "^0.5.31",
 		"node-fetch": "^2.6.1",
 		"storage-to-json": "^1.0.34",
-		"ws": "^7.2.5"
+		"ws": "^7.3.1"
 	}
 }
