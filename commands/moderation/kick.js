@@ -10,6 +10,7 @@ module.exports = {
 		aliases: ['k'],
 	},
 	run: async (bot, message, args) => {
+		message.delete();
 		if (!message.member.hasPermission(['KICK_MEMBERS', 'ADMINISTRATOR']))
 			return message.channel.send(
 				'You dont have permission to perform this command!'
