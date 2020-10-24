@@ -7,10 +7,10 @@ module.exports = {
 		usage: '',
 		category: 'owner',
 		accessableby: 'owner',
-		aliases: ['botstop'],
+		aliases: ['botstop', 'restart'],
 	},
 	run: async (bot, message, args) => {
-		if (message.author.id != ownerid)
+		if (message.author.id !== ownerid)
 			return message.channel.send("You're not the bot the owner!");
 
 		try {
