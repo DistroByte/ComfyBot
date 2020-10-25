@@ -1,7 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 
-module.exports = async (bot, message) => {
+module.exports = async (bot, message) => {  
   let logs = await message.guild.fetchAuditLogs({type: 72});
+  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
+    message.guild.channels.create('logs', { type: 'text' });
+  }
   let entry = await logs.entries.first();
 
   let user = ""
