@@ -1,12 +1,9 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = async (bot, message) => {
-  const logs = message.guild.channels.cache.find(channel => channel.name === "logs");
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
-    message.guild.channels.create('logs', { type: 'text' });
-  }
-  if (!message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) { 
-    console.log('The logs channel does not exist and tried to create the channel but I am lacking permissions')
-  }  
-  const entry = await message.guild.fetchAuditLogs({type: 'MESSAGE_DELETE'}).then(audit => audit.entries.first())
+  let logs = await message.guild.fetchAuditLogs({type: 72});
+  let entry = await logs.entries.first();
+
   let user = ""
     if (entry.extra.channel.id === message.channel.id
       && (entry.target.id === message.author.id)
@@ -16,5 +13,16 @@ module.exports = async (bot, message) => {
   } else { 
     user = message.author.username
   }
-  logs.send(`${user}'s message was deleted in ${message.channel.name}\nMessage content: ${message.content}`);
+
+  let embed = new MessageEmbed()
+    .setTitle("**DELETED MESSAGE**")
+    .setColor("#fc3c3c")
+    .addField("Author", message.author.tag, true)
+    .addField("Channel", message.channel, true)
+    .addField("Message", message.content)
+    .addField("Deleted by", user)
+    .setFooter(`Message ID: ${message.id} | Author ID: ${message.author.id}`);
+
+  let logsChannel = message.guild.channels.cache.find(x => x.name === 'logs');
+  logsChannel.send({embed});
 }
