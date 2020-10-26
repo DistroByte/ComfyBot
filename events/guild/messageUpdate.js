@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (bot, oldMessage, newMessage) => {
-  if (oldMessage.author.bot) return
-  if (oldMessage.content === newMessage.content) return  
+  // if (oldMessage.author.bot) return
+  if (oldMessage.content === newMessage.content) return
   let logs = oldMessage.guild.channels.cache.find(x => x.name === 'logs');
-  if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
+  if (oldMessage.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
     message.guild.channels.create('logs', { type: 'text' });
   }
 
