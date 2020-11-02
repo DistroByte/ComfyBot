@@ -26,4 +26,13 @@ module.exports = {
 	formatDate: function (date) {
 		return new Intl.DateTimeFormat('en-GB').format(date);
 	},
+	compare: function (a, b) {
+		if (a.messages < b.messages) {
+			return 1;
+		}
+		if (a.messages > b.messages) {
+			return -1;
+		}
+		return 0;
+	},
 };
