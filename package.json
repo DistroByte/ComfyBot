@@ -1,5 +1,5 @@
 {
-	"name": "discordbot",
+	"name": "ComfyBot",
 	"version": "1.0.0",
 	"description": "a simple discord bot",
 	"main": "index.js",
@@ -21,7 +21,7 @@
 		"discord.js": "^12.3.1",
 		"fs": "0.0.1-security",
 		"moment-timezone": "^0.5.31",
-		"mongodb": "^3.6.2",
+		"mongoose": "^5.10.11",
 		"node-fetch": "^2.6.1",
 		"storage-to-json": "^1.0.34",
 		"ws": "^7.3.1"
