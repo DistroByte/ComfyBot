@@ -1,8 +1,21 @@
 const { Client, Collection } = require("discord.js");
-const { token, prefix } = require("./botconfig.json");
+const { token, url } = require("./botconfig.json");
 const bot = new Client({ partials: ['MESSAGE', 'REACTION'] });
+const mongoose = require('mongoose');
 
-bot.prefix = prefix;
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log("Connected to DB");
+});
+
 bot.cachedMessageReactions = new Map();
 bot.emojiRoleMappings = {};
 ["commands", "aliases"].forEach(x => bot[x] = new Collection());
