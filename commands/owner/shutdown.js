@@ -14,7 +14,7 @@ module.exports = {
 			return message.channel.send("You're not the bot the owner!");
 
 		try {
-			await message.channel.send('Bot is shutting down...');
+			await message.channel.send('Goodbye 👋');
 			process.exit();
 		} catch (e) {
 			message.channel.send(`ERROR: ${e.message}`);

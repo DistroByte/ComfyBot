@@ -9,7 +9,7 @@ module.exports = {
     name: 'createrolemenu',
     usage: '<id>',
     category: 'reactions',
-    description: 'Enables the bot to add roles via reactions. Type !done when finished',
+    description: 'Enables the bot to add roles via reactions. Type done when finished',
     accessableby: 'Admins'
   },
   run: async (bot, message, args) => {
@@ -29,7 +29,7 @@ module.exports = {
 
           collector.on('collect', msg => {
             let { cache } = msg.guild.emojis;
-            if (msg.content.toLowerCase() === `${bot.prefix}done`) return collector.stop('done command was issued');
+            if (msg.content.toLowerCase() === `done`) return collector.stop('done command was issued');
 
 
             let [emojiName, roleName] = msg.content.split(/,\s+/);
