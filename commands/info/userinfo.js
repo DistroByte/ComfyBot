@@ -24,7 +24,7 @@ module.exports = {
 
 		const embed = new MessageEmbed()
 			.setFooter(member.displayName, member.user.displayAvatarURL({dynamic : true}))
-			.setThumbnail(member.user.displayAvatarURL())
+			.setThumbnail(member.user.displayAvatarURL({dynamic : true}))
 			.setColor('GREEN')
 
 			.addField(
