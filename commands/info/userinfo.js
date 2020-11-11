@@ -23,7 +23,7 @@ module.exports = {
 		const created = formatDate(member.user.createdAt);
 
 		const embed = new MessageEmbed()
-			.setFooter(member.displayName, member.user.displayAvatarURL())
+			.setFooter(member.displayName, member.user.displayAvatarURL({dynamic : true}))
 			.setThumbnail(member.user.displayAvatarURL())
 			.setColor('GREEN')
 
@@ -38,7 +38,7 @@ module.exports = {
 			.addField(
 				'User Information',
 				stripIndents`**> ID:** ${member.user.id}
-            **> Uername:** ${member.user.username}
+            **> Username:** ${member.user.username}
             **> Discord Tag:** ${member.user.tag}
             **> Created At:** ${created}`,
 				true
