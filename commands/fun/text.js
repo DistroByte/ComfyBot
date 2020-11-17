@@ -9,7 +9,12 @@ module.exports = {
   },
   run: async (bot, message, args) => {
 	figlet(args.join(' '), function(err, data) {
-		if (err) {
+		if (args.length === 0) {
+			message.channel.send('Provide text to style with ```!text <text>```');
+			console.log('Error: No args given.')
+			return;
+		}
+		else if (err) {
 			message.channel.send('Something went wrong...');
 			console.dir(err);
 			return;
