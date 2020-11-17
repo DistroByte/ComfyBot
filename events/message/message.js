@@ -1,23 +1,24 @@
 const storage = require('storage-to-json');
 const correct = new storage('correct');
+const replace = new storage('replace')
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 module.exports = async (bot, message) => {
   let guildConfig;
 
-  // if (message.channel.type != 'dm') {
-  //   const count = new storage(`${message.guild.id}`);
-  //   if (!count) return
-  //   if (!count.get(`${message.author.id}`)) {
-  //     let messageCount = 1;
-  //     count.set(`${message.author.id}`, messageCount);
-  //   } else {
-  //     let messageCount = count.get(`${message.author.id}`);
-  //     messageCount++;
-  //     count.set(`${message.author.id}`, messageCount);
-  //   }
-  // }
+  if (message.channel.type != 'dm') {
+    const count = new storage(`${message.guild.id}`);
+    if (!count) return
+    if (!count.get(`${message.author.id}`)) {
+      let messageCount = 1;
+      count.set(`${message.author.id}`, messageCount);
+    } else {
+      let messageCount = count.get(`${message.author.id}`);
+      messageCount++;
+      count.set(`${message.author.id}`, messageCount);
+    }
+  }
 
   if (message.channel.type !== "dm") {
     guildConfig = await GuildConfig.findOne({
@@ -55,6 +56,16 @@ module.exports = async (bot, message) => {
         if (message.content.toLowerCase().includes(key)) {
           message.channel.send(value);
         }
+      }
+    }
+  }
+
+  let replaceme = replace.get_storage();
+  if (!message.author.bot) {
+    for (var key in replaceme) {
+      var value = replaceme[key];
+      if (message.channel.id === key && message.content.includes(value)) {
+        message.delete({ reason: "included https://" })
       }
     }
   }
