@@ -31,7 +31,7 @@ module.exports = {
 					}
 				});
 				message.guild.channels.cache.forEach(async (channel, id) => {
-					await channel.updateOverwrite(muterole,
+					await channel.updateOverwrite(muteRole,
 						{
 							SEND_MESSAGES: false,
 							ADD_REACTIONS: false,
