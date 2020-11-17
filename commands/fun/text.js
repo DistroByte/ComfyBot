@@ -25,7 +25,6 @@ module.exports = {
 			return;
 		}
 		message.channel.send('```\r' + data + '\r```');
-		console.log(data);
 	});
   }
 };
