@@ -14,7 +14,7 @@ module.exports = {
 			console.dir(err);
 			return;
 		}
-		else if (r.length > 2000) {
+		else if (data.length > 2000) {
 			message.channel.send('Message is too long...');
 			console.log('Error: Message is too long.')
 			return;
