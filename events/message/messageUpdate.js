@@ -11,7 +11,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
   if (oldMessage.content) {
     embed.setTitle("**EDITED MESSAGE**")
       .setColor("ORANGE")
-      .addField("Author", oldMessage.author.tag, true)
+      .addField("Author", oldMessage.author.name, true)
       .addField("Channel", oldMessage.channel, true)
       .addField("Old Message", oldMessage.content)
       .addField("New Message", newMessage.content)
