@@ -1,4 +1,4 @@
-const { ownerid } = require('../../botconfig.json');
+const { ownerid, dev1 } = require('../../botconfig.json');
 
 module.exports = {
 	config: {
@@ -10,7 +10,7 @@ module.exports = {
 		aliases: ['botstop', 'restart'],
 	},
 	run: async (bot, message, args) => {
-		if (message.author.id !== ownerid)
+		if (!message.author.id === ownerid || !message.author.id === dev1)
 			return message.channel.send("You're not the bot the owner!");
 
 		try {
