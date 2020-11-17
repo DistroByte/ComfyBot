@@ -24,7 +24,8 @@ module.exports = {
 			console.log('Error: Message is too long.')
 			return;
 		}
-		message.channel.send(data)
+		message.channel.send(data);
+		console.log(data);
 	});
   }
 };
