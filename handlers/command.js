@@ -22,10 +22,10 @@ module.exports = (bot) => {
     }
   };
   [
-    "info",
-    "fun",
-    "moderation",
     "dmcommands",
+    "fun",
+    "info",
+    "moderation",
     "owner",
     "reactions"
   ].forEach((x) => load(x));
