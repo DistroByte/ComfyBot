@@ -7,6 +7,7 @@ In this quick series of images, I hope to show you how to use Discord. If you ha
 Discord is a chat messaging service with some cool features built into it. For example pinging (to get people's attention) and channels (for different topics).
 
 **These are channels, they contain different topics, usually named appropriately:**
+
 ![](https://james-hackett.ie/images/channels.png)
 
 > You can navigate between channels by clicking on them!
@@ -14,6 +15,7 @@ Discord is a chat messaging service with some cool features built into it. For e
 Channels are the backbone of Discord. They allow many different people to talk at once without them tripping over each other.
 
 **Here's an example of a ping:**
+
 ![](https://james-hackett.ie/images/ping.png)
 
 > You can ping by typing `@` followed by the person's username (or just click on their name in the pop up box) for example, `@ComfyBot`
