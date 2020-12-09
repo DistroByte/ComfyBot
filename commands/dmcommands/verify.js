@@ -9,7 +9,7 @@ module.exports = {
   },
   run: async (bot, message, args) => {
     if (message.channel.type != 'dm') return message.reply('This command can only be used in DMs.');
-    if (!args[0]) return message.reply('Please type \`!verify <your tudent/CAO number>\`!\nDon\'t include the < >!');
+    if (!args[0]) return message.reply('Please type \`!verify <your student/CAO number>\`!\nDon\'t include the < >!');
 
     let number = [];
     podNumbers.each((v, k) => {
