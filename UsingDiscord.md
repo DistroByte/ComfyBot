@@ -28,4 +28,4 @@ As you can see, the message is highlighted in a yellow colour and it stands out.
 
 ## Closing remarks
 
-If you've managed to get this far, then you have all you need to start using Discord! If you have any questions
+If you've managed to get this far, then you have all you need to start using Discord! If you have any questions, don't be afraid to ping me in `#general`!
