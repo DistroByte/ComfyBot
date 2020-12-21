@@ -22,5 +22,3 @@ bot.emojiRoleMappings = {};
 ["command", "event"].forEach(x => require(`./handlers/${x}`)(bot));
 
 bot.login(token);
-
-// test
