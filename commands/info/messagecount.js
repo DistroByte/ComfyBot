@@ -1,7 +1,7 @@
 const storage = require('storage-to-json');
 const { MessageEmbed } = require('discord.js');
 const { ownerid } = require('../../botconfig.json');
-const { getMember, compare } = require('../../functions.js');
+const { getMember, compare } = require('../../utils/functions.js');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 module.exports = {
