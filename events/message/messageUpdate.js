@@ -4,10 +4,16 @@ module.exports = async (bot, oldMessage, newMessage) => {
   if (oldMessage.content === newMessage.content) return
   let logsChannel = oldMessage.guild.channels.cache.find(x => x.name === 'logs');
   if (oldMessage.guild.me.hasPermission('MANAGE_CHANNELS') && !logsChannel) {
-    logsChannel = message.guild.channels.create('logs', { type: 'text' });
+    logsChannel = await oldMessage.guild.channels.create('logs', {
+      type: 'text',
+      permissionOverwrites: [
+        {
+          id: oldMessage.guild.id,
+          deny: ['VIEW_CHANNEL'],
+        }
+      ],
+    });
   }
-
-  console.log(oldMessage, newMessage);
 
   let embed = new MessageEmbed()
   if (oldMessage.content) {
