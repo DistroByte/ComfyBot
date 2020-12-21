@@ -1,13 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async (bot, member) => {
-  let logsChannel = oldMessage.guild.channels.cache.find(x => x.name === 'logs');
-  if (oldMessage.guild.me.hasPermission('MANAGE_CHANNELS') && !logsChannel) {
-    logsChannel = await oldMessage.guild.channels.create('logs', {
+  let logsChannel = member.guild.channels.cache.find(x => x.name === 'logs');
+  if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !logsChannel) {
+    logsChannel = await member.guild.channels.create('logs', {
       type: 'text',
       permissionOverwrites: [
         {
-          id: oldMessage.guild.id,
+          id: member.guild.id,
           deny: ['VIEW_CHANNEL'],
         }
       ],
@@ -31,11 +31,13 @@ module.exports = async (bot, member) => {
   if (target.id === member.id) {
     embed.setTitle("**Kicked User**")
       .setColor("RED")
-      .addField("User was kicked from the guild", `${member.user.tag} was kicked by ${executor.tag}`, true);
+      .addField("User was kicked from the guild", `${member.user.tag} was kicked by ${executor.tag}`, true)
+      .setFooter(`${member.id}`)
   } else {
     embed.setTitle("**Kicked User**")
       .setColor("RED")
-      .addField("User was kicked from the guild", `${member.user.tag} was kicked, but I don't know by who`, true);
+      .addField("User was kicked from the guild", `${member.user.tag} was kicked, but I don't know by who`, true)
+      .setFooter(`${member.id}`)
   }
 
   logsChannel.send(embed)
