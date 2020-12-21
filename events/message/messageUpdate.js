@@ -7,11 +7,13 @@ module.exports = async (bot, oldMessage, newMessage) => {
     logsChannel = message.guild.channels.create('logs', { type: 'text' });
   }
 
+  console.log(oldMessage, newMessage);
+
   let embed = new MessageEmbed()
   if (oldMessage.content) {
     embed.setTitle("**EDITED MESSAGE**")
       .setColor("ORANGE")
-      .addField("Author", oldMessage.author.name, true)
+      .addField("Author", oldMessage.author.username, true)
       .addField("Channel", oldMessage.channel, true)
       .addField("Old Message", oldMessage.content)
       .addField("New Message", newMessage.content)
