@@ -22,7 +22,7 @@ module.exports = (bot) => {
     }
   };
   [
-    "dmcommands",
+    // "dmcommands",
     "fun",
     "info",
     "moderation",
