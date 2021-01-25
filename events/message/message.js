@@ -1,6 +1,7 @@
 const storage = require('storage-to-json');
 const correct = new storage('correct');
-const replace = new storage('replace')
+const replace = new storage('replace');
+const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
@@ -21,6 +22,18 @@ module.exports = async (bot, message) => {
   }
 
   if (message.channel.type !== "dm") {
+    let cacorrect = caSend.get_storage();
+    if (!message.author.bot) {
+      if (message.guild.id === "759921793422458901") {
+        for (var key in cacorrect) {
+          var value = cacorrect[key];
+          if (message.content.toLowerCase().includes(key)) {
+            message.channel.send(value);
+          }
+        }
+      }
+    }
+
     guildConfig = await GuildConfig.findOne({
       guildId: message.guild.id
     }).exec();
