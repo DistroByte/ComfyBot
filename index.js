@@ -1,20 +1,13 @@
 const { Client, Collection } = require("discord.js");
-const { token, url } = require("./botconfig.json");
+const { token, url, dbOptions } = require("./botconfig.json");
 const bot = new Client({ partials: ['MESSAGE', 'REACTION'] });
 const mongoose = require('mongoose');
 
-mongoose.connect(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose.connect(url, dbOptions);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log("Connected to DB");
-});
+db.once('open', function () { console.log("Connected to DB"); });
 
 bot.talkedRecently = new Set();
 bot.cachedMessageReactions = new Map();
