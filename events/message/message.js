@@ -21,11 +21,13 @@ module.exports = async (bot, message) => {
   let cmd = args.shift().toLowerCase();
 
   if (message.author.bot) return;
-  try {
-    let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-    if (commandfile) return commandfile.run(bot, message, args);
-  } catch (e) {
-    console.log(e);
+  if (message.content.startsWith(prefix)) {
+    try {
+      let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+      if (commandfile) return commandfile.run(bot, message, args);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   if (message.channel.type !== "dm") {
