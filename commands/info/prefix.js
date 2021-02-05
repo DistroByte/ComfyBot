@@ -7,8 +7,7 @@ module.exports = {
     description: 'Shows the current prefix, also allows the prefix to be changed',
     usage: '(change) <new prefix>',
     category: 'info',
-    accessableby: 'owner',
-    aliases: [],
+    accessableby: 'Members',
   },
   run: async (bot, message, args) => {
     let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })

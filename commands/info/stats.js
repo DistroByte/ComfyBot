@@ -2,11 +2,9 @@ const json = require('../../package.json')
 module.exports = {
   config: {
     name: 'stats',
-    description: 'Displays some useful stats',
+    description: 'Displays some useful stats about the bot',
     category: 'info',
-    usage: '',
     accessableby: 'Members',
-    aliases: [],
   },
   run: async (bot, message, args) => {
     function duration(ms) {

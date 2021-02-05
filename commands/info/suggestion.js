@@ -24,7 +24,6 @@ module.exports = {
       return message.channel.send(approved)
     }
 
-
     let suggestion = args.join(' ');
     let embed = new MessageEmbed()
       .setColor('BLUE')
@@ -35,9 +34,5 @@ module.exports = {
       await m.react('👍');
       await m.react('👎');
     });
-
-
-
-
   }
 }

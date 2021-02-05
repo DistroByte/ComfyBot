@@ -3,7 +3,7 @@ module.exports = {
     name: 'remind',
     aliases: ['remind'],
     usage: '<time> <reminder>',
-    category: 'Basic',
+    category: 'info',
     description: 'Pings you with a reminder!',
     accessableby: 'Members'
   },

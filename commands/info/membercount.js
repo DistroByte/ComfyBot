@@ -4,9 +4,8 @@ const { ownerid } = require('../../botconfig.json');
 module.exports = {
   config: {
     name: 'membercount',
-    description: 'Pulls the serverinfo of the guild!',
-    usage: '',
-    category: 'basic',
+    description: 'Pulls the member count of the guild!',
+    category: 'info',
     aliases: ['members'],
   },
   run: async (bot, message, args) => {

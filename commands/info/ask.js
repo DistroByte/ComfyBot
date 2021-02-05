@@ -1,9 +1,7 @@
 module.exports = {
   config: {
     name: 'ask',
-    aliases: [],
-    usage: '',
-    category: 'basic',
+    category: 'info',
     description: 'Responds with an image',
     accessableby: 'Members'
   },

@@ -4,7 +4,6 @@ module.exports = {
   config: {
     name: 'test',
     aliases: ['tester'],
-    usage: '',
     category: 'owner',
     description: 'Test command',
     accessableby: 'Owner'

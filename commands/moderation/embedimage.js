@@ -6,7 +6,7 @@ module.exports = {
     aliases: ['imageembed'],
     usage: '<url>',
     category: 'moderation',
-    description: 'Embeds an image in an embed, wild',
+    description: 'Embeds an image in an embed',
     accessableby: 'Moderators'
   },
   run: async (client, message, args) => {

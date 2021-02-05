@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   config: {
     name: 'ban',
-    description: 'Bans a user from the guild!',
+    description: 'Bans a user from the guild',
     usage: '<member> (reason)',
     category: 'moderation',
     accessableby: 'Administrators',

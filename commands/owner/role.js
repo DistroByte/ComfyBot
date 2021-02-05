@@ -4,8 +4,8 @@ module.exports = {
   config: {
     name: 'role',
     aliases: [],
-    usage: '<role>',
-    category: 'Owner',
+    usage: '<add/remove> <role>',
+    category: 'owner',
     description: 'Owner only command',
     accessableby: 'Owner'
   },

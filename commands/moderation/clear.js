@@ -11,22 +11,22 @@ module.exports = {
 
     if (!message.member.hasPermission('MANAGE_MESSAGES')) {
       return message
-        .reply("You can't delete messages....")
-        .then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
+        .reply("You can't delete messages!")
+        .then((m) => m.delete({ timeout: 5000 }));
     }
 
     if (isNaN(args[0]) || parseInt(args[0]) <= 0) {
       return message
         .reply(
-          "Yeah.... That's not a number? I also can't delete 0 messages by the way."
+          "I can't delete 0 messages!"
         )
-        .then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
+        .then((m) => m.delete({ timeout: 5000 }));
     }
 
     if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
       return message
-        .reply("Sorry... I can't delete messages.")
-        .then((m) => m.delete({ timeout: 5000, reason: 'tidying up' }));
+        .reply("I can't delete messages!")
+        .then((m) => m.delete({ timeout: 5000 }));
     }
 
     let deleteAmount;

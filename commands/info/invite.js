@@ -3,8 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   config: {
     name: 'invite',
-    aliases: ['invitelink'],
-    usage: '',
+    aliases: ['invitelink', 'inv'],
     category: 'info',
     description: 'Invites the bot to your server!',
     accessableby: 'Members'

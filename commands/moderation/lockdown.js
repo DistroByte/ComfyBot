@@ -1,7 +1,6 @@
 module.exports = {
   config: {
     name: 'lockdown',
-    aliases: [],
     usage: '<start/stop> <duration>',
     category: 'moderation',
     description: 'Mutes the whole server',
