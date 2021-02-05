@@ -8,7 +8,7 @@ module.exports = {
     name: 'levels',
     aliases: ['leaderboard'],
     usage: '',
-    category: 'Levels',
+    category: 'ranking',
     description: 'Shows leaderboard',
     accessableby: 'Members'
   },

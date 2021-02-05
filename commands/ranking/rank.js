@@ -2,6 +2,7 @@ const { MessageAttachment } = require('discord.js');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 const { createCanvas, loadImage } = require('canvas');
+const { getLevel, getLevelXp, getCommunitiveXp } = require('../../utils/functions');
 const width = 1000
 const height = 300
 const canvas = createCanvas(width, height)
@@ -10,20 +11,27 @@ const context = canvas.getContext('2d')
 module.exports = {
   config: {
     name: 'rank',
-    description: 'Returns the number of messages since bot started counting per user',
-    category: 'basic',
+    description: 'Gets your current XP, level and rank and displays in a nice image',
+    category: 'ranking',
     accessableby: 'Members',
-    aliases: ['level', 'lvl', 'msg', 'exp']
+    aliases: ['level', 'lvl', 'exp']
   },
   run: async (bot, message, args) => {
     let guildLevels = await GuildLevels.findOne({
       guildId: message.guild.id
     }).exec()
 
-    user = message.author
+    let user;
+
+    if (!message.mentions.members.first()) {
+      user = message.author
+    } else {
+      user = message.mentions.members.first().user
+    }
+
 
     let memberXp = guildLevels.memberXp
-    let xp = memberXp.get(message.author.id)
+    let xp = memberXp.get(user.id)
 
     var sortable = new Map([...memberXp.entries()].sort(function (a, b) {
       return b[1] - a[1];
@@ -36,16 +44,6 @@ module.exports = {
       } else {
         break
       }
-    }
-
-    function getLevel(xp) {
-      return level = Math.floor((((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3) + 61 / (12 * ((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3)) - 9 / 2))
-    }
-    function getCommunitiveXp(lvl) {
-      return communitive = Math.floor(((5 * lvl * lvl * lvl) / 3) + ((45 * lvl * lvl) / 2) + ((455 * lvl) / 6))
-    }
-    function getLevelXp(lvl) {
-      return levelXp = 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100
     }
 
     const currentLvl = getLevel(xp)
