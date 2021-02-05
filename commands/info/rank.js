@@ -1,8 +1,7 @@
 const { MessageAttachment } = require('discord.js');
 const GuildLevels = require('../../database/schemas/GuildLevels');
-const fs = require('fs');
 
-const { createCanvas } = require('canvas')
+const { createCanvas, loadImage } = require('canvas');
 const width = 1000
 const height = 300
 const canvas = createCanvas(width, height)
@@ -26,6 +25,19 @@ module.exports = {
     let memberXp = guildLevels.memberXp
     let xp = memberXp.get(message.author.id)
 
+    var sortable = new Map([...memberXp.entries()].sort(function (a, b) {
+      return b[1] - a[1];
+    }));
+
+    var rank = 1;
+    for (var [key, value] of sortable.entries()) {
+      if (key !== user.id) {
+        rank += 1
+      } else {
+        break
+      }
+    }
+
     function getLevel(xp) {
       return level = Math.floor((((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3) + 61 / (12 * ((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3)) - 9 / 2))
     }
@@ -40,20 +52,12 @@ module.exports = {
     const currentXP = xp - getCommunitiveXp(currentLvl);
     const levelXP = getLevelXp(currentLvl)
 
-    message.channel.send(`Your current level: ${currentLvl}\nCurrent XP: ${currentXP}/${levelXP} XP`)
-
     context.fillStyle = '#23272A'
     context.fillRect(0, 0, width, height)
 
     context.beginPath();
     context.arc(305, 220, 20, 0.5 * Math.PI, Math.PI * 1.5, false);
     context.arc(910, 220, 20, Math.PI * 1.5, Math.PI * 0.5, false);
-    context.closePath();
-    context.lineWidth = 3;
-    context.stroke();
-
-    context.beginPath();
-    context.arc(150, 150, 100, 0, Math.PI * 2);
     context.closePath();
     context.lineWidth = 3;
     context.stroke();
@@ -67,18 +71,66 @@ module.exports = {
     context.fillStyle = "#828282";
     context.fillText(`#${user.discriminator}`, 305 + usernameWidth, 190)
 
-    const percentFilled = Math.floor((currentXP / levelXP) * 605)
-    console.log(percentFilled);
-
     context.beginPath();
     context.arc(305, 220, 19, 0.5 * Math.PI, Math.PI * 1.5, false);
-    context.arc(305 + percentFilled, 220, 19, Math.PI * 1.5, Math.PI * 0.5, false);
+    context.arc(305 + Math.floor((currentXP / levelXP) * 605), 220, 19, Math.PI * 1.5, Math.PI * 0.5, false);
     context.closePath();
     context.lineWidth = 3;
     context.fillStyle = "green";
     context.fill();
 
-    const buffer = canvas.toBuffer('image/png')
+    context.font = "60px Arial";
+    context.fillStyle = "#FEFEFE";
+    context.fillText(currentLvl, 928 - context.measureText(currentLvl).width, 108);
+    var currentLevelWidth = context.measureText(currentLvl).width
+
+    context.font = "25px Arial";
+    context.fillStyle = "#828282";
+    context.fillText(`LEVEL`, 928 - currentLevelWidth - context.measureText(`LEVEL `).width, 108);
+    currentLevelWidth = currentLevelWidth + context.measureText(`LEVEL `).width
+
+    context.font = "50px Arial";
+    context.fillStyle = "#FEFEFE";
+    context.fillText(`#${rank}`, 928 - currentLevelWidth - context.measureText(`#${rank}`).width - 5, 108)
+    currentLevelWidth = currentLevelWidth + context.measureText(`#${rank}`).width
+
+    context.font = "25px Arial";
+    context.fillStyle = "#828282";
+    context.fillText(`RANK`, 928 - currentLevelWidth - context.measureText(`LEVEL `).width, 108);
+
+    if (currentXP > 1000) {
+      formattedCurrentXP = (currentXP / 1000).toFixed(2) + "K"
+    } else {
+      formattedCurrentXP = currentXP
+    }
+
+    context.font = "25px Arial";
+    context.fillStyle = "#FEFEFE";
+    context.fillText(`${formattedCurrentXP} `, 720, 190)
+    currentXPWidth = context.measureText(`${formattedCurrentXP} `).width;
+
+    if (levelXP > 1000) {
+      formattedlevelXP = (levelXP / 1000).toFixed(2) + "K"
+    } else {
+      formattedlevelXP = levelXP
+    }
+    context.fillStyle = "#828282";
+    context.fillText(`/ ${formattedlevelXP} XP`, 720 + currentXPWidth, 190)
+
+    context.beginPath();
+    context.arc(150, 150, 100, 0, Math.PI * 2);
+    context.closePath();
+    context.lineWidth = 5;
+    context.stroke();
+    context.save()
+    context.clip();
+
+    const avatar = await loadImage(user.displayAvatarURL({ format: 'jpg' }));
+    context.drawImage(avatar, 50, 50, 200, 200)
+
+    context.restore()
+
+    var buffer = canvas.toBuffer('image/png')
 
     const attachment = new MessageAttachment(buffer);
     message.channel.send(attachment)
