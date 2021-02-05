@@ -27,6 +27,7 @@ module.exports = (bot) => {
     "info",
     "moderation",
     "owner",
+    "ranking",
     "reactions"
   ].forEach((x) => load(x));
 };
