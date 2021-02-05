@@ -1,4 +1,3 @@
-const storage = require('storage-to-json');
 const { MessageEmbed } = require('discord.js');
 const { ownerid } = require('../../botconfig.json');
 const { getMember, compare } = require('../../utils/functions.js');
