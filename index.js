@@ -16,6 +16,7 @@ db.once('open', function () {
   console.log("Connected to DB");
 });
 
+bot.talkedRecently = new Set();
 bot.cachedMessageReactions = new Map();
 bot.emojiRoleMappings = {};
 ["commands", "aliases"].forEach(x => bot[x] = new Collection());
