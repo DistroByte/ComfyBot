@@ -6,51 +6,9 @@ const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 module.exports = async (bot, message) => {
-  let guildConfig;
-
-  if (message.channel.type != 'dm') {
-    const count = new storage(`${message.guild.id}`);
-    if (!count) return
-    if (!count.get(`${message.author.id}`)) {
-      let messageCount = 1;
-      count.set(`${message.author.id}`, messageCount);
-    } else {
-      let messageCount = count.get(`${message.author.id}`);
-      messageCount++;
-      count.set(`${message.author.id}`, messageCount);
-    }
-  }
-
-  if (message.channel.type !== "dm") {
-    let cacorrect = caSend.get_storage();
-    if (!message.author.bot) {
-      if (message.guild.id === "759921793422458901") {
-        for (var key in cacorrect) {
-          var value = cacorrect[key];
-          if (message.content.toLowerCase().includes(key)) {
-            message.channel.send(value);
-          }
-        }
-      }
-    }
-
-    guildConfig = await GuildConfig.findOne({
-      guildId: message.guild.id
-    }).exec();
-
-    let guildLevels = await GuildLevels.findOne({
-      guildId: message.guild.id
-    }).exec()
-
-    let memberXp = guildLevels.memberXp
-    if (!memberXp.get(message.author.id)) {
-      memberXp.set(`${message.author.id}`, "0");
-    } else {
-      let xp = Number(Math.floor((Math.random() * 15) + 15)) + Number(memberXp.get(message.author.id))
-      memberXp.set(`${message.author.id}`, `${xp}`)
-    }
-    guildLevels.save()
-  }
+  let guildConfig = await GuildConfig.findOne({
+    guildId: message.guild.id
+  }).exec();
 
   let prefix;
   if (!guildConfig) {
@@ -58,37 +16,65 @@ module.exports = async (bot, message) => {
   } else {
     prefix = guildConfig.prefix
   }
+
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
   let cmd = args.shift().toLowerCase();
 
+  if (message.author.bot) return;
+  try {
+    let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+    if (commandfile) return commandfile.run(bot, message, args);
+  } catch (e) {
+    console.log(e);
+  }
+
+  if (message.channel.type !== "dm") {
+    if (bot.talkedRecently.has(message.author.id)) return;
+
+    let guildLevels = await GuildLevels.findOne({
+      guildId: message.guild.id
+    }).exec()
+
+    let memberXp = guildLevels.memberXp
+    if (!memberXp.get(message.author.id)) {
+      memberXp.set(`${message.author.id}`, "15");
+    } else {
+      let xp = Number(Math.floor((Math.random() * 15) + 15)) + Number(memberXp.get(message.author.id))
+      memberXp.set(`${message.author.id}`, `${xp}`)
+    }
+    guildLevels.save()
+
+    bot.talkedRecently.add(message.author.id);
+    setTimeout(() => {
+      bot.talkedRecently.delete(message.author.id);
+    }, 60000);
+  }
+
   let correctme = correct.get_storage();
-  if (!message.author.bot) {
-    if (!message.content.includes('correct')) {
-      for (var key in correctme) {
-        var value = correctme[key];
-        if (message.content.toLowerCase().includes(key)) {
-          message.channel.send(value);
-        }
+  if (!message.content.includes('correct')) {
+    for (var key in correctme) {
+      var value = correctme[key];
+      if (message.content.toLowerCase().includes(key)) {
+        message.channel.send(value);
       }
     }
   }
 
   let replaceme = replace.get_storage();
-  if (!message.author.bot) {
-    for (var key in replaceme) {
-      var value = replaceme[key];
-      if (message.channel.id === key && message.content.includes(value)) {
-        message.delete({ reason: "included https://" })
-      }
+  for (var key in replaceme) {
+    var value = replaceme[key];
+    if (message.channel.id === key && message.content.includes(value)) {
+      message.delete()
     }
   }
 
-  if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
-  try {
-    let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-    if (commandfile) commandfile.run(bot, message, args);
-  } catch (e) {
-    console.log(e);
+  let cacorrect = caSend.get_storage();
+  if (message.guild.id === "759921793422458901") {
+    for (var key in cacorrect) {
+      var value = cacorrect[key];
+      if (message.content.toLowerCase().includes(key)) {
+        message.channel.send(value);
+      }
+    }
   }
 };
