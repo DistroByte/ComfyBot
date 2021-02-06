@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { ownerid } = require('../../botconfig.json');
-const { getMember, compare } = require('../../utils/functions.js');
+const { getLevel } = require('../../utils/functions.js');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 module.exports = {
@@ -13,49 +13,46 @@ module.exports = {
     accessableby: 'Members'
   },
   run: async (bot, message, args) => {
-    let toFind;
-    if (args[1]) toFind = args[1]
-    else toFind = message.author.username
-    let userToCheck = getMember(message, toFind)
-    const count = new storage(`${message.guild.id}`);
+    let guildLevels = await GuildLevels.findOne({
+      guildId: message.guild.id
+    }).exec()
+
+    user = message.author
+
+    let memberXp = guildLevels.memberXp
+    let xp = memberXp.get(user.id)
+    let leaderboard = []
+
+    var sortable = new Map([...memberXp.entries()].sort(function (a, b) {
+      return b[1] - a[1];
+    }));
+
+    var authRank = 1;
+    var ranks = 1
+    for (var [key, value] of sortable.entries()) {
+      if (key == user.id) {
+        authRank = ranks
+      }
+      leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${getLevel(value)}`)
+      ranks += 1
+    }
+
+    const page = 1
 
     let embed = new MessageEmbed()
       .setTitle(`Leaderboard`)
       .setColor('GREEN')
       .setThumbnail(message.guild.iconURL)
-      .setFooter(`© ${message.guild.me.displayName} | Developed By ${bot.users.cache.get(ownerid).tag}`, bot.user.displayAvatarURL())
-      .setTimestamp();
+      .setFooter(`Page ${page}`)
 
-    let objArray = [];
-    count.each((messages, user) => {
-      let obj = { messages, user }
-      objArray.push(obj);
-    });
+    let slice = 0;
+    if (leaderboard.length >= 10) {
+      slice = 10
+    } else {
+      slice = leaderboard.length
+    }
 
-    let unused = objArray.shift();
-    objArray.sort(compare);
-    let leaderboard = [];
-    let n = 1
-    objArray.slice(0, 10).forEach((x) => {
-      let userKey;
-      try {
-        if (bot.users.cache.get(x.user)) {
-          userKey = bot.users.cache.get(x.user).username;
-        } else {
-          userKey = bot.users.fetch(x.user).username;
-        }
-      }
-      catch {
-        userKey = "unknown"
-      }
-      leaderboard.push(`\`${n}\`\t**${userKey}** on **${x.messages}** messages`);
-      n += 1;
-    });
-
-    let authorMessages = objArray.find((x) => x.user === message.author.id);
-    let authPos = objArray.findIndex((x) => x.user === message.author.id) + 1;
-
-    embed.addField(`You (${message.author.username}) are in position ${authPos} on ${authorMessages.messages} messages`, leaderboard);
+    embed.addField(`You (${message.member.displayName}) are rank ${authRank} (page ${Math.floor(authRank / 10) + 1})`, leaderboard.slice(0, slice));
     message.channel.send(embed);
   }
 }
