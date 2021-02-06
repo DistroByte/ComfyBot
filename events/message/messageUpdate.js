@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = async (bot, oldMessage, newMessage) => {
   if (oldMessage.content === newMessage.content) return
+  if (oldMessage.channel.type === "dm") return
   let logsChannel = oldMessage.guild.channels.cache.find(x => x.name === 'logs');
   if (oldMessage.guild.me.hasPermission('MANAGE_CHANNELS') && !logsChannel) {
     logsChannel = await oldMessage.guild.channels.create('logs', {
@@ -10,6 +11,10 @@ module.exports = async (bot, oldMessage, newMessage) => {
         {
           id: oldMessage.guild.id,
           deny: ['VIEW_CHANNEL'],
+        },
+        {
+          id: message.guild.roles.cache.find(r => r.name.toLowerCase() === "moderator" || r.name.toLowerCase() === "mod"),
+          allow: ['VIEW_CHANNEL'],
         }
       ],
     });
