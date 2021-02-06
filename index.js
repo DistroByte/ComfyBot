@@ -9,6 +9,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () { console.log("Connected to DB"); });
 
+bot.authCodes = new Map();
 bot.talkedRecently = new Set();
 bot.cachedMessageReactions = new Map();
 bot.emojiRoleMappings = {};
