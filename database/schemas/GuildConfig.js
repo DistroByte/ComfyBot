@@ -23,6 +23,14 @@ const GuildConfigSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.Map,
     required: false,
   },
+  guildName: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+  },
+  guildIcon: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model('GuildConfig', GuildConfigSchema);
