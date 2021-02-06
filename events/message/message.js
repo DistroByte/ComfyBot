@@ -1,16 +1,19 @@
 const storage = require('storage-to-json');
 const correct = new storage('correct');
-const replace = new storage('replace');
 const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 
 module.exports = async (bot, message) => {
-  let guildConfig = await GuildConfig.findOne({
-    guildId: message.guild.id
-  }).exec();
-
+  let guildConfig
   let prefix;
+  try {
+    guildConfig = await GuildConfig.findOne({
+      guildId: message.guild.id
+    }).exec();
+  } catch (err) {
+  }
+
   if (!guildConfig) {
     prefix = "!"
   } else {
@@ -50,32 +53,24 @@ module.exports = async (bot, message) => {
     setTimeout(() => {
       bot.talkedRecently.delete(message.author.id);
     }, 60000);
-  }
 
-  let correctme = correct.get_storage();
-  if (!message.content.includes('correct')) {
-    for (var key in correctme) {
-      var value = correctme[key];
-      if (message.content.toLowerCase().includes(key)) {
-        message.channel.send(value);
+    let correctme = correct.get_storage();
+    if (!message.content.includes('correct')) {
+      for (var key in correctme) {
+        var value = correctme[key];
+        if (message.content.toLowerCase().includes(key)) {
+          message.channel.send(value);
+        }
       }
     }
-  }
 
-  let replaceme = replace.get_storage();
-  for (var key in replaceme) {
-    var value = replaceme[key];
-    if (message.channel.id === key && message.content.includes(value)) {
-      message.delete()
-    }
-  }
-
-  let cacorrect = caSend.get_storage();
-  if (message.guild.id === "759921793422458901") {
-    for (var key in cacorrect) {
-      var value = cacorrect[key];
-      if (message.content.toLowerCase().includes(key)) {
-        message.channel.send(value);
+    let cacorrect = caSend.get_storage();
+    if (message.guild.id === "759921793422458901") {
+      for (var key in cacorrect) {
+        var value = cacorrect[key];
+        if (message.content.toLowerCase().includes(key)) {
+          message.channel.send(value);
+        }
       }
     }
   }
