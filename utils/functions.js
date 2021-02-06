@@ -39,7 +39,7 @@ module.exports = {
     }
     return 0;
   },
-  sendEmail: function (email, contents, callback) {
+  sendEmail: function (emailAddress, contents, callback) {
     let transporter = nodemailer.createTransport(smtpTransport({
       service: "gmail",
       host: "smtp.gmail.com",
@@ -51,7 +51,7 @@ module.exports = {
 
     const mailOptions = {
       from: "comfybotemail@gmail.com",
-      to: `${email}`,
+      to: `${emailAddress}`,
       subject: "Verification Code",
       text: `${contents}`
     };
