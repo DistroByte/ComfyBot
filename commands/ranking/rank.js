@@ -29,6 +29,8 @@ module.exports = {
       user = message.mentions.members.first().user
     }
 
+    if (user.bot) return message.channel.send("Bots can't have xp, silly!")
+
 
     let memberXp = guildLevels.memberXp
     let xp = memberXp.get(user.id)
