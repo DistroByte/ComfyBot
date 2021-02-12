@@ -14,7 +14,7 @@ module.exports = {
     description: 'Gets your current XP, level and rank and displays in a nice image',
     category: 'ranking',
     accessableby: 'Members',
-    aliases: ['level', 'lvl', 'exp']
+    aliases: ['level', 'lvl', 'exp', 'xp', 'level']
   },
   run: async (bot, message, args) => {
     let guildLevels = await GuildLevels.findOne({
@@ -48,9 +48,16 @@ module.exports = {
       }
     }
 
-    const currentLvl = getLevel(xp)
-    const currentXP = xp - getCommunitiveXp(currentLvl);
-    const levelXP = getLevelXp(currentLvl)
+    var currentLvl = 0
+    var currentXP = 0
+    var levelXP = 0
+
+    if (xp > 0) {
+      currentLvl = getLevel(xp)
+      currentXP = xp - getCommunitiveXp(currentLvl);
+      levelXP = getLevelXp(currentLvl)
+    }
+
 
     context.fillStyle = '#23272A'
     context.fillRect(0, 0, width, height)
@@ -71,13 +78,15 @@ module.exports = {
     context.fillStyle = "#828282";
     context.fillText(`#${user.discriminator}`, 305 + usernameWidth, 190)
 
-    context.beginPath();
-    context.arc(305, 220, 19, 0.5 * Math.PI, Math.PI * 1.5, false);
-    context.arc(305 + Math.floor((currentXP / levelXP) * 605), 220, 19, Math.PI * 1.5, Math.PI * 0.5, false);
-    context.closePath();
-    context.lineWidth = 3;
-    context.fillStyle = "green";
-    context.fill();
+    if (xp != 0) {
+      context.beginPath();
+      context.arc(305, 220, 19, 0.5 * Math.PI, Math.PI * 1.5, false);
+      context.arc(305 + Math.floor((currentXP / levelXP) * 605), 220, 19, Math.PI * 1.5, Math.PI * 0.5, false);
+      context.closePath();
+      context.lineWidth = 3;
+      context.fillStyle = "green";
+      context.fill();
+    }
 
     context.font = "60px Arial";
     context.fillStyle = "#FEFEFE";
