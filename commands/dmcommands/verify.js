@@ -26,10 +26,10 @@ module.exports = {
         number.push(k);
       });
 
-      let toFind = number.find(v => v === args[0])
+      let toFind = number.find(v => v === args[1])
       if (!toFind) {
         message.reply('Sorry! It seems like you are not in this course or your student number is incorrect! Thanks for stopping by :slight_smile:');
-        console.log(`${message.author.username} failed with number ${args[0]}!`);
+        console.log(`${message.author.username} failed with number ${args[1]}!`);
       } else {
         let CAGuild = bot.guilds.cache.find(guild => guild.id === "759921793422458901");
         let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
@@ -41,6 +41,7 @@ module.exports = {
 
     if (args[0] === "email") {
       if (args[1].toLowerCase() === "dcu-esports") {
+        if (bot.authCodes.get(message.author.id)) return message.channel.send("**You already have a code!**\nPlease check your email for a code and use:\n```\n!verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n```")
         if (emailFilter(args[2])) {
           const authCode = Math.floor(Math.random() * 1000000)
           bot.authCodes.set(message.author.id, authCode);
@@ -48,7 +49,7 @@ module.exports = {
             if (callback.rejected.length > 0) {
               message.channel.send("Sorry, there seems to be an error with your email. Please try again!")
             } else {
-              message.channel.send(`Email sent! Check your \`${args[2]}\` inbox! Please send:\n\`\`\`diff\n+ !verify code DCU-Esports <code>\nfor example:\n- !verify code DCU-Esports 123456\n\`\`\``)
+              message.channel.send(`Email sent! Check your \`${args[2]}\` inbox! Please send:\n\`\`\`diff\n+ !verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n\`\`\``)
             }
           })
         } else {
@@ -68,7 +69,6 @@ module.exports = {
           member.roles.add("803274143390105600");
           member.send("Code accepted!\nWelcome to the server!")
           bot.authCodes.delete(message.author.id);
-          console.log("User added to DCU-Esports");
         } else {
           member.send("Sorry, that's not the right code. Please verify with your email again!")
         };
