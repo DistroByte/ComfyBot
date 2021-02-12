@@ -6,8 +6,7 @@ const GuildLevels = require('../../database/schemas/GuildLevels');
 module.exports = {
   config: {
     name: 'levels',
-    aliases: ['leaderboard'],
-    usage: '',
+    aliases: ['leaderboard', 'ranks'],
     category: 'ranking',
     description: 'Shows leaderboard',
     accessableby: 'Members'
