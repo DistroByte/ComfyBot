@@ -23,16 +23,17 @@ module.exports = async (bot, member) => {
 
   const kickLog = fetchedLogs.entries.first();
   if (!kickLog) {
-    return embed.setTitle("**User Leave**")
+    embed.setTitle("**User Leave**")
       .setColor("RED")
       .addField("User Left the guild", `${member.user.tag} left the guild`, true)
+    return logsChannel.send(embed)
   }
   const { executor, target } = kickLog;
   if (target.id === member.id) {
     embed.setTitle("**Kicked User**")
       .setColor("RED")
       .addField("User was kicked from the guild", `${member.user.tag} was kicked by ${executor.tag}`, true)
-      .setFooter(`${member.id}`)
+      .setFooter(`Member ID: ${member.id}`)
   } else {
     embed.setTitle("**Kicked User**")
       .setColor("RED")
