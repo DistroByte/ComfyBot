@@ -3,6 +3,7 @@ const correct = new storage('correct');
 const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
+const { getLevel } = require('../../utils/functions');
 
 module.exports = async (bot, message) => {
   let guildConfig
@@ -34,26 +35,6 @@ module.exports = async (bot, message) => {
   }
 
   if (message.channel.type !== "dm") {
-    if (bot.talkedRecently.has(message.author.id)) return;
-
-    let guildLevels = await GuildLevels.findOne({
-      guildId: message.guild.id
-    }).exec()
-
-    let memberXp = guildLevels.memberXp
-    if (!memberXp.get(message.author.id)) {
-      memberXp.set(`${message.author.id}`, "15");
-    } else {
-      let xp = Number(Math.floor((Math.random() * 15) + 15)) + Number(memberXp.get(message.author.id))
-      memberXp.set(`${message.author.id}`, `${xp}`)
-    }
-    guildLevels.save()
-
-    bot.talkedRecently.add(message.author.id);
-    setTimeout(() => {
-      bot.talkedRecently.delete(message.author.id);
-    }, 60000);
-
     let correctme = correct.get_storage();
     if (!message.content.includes('correct')) {
       for (var key in correctme) {
@@ -73,5 +54,40 @@ module.exports = async (bot, message) => {
         }
       }
     }
+
+    if (bot.talkedRecently.has(message.author.id)) return;
+
+    let guildLevels = await GuildLevels.findOne({
+      guildId: message.guild.id
+    }).exec()
+
+    let xpToAdd = Number(Math.floor((Math.random() * 15) + 15))
+
+    let membersXp = guildLevels.memberXp
+
+    if (!membersXp.get(message.author.id)) {
+      membersXp.set(`${message.author.id}`, xpToAdd);
+    } else {
+      let memberXp = Number(membersXp.get(message.author.id))
+      let newXp = xpToAdd + memberXp
+
+      let checkLevelUp = function (oldXp, toAdd) {
+        let oldLevel = getLevel(oldXp)
+        let newLevel = getLevel(oldXp + toAdd)
+        if (newLevel > oldLevel) {
+          return true;
+        } else {
+          return false;
+        };
+      }
+      if (checkLevelUp(memberXp, xpToAdd)) message.channel.send(`**${message.author.username}** has just reached level **${getLevel(newXp)}!**`)
+      membersXp.set(`${message.author.id}`, `${newXp}`)
+    }
+    guildLevels.save()
+
+    bot.talkedRecently.add(message.author.id);
+    setTimeout(() => {
+      bot.talkedRecently.delete(message.author.id);
+    }, 60000);
   }
 };
