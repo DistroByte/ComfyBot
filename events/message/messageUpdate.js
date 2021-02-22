@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (bot, oldMessage, newMessage) => {
+  if (oldMessage.guild.id === "713522800081764392") return
   if (oldMessage.content === newMessage.content) return
   if (oldMessage.channel.type === "dm") return
   let logsChannel = oldMessage.guild.channels.cache.find(x => x.name === 'logs');

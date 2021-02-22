@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (bot, message) => {
+  if (message.guild.id === "713522800081764392") return
   let logs = await message.guild.fetchAuditLogs({ type: 72 });
   let entry = await logs.entries.first();
 

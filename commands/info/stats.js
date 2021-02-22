@@ -15,7 +15,7 @@ module.exports = {
       return `${days} days, ${hrs} hrs, ${min} mins, ${sec} secs`;
     }
 
-    let memUsage = process.memoryUsage().heapUsed / 1024 / 1024;
+    let memUsage = process.memoryUsage().rss / 1024 / 1024;
     let users = bot.users.cache.size;
     let servers = bot.guilds.cache.size;
     let channels = bot.channels.cache.size

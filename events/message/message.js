@@ -71,16 +71,18 @@ module.exports = async (bot, message) => {
       let memberXp = Number(membersXp.get(message.author.id))
       let newXp = xpToAdd + memberXp
 
-      let checkLevelUp = function (oldXp, toAdd) {
-        let oldLevel = getLevel(oldXp)
-        let newLevel = getLevel(oldXp + toAdd)
-        if (newLevel > oldLevel) {
-          return true;
-        } else {
-          return false;
-        };
+      if (message.guild.id !== "713522800081764392") {
+        let checkLevelUp = function (oldXp, toAdd) {
+          let oldLevel = getLevel(oldXp)
+          let newLevel = getLevel(oldXp + toAdd)
+          if (newLevel > oldLevel) {
+            return true;
+          } else {
+            return false;
+          };
+        }
+        if (checkLevelUp(memberXp, xpToAdd)) message.channel.send(`**${message.author.username}** has just reached level **${getLevel(newXp)}!**`)
       }
-      if (checkLevelUp(memberXp, xpToAdd)) message.channel.send(`**${message.author.username}** has just reached level **${getLevel(newXp)}!**`)
       membersXp.set(`${message.author.id}`, `${newXp}`)
     }
     guildLevels.save()
