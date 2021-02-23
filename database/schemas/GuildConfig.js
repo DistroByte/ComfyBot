@@ -30,6 +30,21 @@ const GuildConfigSchema = new mongoose.Schema({
   guildIcon: {
     type: mongoose.SchemaTypes.String,
     required: true,
+  },
+  logEditsDeletes: {
+    type: mongoose.SchemaTypes.Boolean,
+    required: false,
+    default: true,
+  },
+  logLeaves: {
+    type: mongoose.SchemaTypes.Boolean,
+    required: false,
+    default: true,
+  },
+  levelUp: {
+    type: mongoose.SchemaTypes.String,
+    required: false,
+    default: "channel",
   }
 });
 
