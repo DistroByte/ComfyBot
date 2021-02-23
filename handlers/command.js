@@ -22,6 +22,7 @@ module.exports = (bot) => {
     }
   };
   [
+    "config",
     "dmcommands",
     "fun",
     "info",
