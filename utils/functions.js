@@ -74,5 +74,5 @@ module.exports = {
   },
   getLevelXp: function (lvl) {
     return levelXp = 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100
-  }
+  },
 };
