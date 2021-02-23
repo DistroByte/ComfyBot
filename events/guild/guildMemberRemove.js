@@ -1,7 +1,10 @@
 const { MessageEmbed } = require("discord.js");
+const GuildConfig = require('../../database/schemas/GuildConfig')
 
 module.exports = async (bot, member) => {
-  if (message.guild.id === "713522800081764392") return
+  let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
+
+  if (!guildConfig.logLeaves) return
   let logsChannel = member.guild.channels.cache.find(x => x.name === 'logs');
   if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !logsChannel) {
     logsChannel = await member.guild.channels.create('logs', {

@@ -1,7 +1,11 @@
 const { MessageEmbed } = require('discord.js');
+const GuildConfig = require('../../database/schemas/GuildConfig');
 
 module.exports = async (bot, message) => {
-  if (message.guild.id === "713522800081764392") return
+  let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
+
+  if (!guildConfig.logEditsDeletes) return
+
   let logs = await message.guild.fetchAuditLogs({ type: 72 });
   let entry = await logs.entries.first();
 

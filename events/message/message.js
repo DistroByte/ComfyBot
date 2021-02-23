@@ -62,7 +62,6 @@ module.exports = async (bot, message) => {
     }).exec()
 
     let xpToAdd = Number(Math.floor((Math.random() * 15) + 15))
-
     let membersXp = guildLevels.memberXp
 
     if (!membersXp.get(message.author.id)) {
@@ -71,17 +70,20 @@ module.exports = async (bot, message) => {
       let memberXp = Number(membersXp.get(message.author.id))
       let newXp = xpToAdd + memberXp
 
-      if (message.guild.id !== "713522800081764392") {
-        let checkLevelUp = function (oldXp, toAdd) {
-          let oldLevel = getLevel(oldXp)
-          let newLevel = getLevel(oldXp + toAdd)
-          if (newLevel > oldLevel) {
-            return true;
-          } else {
-            return false;
-          };
-        }
+      let checkLevelUp = function (oldXp, toAdd) {
+        let oldLevel = getLevel(oldXp)
+        let newLevel = getLevel(oldXp + toAdd)
+        if (newLevel > oldLevel) {
+          return true;
+        } else {
+          return false;
+        };
+      }
+
+      if (guildConfig.levelUp === "channel") {
         if (checkLevelUp(memberXp, xpToAdd)) message.channel.send(`**${message.author.username}** has just reached level **${getLevel(newXp)}!**`)
+      } else if (guildConfig.levelUp === "dm") {
+        if (checkLevelUp(memberXp, xpToAdd)) message.author.send(`You have just reached level **${getLevel(newXp)}!** in ${message.guild.name}`)
       }
       membersXp.set(`${message.author.id}`, `${newXp}`)
     }
@@ -90,6 +92,6 @@ module.exports = async (bot, message) => {
     bot.talkedRecently.add(message.author.id);
     setTimeout(() => {
       bot.talkedRecently.delete(message.author.id);
-    }, 60000);
+    }, 30000);
   }
 };
