@@ -55,6 +55,17 @@ module.exports = async (bot, message) => {
       }
     }
 
+    if (message.guild.id !== "713522800081764392") {
+      message.channel.messages.fetch({ limit: 3 }).then(messages => {
+        let values = messages.values()
+        let secondLastMessage = values.next().value
+        let lastMessage = values.next().value
+        if (lastMessage.content === secondLastMessage.content) {
+          message.channel.send(message.content)
+        }
+      })
+    }
+
     if (bot.talkedRecently.has(message.author.id)) return;
 
     let guildLevels = await GuildLevels.findOne({
