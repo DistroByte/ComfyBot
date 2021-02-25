@@ -27,6 +27,8 @@
 		"node-fetch": "^2.6.1",
 		"nodemailer": "^6.4.17",
 		"nodemailer-smtp-transport": "^2.7.4",
+		"request": "^2.88.2",
+		"request-promise": "^4.2.6",
 		"storage-to-json": "^1.0.34",
 		"ws": "^7.4.1",
 		"xmlhttprequest": "^1.8.0"
