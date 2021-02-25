@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const GuildConfig = require('../../database/schemas/GuildConfig')
 
 module.exports = async (bot, member) => {
-  let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
+  let guildConfig = await GuildConfig.findOne({ guildId: member.guild.id })
 
   if (!guildConfig.logLeaves) return
   let logsChannel = member.guild.channels.cache.find(x => x.name === 'logs');
