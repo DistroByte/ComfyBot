@@ -1,4 +1,4 @@
-const { sendEmail } = require('../../utils/functions')
+const { FetchTimetable } = require('../../utils/FetchRawTimetableData')
 
 module.exports = {
   config: {
@@ -9,9 +9,18 @@ module.exports = {
     accessableby: 'Owner'
   },
   run: async (client, message, args) => {
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-    sendEmail("james.hackett5@mail.dcu.ie", 123, (callback) => {
-      console.log(callback.accepted)
-    });
+    FetchTimetable(args[0], capitalizeFirstLetter(args[1]))
+      .then(res => {
+        let events = res[0]
+        console.log(events.CategoryEvents[0]);
+        message.channel.send(events.CategoryEvents[args[2] || 0].ExtraProperties[0].Value)
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
