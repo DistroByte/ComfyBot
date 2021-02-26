@@ -30,8 +30,8 @@ module.exports = {
     try {
       const newCommand = require(`../${folderName}/${command.config.name}.js`);
       client.commands.set(newCommand.config.name, newCommand);
-      message.channel.send(`Reloaded \`${command.config.name}\``);
-      console.log(`Reloaded \`${command.config.name}\`: ${new Date().toString().slice(4, 24)}`)
+      message.react('✅')
+      console.log(`${command.config.name} reloaded: ${new Date().toString().slice(4, 24)}`)
     } catch (error) {
       console.error(error);
       message.channel.send(`Error while reloading command \`${command.config.name}\`:\n\`${error.message}\``);

@@ -13,7 +13,7 @@ module.exports = {
       return message.channel.send("You're not the bot the owner!");
 
     try {
-      await message.channel.send('Goodbye 👋');
+      await message.react('👋');
       process.exit();
     } catch (e) {
       message.channel.send(`ERROR: ${e.message}`);
