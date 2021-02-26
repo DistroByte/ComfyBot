@@ -5,28 +5,18 @@ module.exports = {
     usage: '<number>',
     category: 'moderation',
     accessableby: 'Moderators',
+    permissions: 'MANAGE_MESSAGES',
+    args: true
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     message.delete();
 
-    if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-      return message
-        .reply("You can't delete messages!")
-        .then((m) => m.delete({ timeout: 5000 }));
-    }
-
     if (isNaN(args[0]) || parseInt(args[0]) <= 0) {
-      return message
-        .reply(
-          "I can't delete 0 messages!"
-        )
-        .then((m) => m.delete({ timeout: 5000 }));
+      return message.reply("I can't delete 0 messages!")
     }
 
     if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
-      return message
-        .reply("I can't delete messages!")
-        .then((m) => m.delete({ timeout: 5000 }));
+      return message.reply("I can't delete messages!")
     }
 
     let deleteAmount;

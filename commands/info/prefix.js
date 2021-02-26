@@ -9,7 +9,7 @@ module.exports = {
     category: 'info',
     accessableby: 'Members',
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
     message.channel.send(`Current prefix is \`${guildConfig.prefix}\``)
 

@@ -1,11 +1,12 @@
 module.exports = {
   config: {
-    name: 'remind',
-    aliases: ['remind'],
-    usage: '<time> <reminder>',
+    name: 'remindme',
+    aliases: [],
+    usage: '<time (s/m/h/d)> <reminder>',
     category: 'info',
-    description: 'Pings you with a reminder!',
-    accessableby: 'Members'
+    description: 'Pings you with a reminder!\nCan only take on time argument at once!',
+    accessableby: 'Members',
+    args: true
   },
   run: async (client, message, args) => {
     let joinedMessage = args.join(' ');

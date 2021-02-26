@@ -4,11 +4,12 @@ const fetch = require('node-fetch');
 module.exports = {
   config: {
     name: 'xkcd',
-    description: 'xkcd comics, get the latest or certain comic',
-    usage: '<latest| search (id)>',
+    description: 'xkcd comics, get the latest or search a comic!',
+    usage: '<latest|search (id)>',
     category: 'fun',
+    args: true
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     if ((args[1] && isNaN(args[1])) || !['search', 'latest'].includes(args[0]))
       return message.channel.send('Usage:\n`!xkcd <latest| search (id)>`');
     let search = args[1]

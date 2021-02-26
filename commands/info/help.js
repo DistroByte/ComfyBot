@@ -13,13 +13,13 @@ module.exports = {
     description: 'Displays all available commands, or more info on one',
     accessableby: 'Members',
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
 
     const embed = new MessageEmbed()
       .setColor('GREEN')
       .setAuthor(`${message.guild.me.displayName} Help`, message.guild.iconURL)
-      .setThumbnail(bot.user.displayAvatarURL());
+      .setThumbnail(client.user.displayAvatarURL());
 
     if (!args[0]) {
       const categories = readdirSync('./commands/');
@@ -28,12 +28,12 @@ module.exports = {
         `These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${guildConfig.prefix}**`
       );
       embed.setFooter(
-        `© ${message.guild.me.displayName} | Developed by ${bot.users.cache.get(ownerid).tag} | Total Commands: ${bot.commands.size}`,
-        bot.user.displayAvatarURL()
+        `© ${message.guild.me.displayName} | Developed by ${client.users.cache.get(ownerid).tag} | Total Commands: ${client.commands.size}`,
+        client.user.displayAvatarURL()
       );
 
       categories.forEach((category) => {
-        const dir = bot.commands.filter((c) => c.config.category === category);
+        const dir = client.commands.filter((c) => c.config.category === category);
         const capitalise =
           category.slice(0, 1).toUpperCase() + category.slice(1);
         try {
@@ -46,8 +46,8 @@ module.exports = {
 
       return message.channel.send(embed);
     } else {
-      let command = bot.commands.get(
-        bot.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase()
+      let command = client.commands.get(
+        client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase()
       );
       if (!command)
         return message.channel.send(
@@ -72,8 +72,8 @@ module.exports = {
             **Aliases:** ${command.aliases ? command.aliases.join(', ') : 'None'
         }`);
       embed.setFooter(
-        `© ${message.guild.me.displayName} | Developed by ${bot.users.cache.get(ownerid).tag}`,
-        bot.user.displayAvatarURL()
+        `© ${message.guild.me.displayName} | Developed by ${client.users.cache.get(ownerid).tag}`,
+        client.user.displayAvatarURL()
       );
 
       return message.channel.send(embed);

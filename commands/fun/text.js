@@ -6,14 +6,12 @@ module.exports = {
     description: 'Write stylish text!',
     category: 'fun',
     aliases: ['t'],
+    args: true,
+    usage: '<text>'
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     figlet(args.join(' '), function (err, data) {
-      if (args.length === 0) {
-        message.channel.send('Provide text to style with ```!text <text>```');
-        return;
-      }
-      else if (err) {
+      if (err) {
         message.channel.send('Something went wrong...');
         return;
       }

@@ -45,6 +45,11 @@ const GuildConfigSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.String,
     required: false,
     default: "channel",
+  },
+  sendDuplicates: {
+    type: mongoose.SchemaTypes.Boolean,
+    required: false,
+    default: true
   }
 });
 

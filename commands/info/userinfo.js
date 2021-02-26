@@ -10,7 +10,7 @@ module.exports = {
     category: 'info',
     aliases: ['ui'],
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     const member = getMember(message, args.join(' '));
 
     const joined = formatDate(member.joinedAt);

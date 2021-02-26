@@ -7,9 +7,11 @@ module.exports = {
   config: {
     name: 'verify',
     description: 'DM command, for CA',
-    category: 'DM Commands',
+    category: 'dmcommands',
+    usage: '<number/email/code/other> (information)',
+    accessableby: 'Members',
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     if (message.channel.type != 'dm') return message.reply('This command can only be used in DMs.');
     if (!args[0]) return message.reply('Please specify verification type!');
 
@@ -31,7 +33,7 @@ module.exports = {
         message.reply('Sorry! It seems like you are not in this course or your student number is incorrect! Thanks for stopping by :slight_smile:');
         console.log(`${message.author.username} failed with number ${args[1]}!`);
       } else {
-        let CAGuild = bot.guilds.cache.find(guild => guild.id === "759921793422458901");
+        let CAGuild = client.guilds.cache.find(guild => guild.id === "759921793422458901");
         let userToVerify = CAGuild.members.cache.find(u => u.id === message.author.id)
         userToVerify.roles.add("760604574217273415");
         message.reply('Success! Welcome to the server!');
@@ -41,10 +43,10 @@ module.exports = {
 
     if (args[0] === "email") {
       if (args[1].toLowerCase() === "dcu-esports") {
-        if (bot.authCodes.get(message.author.id)) return message.channel.send("**You already have a code!**\nPlease check your email for a code and use:\n```\n!verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n```")
+        if (client.authCodes.get(message.author.id)) return message.channel.send("**You already have a code!**\nPlease check your email for a code and use:\n```\n!verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n```")
         if (emailFilter(args[2])) {
           const authCode = Math.floor(Math.random() * 1000000)
-          bot.authCodes.set(message.author.id, authCode);
+          client.authCodes.set(message.author.id, authCode);
           sendEmail(args[2], authCode, (callback) => {
             if (callback.rejected.length > 0) {
               message.channel.send("Sorry, there seems to be an error with your email. Please try again!")
@@ -62,13 +64,13 @@ module.exports = {
 
     if (args[0] === "code") {
       if (args[1].toLowerCase() === "dcu-esports") {
-        let authCode = bot.authCodes.get(message.author.id);
-        let guildToFind = bot.guilds.cache.find(g => g.id === "802256858198835220")
+        let authCode = client.authCodes.get(message.author.id);
+        let guildToFind = client.guilds.cache.find(g => g.id === "802256858198835220")
         let member = guildToFind.members.cache.find(m => m.id === message.author.id)
         if (parseInt(args[2]) === authCode) {
           member.roles.add("803274143390105600");
           member.send("Code accepted!\nWelcome to the server!")
-          bot.authCodes.delete(message.author.id);
+          client.authCodes.delete(message.author.id);
         } else {
           member.send("Sorry, that's not the right code. Please verify with your email again!")
         };
@@ -79,7 +81,7 @@ module.exports = {
 
     if (args[0] === "other") {
       if (args[1].toLowerCase() === "dcu-esports") {
-        let guildToFind = bot.guilds.cache.find(g => g.id === "802256858198835220")
+        let guildToFind = client.guilds.cache.find(g => g.id === "802256858198835220")
         let member = guildToFind.members.cache.find(m => m.id === message.author.id)
         verifChannel = member.guild.channels.cache.find((c) => c.id === "803300136410808340");
 

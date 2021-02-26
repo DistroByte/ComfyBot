@@ -11,7 +11,7 @@ module.exports = {
     description: 'Shows leaderboard',
     accessableby: 'Members'
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let guildLevels = await GuildLevels.findOne({
       guildId: message.guild.id
     }).exec()

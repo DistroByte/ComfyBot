@@ -8,11 +8,10 @@ module.exports = {
     usage: '<user> <amount>',
     category: 'ranking',
     description: 'Sets a user\'s XP',
-    accessableby: 'Owner'
+    accessableby: 'Owner',
+    args: true
   },
   run: async (client, message, args) => {
-    // let member = message.guild.members.cache.find(m => m.id === message.author.id)
-    // if (!member.hasPermission('ADMINISTRATOR')) return message.channel.send("You don't have the correct perms!")
     if (!message.author.id == ownerid) return message.channel.send("You don't have the correct perms!")
 
     if (!message.mentions.members.first()) return message.channel.send("Please specify a user!")

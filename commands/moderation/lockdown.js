@@ -4,12 +4,11 @@ module.exports = {
     usage: '<start/stop> <duration>',
     category: 'moderation',
     description: 'Mutes the whole server',
-    accessableby: 'Moderators'
+    accessableby: 'Moderators',
+    permissions: 'MANAGE_ROLES',
+    args: true
   },
   run: async (client, message, args) => {
-    if (!message.member.hasPermission('MANAGE_ROLES') || !message.guild.owner)
-      return message.channel.send('You dont have permission to use this command.');
-
     message.guild.members.fetch().then(console.log)
 
     let muteRole = message.guild.roles.cache.find(r => r.name === 'Lockdown');

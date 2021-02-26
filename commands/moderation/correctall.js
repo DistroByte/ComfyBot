@@ -10,12 +10,13 @@ module.exports = {
     usage: '<word to correct for> <word to correct with>',
     category: 'moderation',
     accessableby: 'Moderator',
+    permissions: 'ADMINISTRATOR',
+    args: true
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     if (message.author.id !== ownerid)
       return message.channel
         .send("You're not an admin, nice try though :P")
-        .then((m) => m.delete({ timeout: 5000 }));
 
     let first = args[0].toLowerCase();
     let second = message.content.split(' ').splice(2).join(' ');

@@ -7,9 +7,11 @@ module.exports = {
     usage: '<time> <poll name>',
     category: 'reactions',
     description: 'Creates a yes/no that can only be reacted to once',
-    accessableby: 'Moderators'
+    accessableby: 'Moderators',
+    permissions: 'MANAGE_MESSAGES',
+    args: true
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     message.delete();
     let time = args.shift()
     let title = args.join(' ')

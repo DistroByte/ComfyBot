@@ -8,12 +8,10 @@ module.exports = {
     category: 'moderation',
     accessableby: 'Moderators',
     aliases: ['unm', 'speak'],
+    permissions: 'MANAGE_ROLES',
+    args: true
   },
-  run: async (bot, message, args) => {
-    // check if the command caller has permission to use the command
-    if (!message.member.hasPermission('MANAGE_ROLES') || !message.guild.owner)
-      return message.channel.send('You dont have permission to use this command.');
-
+  run: async (client, message, args) => {
     if (!message.guild.me.hasPermission(['MANAGE_ROLES', 'ADMINISTRATOR']))
       return message.channel.send("I don't have permission to add roles!");
 
@@ -30,7 +28,6 @@ module.exports = {
 
     //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
     mutee.roles.remove(muterole.id).then(() => {
-      message.delete({ timeout: 5000, reason: 'tidying up' });
       mutee.send(`Hello, you have been unmuted in ${message.guild.name} for: ${reason}`)
         .catch((err) => console.log(err));
       message.channel.send(`${mutee.user.username} was unmuted!`);

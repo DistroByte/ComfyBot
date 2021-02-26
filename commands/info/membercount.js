@@ -8,15 +8,15 @@ module.exports = {
     category: 'info',
     aliases: ['members'],
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let sEmbed = new MessageEmbed()
       .setColor('GREEN')
       .setThumbnail(message.guild.iconURL)
       .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)
       .addField('**Member Count:**', `${message.guild.memberCount}`, true)
       .setFooter(
-        `ComfyBot | Developed by ${bot.users.cache.get(ownerid).tag}`,
-        bot.user.displayAvatarURL()
+        `ComfyBot | Developed by ${client.users.cache.get(ownerid).tag}`,
+        client.user.displayAvatarURL()
       );
     message.channel.send(sEmbed);
   },

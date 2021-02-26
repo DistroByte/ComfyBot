@@ -16,7 +16,7 @@ module.exports = {
     accessableby: 'Members',
     aliases: ['level', 'lvl', 'exp', 'xp', 'level']
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let guildLevels = await GuildLevels.findOne({
       guildId: message.guild.id
     }).exec()

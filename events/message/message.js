@@ -4,17 +4,19 @@ const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 const { getLevel } = require('../../utils/functions');
+const { ownerid } = require('../../botconfig.json');
 
-module.exports = async (bot, message) => {
+module.exports = async (client, message) => {
   let guildConfig
-  let prefix;
   try {
     guildConfig = await GuildConfig.findOne({
       guildId: message.guild.id
     }).exec();
   } catch (err) {
+    console.log(err);
   }
 
+  let prefix;
   if (!guildConfig) {
     prefix = "!"
   } else {
@@ -27,8 +29,28 @@ module.exports = async (bot, message) => {
   if (message.author.bot) return;
   if (message.content.startsWith(prefix)) {
     try {
-      let commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-      if (commandfile) return commandfile.run(bot, message, args);
+      let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
+      if (commandFile) {
+
+        if (commandFile.config.permissions) {
+          if (message.author.id !== ownerid) {
+            const authorPerms = message.channel.permissionsFor(message.author);
+            if (!authorPerms || !authorPerms.has(commandFile.config.permissions)) {
+              return message.reply('you don\'t have the correct permissions!');
+            }
+          }
+        }
+
+        if (commandFile.config.args && !args.length) {
+          let reply = `Please provide some arguments, ${message.author}!`
+          if (commandFile.config.usage) {
+            reply += `\nThe proper usage would be: \`${prefix}${commandFile.config.name} ${commandFile.config.usage}\``;
+          }
+          return message.channel.send(reply);
+        }
+
+        return commandFile.run(client, message, args);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -55,18 +77,19 @@ module.exports = async (bot, message) => {
       }
     }
 
-    if (message.guild.id !== "713522800081764392") {
+    if (guildConfig.sendDuplicates) {
       message.channel.messages.fetch({ limit: 3 }).then(messages => {
         let values = messages.values()
         let secondLastMessage = values.next().value
         let lastMessage = values.next().value
+        if (!lastMessage.content || !secondLastMessage.content) return
         if (lastMessage.content === secondLastMessage.content) {
           message.channel.send(message.content)
         }
       })
     }
 
-    if (bot.talkedRecently.has(message.author.id)) return;
+    if (client.talkedRecently.has(message.author.id)) return;
 
     let guildLevels = await GuildLevels.findOne({
       guildId: message.guild.id
@@ -100,9 +123,9 @@ module.exports = async (bot, message) => {
     }
     guildLevels.save()
 
-    bot.talkedRecently.add(message.author.id);
+    client.talkedRecently.add(message.author.id);
     setTimeout(() => {
-      bot.talkedRecently.delete(message.author.id);
+      client.talkedRecently.delete(message.author.id);
     }, 30000);
   }
 };

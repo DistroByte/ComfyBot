@@ -7,7 +7,8 @@ module.exports = {
     usage: '<your suggestion>',
     category: 'info',
     description: 'Adds an embed with your idea! Moderators can type !suggestion approve/decline <message ID>',
-    accessableby: 'Members'
+    accessableby: 'Members',
+    args: true
   },
   run: async (client, message, args) => {
     message.delete();

@@ -10,15 +10,13 @@ module.exports = {
     usage: '<id>',
     category: 'reactions',
     description: 'Enables the bot to add roles via reactions. Type done when finished',
-    accessableby: 'Admins'
+    accessableby: 'Admins',
+    permissions: 'MANAGE_ROLES',
+    args: true
   },
-  run: async (bot, message, args) => {
-    if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('You don\'t have permission to use that command!')
-
+  run: async (client, message, args) => {
     if (!args[0]) {
-      message.channel.send('Please include a message ID!').then(m => {
-        m.delete({ timeout: 5000 }).catch(err => console.log(err))
-      })
+      return message.channel.send('Please include a message ID!')
     } else {
       try {
         let fetchedMessage = await message.channel.messages.fetch(args[0])
@@ -35,10 +33,10 @@ module.exports = {
             let [emojiName, roleName] = msg.content.split(/,\s+/);
             if (!emojiName && !roleName) return;
             let emoji = cache.find(emoji => emoji.name.toLowerCase() === emojiName.toLowerCase());
-            if (!emoji) return msg.channel.send('Emoji does not exist').then(msg => msg.delete({ timeout: 5000 })).catch(err => console.log(err));
+            if (!emoji) return msg.channel.send('Emoji does not exist')
 
             let role = msg.guild.roles.cache.find(role => role.name.toLowerCase() == roleName.toLowerCase())
-            if (!role) return msg.channel.send('Role does not exist. Try again.').then(msg => msg.delete({ timeout: 5000 })).catch(err => console.log(err));
+            if (!role) return msg.channel.send('Role does not exist. Try again.')
 
             fetchedMessage.react(emoji).catch(err => console.log(err))
             var e = emoji.id
@@ -51,16 +49,14 @@ module.exports = {
               message.channel.send('A role reaction for this message exists already!')
             } else {
               emojiRoleStore.set(fetchedMessage.id, obj)
-              message.channel.send('Success!').then(m => m.delete({ timeout: 5000 }))
+              message.channel.send('Success!')
             }
           });
         }
       } catch (err) {
         console.log(err);
-        message.channel.send('Message was not found!').then(m => {
-          m.delete({ timeout: 5000 }).catch(err => console.log(err))
-        });
-      }
+        message.channel.send('Message was not found!')
+      };
     }
   }
 }

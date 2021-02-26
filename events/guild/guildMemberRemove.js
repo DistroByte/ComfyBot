@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const GuildConfig = require('../../database/schemas/GuildConfig')
 
-module.exports = async (bot, member) => {
+module.exports = async (client, member) => {
   let guildConfig = await GuildConfig.findOne({ guildId: member.guild.id })
 
   if (!guildConfig.logLeaves) return

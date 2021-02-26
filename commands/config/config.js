@@ -3,10 +3,12 @@ const GuildConfig = require('../../database/schemas/GuildConfig');
 module.exports = {
   config: {
     name: 'config',
-    usage: '<editsdeletes/leaves> (true/false) || <levelupmessage> (channel/dm/none)',
+    usage: '<editsdeletes/leaves/duplicates> (true/false) || <levelupmessage> (channel/dm/none)',
     category: 'config',
     description: 'Allows the owner to configure the bot\'s server options',
-    accessableby: 'Owner'
+    accessableby: 'Owner',
+    permissions: 'ADMINISTRATOR',
+    args: true
   },
   run: async (client, message, args) => {
     let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
@@ -37,6 +39,14 @@ module.exports = {
       guildConfig = await GuildConfig.findOne({ guildId: message.guild.id });
       if (guildConfig.logEditsDeletes) { message.channel.send("**Success!**\nI will now start to log user leaves!") }
       else message.channel.send("**Success!**\nI will no longer log user leaves!")
+    }
+
+    if (args[0] === "duplicates") {
+      if (!args[1]) return message.channel.send("Please specify if you want to the bot to send duplicate message with `true` or `false`!")
+      await GuildConfig.findOneAndUpdate({ guildId: message.guild.id }, { sendDuplicates: args[1] });
+      guildConfig = await GuildConfig.findOne({ guildId: message.guild.id });
+      if (guildConfig.logEditsDeletes) { message.channel.send("**Success!**\nI will now start send duplicate messages!") }
+      else message.channel.send("**Success!**\nI will no longer send duplicate messages!")
     }
   }
 }

@@ -1,5 +1,5 @@
 const { ownerid } = require('../../botconfig.json');
-const reload = require('../../handlers/command');
+const fs = require('fs');
 
 module.exports = {
   config: {
@@ -8,11 +8,33 @@ module.exports = {
     usage: '<command>',
     category: 'owner',
     description: 'Reloads commands for testing',
-    accessableby: 'Owner'
+    accessableby: 'Owner',
+    args: true
   },
   run: async (client, message, args) => {
-    if (message.author.id !== ownerid) return message.reply('You can\'t use this command!').then(m => m.delete({ timeout: 5000 }));
+    if (message.author.id !== ownerid) return message.reply("You can't use that command!")
 
-    message.channel.send("FIX ME 🔪");
+    const commandName = args[0].toLowerCase();
+    const command = client.commands.get(commandName)
+      || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+    if (!command) {
+      return message.channel.send(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
+    }
+
+    const commandFolders = fs.readdirSync('./commands');
+    const folderName = commandFolders.find(folder => fs.readdirSync(`./commands/${folder}`).includes(`${commandName}.js`));
+
+    delete require.cache[require.resolve(`../${folderName}/${command.config.name}.js`)];
+
+    try {
+      const newCommand = require(`../${folderName}/${command.config.name}.js`);
+      client.commands.set(newCommand.config.name, newCommand);
+      message.channel.send(`Reloaded \`${command.config.name}\``);
+      console.log(`Reloaded \`${command.config.name}\`: ${new Date().toString().slice(4, 24)}`)
+    } catch (error) {
+      console.error(error);
+      message.channel.send(`Error while reloading command \`${command.config.name}\`:\n\`${error.message}\``);
+    } if (!command) return message.channel.send(`There is no command with name or alias \`${commandName}\`!`);
   }
 }

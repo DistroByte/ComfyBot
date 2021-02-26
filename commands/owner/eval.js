@@ -14,7 +14,7 @@ module.exports = {
     category: 'owner',
     usage: `<input>`,
   },
-  run: async (bot, message, args) => {
+  run: async (client, message, args) => {
     let guildConfig = await GuildConfig
     let guildLevels = await GuildLevels
     if (message.author.id == ownerid) {

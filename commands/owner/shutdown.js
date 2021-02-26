@@ -8,8 +8,8 @@ module.exports = {
     accessableby: 'owner',
     aliases: ['botstop', 'restart'],
   },
-  run: async (bot, message, args) => {
-    if (!message.author.id === ownerid || !message.author.id === dev1)
+  run: async (client, message, args) => {
+    if (message.author.id !== ownerid)
       return message.channel.send("You're not the bot the owner!");
 
     try {

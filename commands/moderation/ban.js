@@ -7,10 +7,11 @@ module.exports = {
     usage: '<member> (reason)',
     category: 'moderation',
     accessableby: 'Administrators',
+    permissions: 'BAN_MEMBERS',
     aliases: ['b', 'banish', 'remove'],
+    args: true
   },
-  run: async (bot, message, args) => {
-    message.delete();
+  run: async (client, message, args) => {
     if (!message.member.hasPermission(['BAN_MEMBERS', 'ADMINISTRATOR']))
       return message.channel.send(
         'You do not have permission to perform this command!'
