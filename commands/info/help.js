@@ -39,7 +39,7 @@ module.exports = {
         try {
           embed.addField(
             `${capitalise} [${dir.size}]:`,
-            dir.map((c) => `\`${c.config.name}\``).join(' ')
+            dir.map((c) => `\`${c.config.name}\`: ${c.config.description}`).join('\n')
           );
         } catch (e) { }
       });
