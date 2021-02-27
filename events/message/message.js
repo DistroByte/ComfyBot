@@ -3,8 +3,7 @@ const correct = new storage('correct');
 const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
-const { getLevel } = require('../../utils/functions');
-const { ownerid } = require('../../botconfig.json');
+const { getLevel, sendDuplicates } = require('../../utils/functions');
 
 module.exports = async (client, message) => {
   let guildConfig
@@ -13,16 +12,9 @@ module.exports = async (client, message) => {
       guildId: message.guild.id
     }).exec();
   } catch (err) {
-    console.log(err);
   }
 
-  let prefix;
-  if (!guildConfig) {
-    prefix = "!"
-  } else {
-    prefix = guildConfig.prefix
-  }
-
+  let prefix = guildConfig ? guildConfig.prefix : "!"
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
   let cmd = args.shift().toLowerCase();
 
@@ -31,9 +23,8 @@ module.exports = async (client, message) => {
     try {
       let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
       if (commandFile) {
-
         if (commandFile.config.permissions) {
-          if (message.author.id !== ownerid) {
+          if (message.author.id !== client.ownerId) {
             const authorPerms = message.channel.permissionsFor(message.author);
             if (!authorPerms || !authorPerms.has(commandFile.config.permissions)) {
               return message.reply('you don\'t have the correct permissions!');
@@ -49,6 +40,7 @@ module.exports = async (client, message) => {
           return message.channel.send(reply);
         }
 
+        console.log(commandFile.config.name);
         return commandFile.run(client, message, args);
       }
     } catch (e) {
@@ -77,24 +69,10 @@ module.exports = async (client, message) => {
       }
     }
 
-    if (guildConfig.sendDuplicates) {
-      message.channel.messages.fetch({ limit: 3 }).then(messages => {
-        let values = messages.values()
-        let secondLastMessage = values.next().value
-        let lastMessage = values.next().value
-        if (!lastMessage.content || !secondLastMessage.content) return
-        if (lastMessage.content === secondLastMessage.content) {
-          message.channel.send(message.content)
-        }
-      })
-    }
-
+    if (guildConfig.sendDuplicates) sendDuplicates(message)
     if (client.talkedRecently.has(message.author.id)) return;
 
-    let guildLevels = await GuildLevels.findOne({
-      guildId: message.guild.id
-    }).exec()
-
+    let guildLevels = await GuildLevels.findOne({ guildId: message.guild.id })
     let xpToAdd = Number(Math.floor((Math.random() * 15) + 15))
     let membersXp = guildLevels.memberXp
 
