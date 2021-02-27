@@ -50,7 +50,12 @@ const GuildConfigSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.Boolean,
     required: false,
     default: true
-  }
+  },
+  lockdown: {
+    type: mongoose.SchemaTypes.Boolean,
+    required: false,
+    default: false
+  },
 });
 
 module.exports = mongoose.model('GuildConfig', GuildConfigSchema);
