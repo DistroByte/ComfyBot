@@ -1,51 +1,32 @@
+const GuildConfig = require('../../database/schemas/GuildConfig')
+
 module.exports = {
   config: {
     name: 'lockdown',
-    usage: '<start/stop> <duration>',
     category: 'moderation',
-    description: 'Mutes the whole server',
-    accessableby: 'Moderators',
-    permissions: 'MANAGE_ROLES',
-    args: true
+    description: 'Toggles allowing users to send messages in any channel',
+    accessableby: 'Admins',
+    permissions: 'ADMINISTRATOR',
   },
   run: async (client, message, args) => {
-    message.guild.members.fetch().then(console.log)
+    let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
+    const everyone = message.guild.roles.everyone
 
-    let muteRole = message.guild.roles.cache.find(r => r.name === 'Lockdown');
-    if (!muteRole) {
-      muteRole = await message.guild.roles.create({
-        data: {
-          name: 'Lockdown',
-          color: '#514f48',
-          permissions: [],
-        }
-      });
-      message.guild.channels.cache.forEach(async (channel, id) => {
-        await channel.updateOverwrite(muteRole,
-          {
-            SEND_MESSAGES: false,
-            ADD_REACTIONS: false,
-            SEND_TTS_MESSAGES: false,
-            ATTACH_FILES: false,
-            SPEAK: true,
-            READ_MESSAGE_HISTORY: false,
-          }
-        );
-      });
-    }
-
-    if (args[0] === "start") {
-      message.guild.members.cache.forEach(async (member, id) => {
-        await member.roles.add(muteRole);
+    try {
+      message.guild.channels.cache.forEach(c => {
+        c.updateOverwrite(everyone, { SEND_MESSAGES: guildConfig.lockdown ? null : false })
       })
-      message.channel.send("Lockdown started!");
-    }
-    if (args[0] === "stop") {
-      message.guild.members.cache.forEach(async (member, id) => {
-        await member.roles.remove(muteRole);
-      })
-      message.channel.send("Lockdown over!")
+    } catch (err) {
+      console.log(err);
     }
 
+    await GuildConfig.findOneAndUpdate({ guildId: message.guild.id }, { lockdown: !guildConfig.lockdown });
+    guildConfig = await GuildConfig.findOne({ guildId: message.guild.id });
+
+    if (guildConfig.lockdown) {
+      message.channel.send("**Success!**\nServer in lockdown")
+    } else {
+      message.channel.send("**Success!**\nServer no longer in lockdown")
+    }
   }
 }
