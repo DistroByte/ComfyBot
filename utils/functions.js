@@ -75,4 +75,15 @@ module.exports = {
   getLevelXp: function (lvl) {
     return levelXp = 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100
   },
+  sendDuplicates: async function (message) {
+    message.channel.messages.fetch({ limit: 3 }).then(messages => {
+      let values = messages.values()
+      let secondLastMessage = values.next().value
+      let lastMessage = values.next().value
+      if (!lastMessage.content || !secondLastMessage.content) return
+      if (lastMessage.content === secondLastMessage.content) {
+        message.channel.send(message.content)
+      }
+    })
+  },
 };
