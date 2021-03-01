@@ -10,7 +10,7 @@ module.exports = {
   },
   run: async (client, message, args) => {
     if (message.author.id !== ownerid)
-      return message.channel.send("You're not the bot the owner!");
+      return message.channel.send("You're not the bot owner!");
 
     try {
       await message.react('👋');

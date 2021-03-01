@@ -12,6 +12,7 @@ module.exports = {
     args: true,
   },
   run: async (client, message, args) => {
+    console.log(message.author.username, message.content)
     channel = client.channels.cache.get('815116475069235221')
     channel.send(args.join(" "))
   }

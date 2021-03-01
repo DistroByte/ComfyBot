@@ -11,7 +11,7 @@ module.exports = async (client, guild) => {
       guildId: guild.id,
       memberXp: {}
     });
-    console.log("New server added!");
+    console.log("New server added!", guild.name);
   } catch (err) {
     console.log(err);
   };

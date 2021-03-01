@@ -40,7 +40,7 @@ module.exports = async (client, message) => {
           return message.channel.send(reply);
         }
 
-        console.log(commandFile.config.name);
+        console.log(`${commandFile.config.name} used: ${new Date().toString().slice(4, 24)}`);
         return commandFile.run(client, message, args);
       }
     } catch (e) {

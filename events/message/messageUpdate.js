@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 
 module.exports = async (client, oldMessage, newMessage) => {
+  if (newMessage.channel.type === 'dm') return
   let guildConfig = await GuildConfig.findOne({ guildId: newMessage.guild.id })
 
   if (!guildConfig.logEditsDeletes) return

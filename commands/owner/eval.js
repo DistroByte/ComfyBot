@@ -33,8 +33,6 @@ module.exports = {
       } catch (e) {
         return message.channel.send(`Error while evaluating: \`${e.message}\``);
       }
-    } else {
-      return message.reply(' you are not the bot owner!')
     }
   },
 };
