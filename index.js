@@ -9,11 +9,10 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () { console.log("Connected to DB"); });
 
-client.authCodes = new Map();
 client.talkedRecently = new Set();
-client.cachedMessageReactions = new Map();
 client.emojiRoleMappings = {};
 client.ownerId = ownerid;
+["authCodes", "cachedMessageReactions"].forEach(x => client[x] = new Map());
 ["commands", "aliases"].forEach(x => client[x] = new Collection());
 ["command", "event"].forEach(x => require(`./handlers/${x}`)(client));
 
