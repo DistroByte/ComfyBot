@@ -51,7 +51,7 @@ module.exports = {
       slice = leaderboard.length
     }
 
-    embed.addField(`You (${message.member.displayName}) are rank ${authRank} (page ${Math.floor(authRank / 10) + 1})`, leaderboard.slice(0, slice));
+    embed.addField(`You (${message.member.displayName}) are rank #${authRank} (page ${Math.floor(authRank / 10) + 1})`, leaderboard.slice(0, slice));
     message.channel.send(embed);
   }
 }
