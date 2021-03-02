@@ -1,5 +1,6 @@
 const storage = require('storage-to-json');
 const correct = new storage('correct');
+const reactStore = new storage('react');
 const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
@@ -55,6 +56,16 @@ module.exports = async (client, message) => {
         var value = correctme[key];
         if (message.content.toLowerCase().includes(key)) {
           message.channel.send(value);
+        }
+      }
+    }
+
+    let react = reactStore.get_storage();
+    if (!message.content.includes('react')) {
+      for (var key in react) {
+        var value = react[key];
+        if (message.content.toLowerCase().includes(key)) {
+          message.react(value);
         }
       }
     }
