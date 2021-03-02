@@ -8,6 +8,7 @@ module.exports = {
     accessableby: 'Owner',
     permissions: 'ADMINISTRATOR',
     args: true,
+    hidden: true
   },
   run: async (client, message, args) => {
     if (message.author.id !== client.ownerId) return

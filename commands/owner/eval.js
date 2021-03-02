@@ -1,4 +1,3 @@
-const { ownerid } = require('../../botconfig.json');
 const { inspect } = require('util');
 var { MessageEmbed } = require('discord.js');
 const GuildLevels = require('../../database/schemas/GuildLevels');
@@ -13,25 +12,30 @@ module.exports = {
     accessableby: 'owner',
     category: 'owner',
     usage: `<input>`,
+    args: true,
+    permissions: 'ADMINISTRATOR'
   },
   run: async (client, message, args) => {
+    const clean = text => {
+      if (typeof (text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+      else
+        return text;
+    }
+
     let guildConfig = await GuildConfig
     let guildLevels = await GuildLevels
-    if (message.author.id == ownerid) {
+    if (message.author.id === client.ownerId) {
       try {
-        let toEval = args.join(' ');
-        let evaluated = inspect(eval(toEval, { depth: 0 }));
+        const code = args.join(" ");
+        let evaled = eval(code);
 
-        if (!toEval) {
-          return message.channel.send(`Error while evaluating: \`air\``);
-        } else {
-          let hrStart = process.hrtime();
-          let hrDiff;
-          hrDiff = process.hrtime(hrStart);
-          return message.channel.send(`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*\n\`\`\`javascript\n${evaluated}\n\`\`\``, { maxLength: 1900 });
-        }
-      } catch (e) {
-        return message.channel.send(`Error while evaluating: \`${e.message}\``);
+        if (typeof evaled !== "string")
+          evaled = require("util").inspect(evaled);
+
+        message.channel.send(clean(evaled), { code: "xl" });
+      } catch (err) {
+        message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
       }
     }
   },

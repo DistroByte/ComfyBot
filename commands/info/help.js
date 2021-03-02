@@ -33,12 +33,12 @@ module.exports = {
       );
 
       categories.forEach((category) => {
-        const dir = client.commands.filter((c) => c.config.category === category);
+        const dir = client.commands.filter((c) => c.config.category === category && !c.config.hidden);
         const capitalise =
           category.slice(0, 1).toUpperCase() + category.slice(1);
         try {
           embed.addField(
-            `${capitalise} [${dir.size}]:`,
+            `**${capitalise} [${dir.size}]:**`,
             dir.map((c) => `\`${c.config.name}\`: ${c.config.description}`).join('\n')
           );
         } catch (e) { }

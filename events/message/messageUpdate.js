@@ -18,10 +18,6 @@ module.exports = async (client, oldMessage, newMessage) => {
           id: oldMessage.guild.id,
           deny: ['VIEW_CHANNEL'],
         },
-        {
-          id: message.guild.roles.cache.find(r => r.name.toLowerCase() === "moderator" || r.name.toLowerCase() === "mod"),
-          allow: ['VIEW_CHANNEL'],
-        }
       ],
     });
   }

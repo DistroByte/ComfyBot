@@ -6,7 +6,8 @@ module.exports = {
     aliases: ['tester'],
     category: 'owner',
     description: 'Test command',
-    accessableby: 'Owner'
+    accessableby: 'Owner',
+    hidden: true,
   },
   run: async (client, message, args) => {
     function capitalizeFirstLetter(string) {
