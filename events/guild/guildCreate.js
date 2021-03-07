@@ -5,7 +5,8 @@ module.exports = async (client, guild) => {
   try {
     const guildConfig = await GuildConfig.create({
       guildId: guild.id,
-      ownerId: guild.ownerID
+      ownerId: guild.ownerID,
+      guildIcon: guild.iconUrl({ format: "png", dynamic: true })
     });
     const guildLevels = await GuildLevels.create({
       guildId: guild.id,
