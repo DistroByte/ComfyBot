@@ -1,4 +1,3 @@
-
 module.exports = async (client, member) => {
   let guildId = member.guild.id
   if (guildId === "759921793422458901") {
