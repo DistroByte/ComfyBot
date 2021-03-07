@@ -1,12 +1,12 @@
 const storage = require('storage-to-json');
 const correct = new storage('correct');
-const reactStore = new storage('react');
 const caSend = new storage('computerAppsCorrect');
 const GuildConfig = require('../../database/schemas/GuildConfig');
 const GuildLevels = require('../../database/schemas/GuildLevels');
 const { getLevel, sendDuplicates } = require('../../utils/functions');
 
 module.exports = async (client, message) => {
+  client.messageCount += 1;
   let guildConfig
   try {
     guildConfig = await GuildConfig.findOne({
@@ -41,7 +41,8 @@ module.exports = async (client, message) => {
           return message.channel.send(reply);
         }
 
-        console.log(`${commandFile.config.name} used: ${new Date().toString().slice(4, 24)}`);
+        client.commandCount += 1
+        console.log(`${new Date().toString().slice(4, 24)}: ${message.author.username} used ${commandFile.config.name} ${args}`);
         return commandFile.run(client, message, args);
       }
     } catch (e) {
@@ -56,16 +57,6 @@ module.exports = async (client, message) => {
         var value = correctme[key];
         if (message.content.toLowerCase().includes(key)) {
           message.channel.send(value);
-        }
-      }
-    }
-
-    let react = reactStore.get_storage();
-    if (!message.content.includes('react')) {
-      for (var key in react) {
-        var value = react[key];
-        if (message.content.toLowerCase().includes(key)) {
-          message.react(value);
         }
       }
     }
