@@ -6,7 +6,7 @@ module.exports = {
     name: 'xkcd',
     description: 'xkcd comics, get the latest or search a comic!',
     usage: '<latest|search (id)>',
-    category: 'fun',
+    category: 'apis',
     args: true
   },
   run: async (client, message, args) => {

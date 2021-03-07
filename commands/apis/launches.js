@@ -3,10 +3,10 @@ const fetch = require('node-fetch');
 
 module.exports = {
   config: {
-    name: 'space',
-    aliases: ['space', 'launch'],
+    name: 'launches',
+    aliases: ['launch'],
     usage: '(number (default=3))',
-    category: 'fun',
+    category: 'apis',
     description: 'Fetches the next 3 space launches and returns them in a nice embed',
     accessableby: 'Members'
   },
