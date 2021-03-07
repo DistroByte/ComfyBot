@@ -1,6 +1,6 @@
 const { readdirSync } = require("fs");
 
-module.exports = (bot) => {
+module.exports = (client) => {
   const load = (dirs) => {
     const commands = readdirSync(`./commands/${dirs}/`).filter((d) =>
       d.endsWith(".js")
@@ -8,13 +8,13 @@ module.exports = (bot) => {
     for (let file of commands) {
       let pull = require(`../commands/${dirs}/${file}`);
       try {
-        bot.commands.set(pull.config.name, pull);
+        client.commands.set(pull.config.name, pull);
       } catch (e) {
         console.log(e);
       }
       try {
         if (pull.config.aliases) {
-          pull.config.aliases.forEach((a) => bot.aliases.set(a, pull.config.name));
+          pull.config.aliases.forEach((a) => client.aliases.set(a, pull.config.name));
         }
       } catch (e) {
         console.log(e);
@@ -22,6 +22,7 @@ module.exports = (bot) => {
     }
   };
   [
+    "apis",
     "config",
     "dmcommands",
     "fun",
