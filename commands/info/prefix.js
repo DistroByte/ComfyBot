@@ -13,10 +13,10 @@ module.exports = {
     let guildConfig = await GuildConfig.findOne({ guildId: message.guild.id })
     message.channel.send(`Current prefix is \`${guildConfig.prefix}\``)
 
-    if (message.author.id !== ownerid)
-      return message.channel.send("You're not the bot the owner!");
 
     if (args[0] === "update" && args[1]) {
+      if (message.author.id !== message.guild.ownerID || message.author.id !== ownerid)
+        return message.channel.send("You're not the bot the owner!");
       await GuildConfig.findOneAndUpdate({ guildId: message.guild.id }, { prefix: args[1] })
       message.channel.send(`Prefix updated to \`${args[1]}\``)
     }
