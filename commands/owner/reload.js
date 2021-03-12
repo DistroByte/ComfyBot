@@ -33,10 +33,10 @@ module.exports = {
         newCommand.config.aliases.forEach((a) => client.aliases.set(a, newCommand.config.name));
       }
       message.react('✅')
-      console.log(`${command.config.name} reloaded: ${new Date().toString().slice(4, 24)}`)
+      console.log(`${new Date().toString().slice(4, 24)}: ${command.config.name} reloaded`)
     } catch (error) {
       console.log(error);
       message.channel.send(`Error while reloading command \`${command.config.name}\`:\n\`${error.message}\``);
-    } if (!command) return message.channel.send(`There is no command with name or alias \`${commandName}\`!`);
+    }
   }
 }

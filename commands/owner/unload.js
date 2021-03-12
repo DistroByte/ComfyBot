@@ -27,7 +27,7 @@ module.exports = {
     try {
       delete require.cache[require.resolve(`../${folderName}/${command.config.name}.js`)];
       message.react('✅')
-      console.log(`${command.config.name} unloaded: ${new Date().toString().slice(4, 24)}`)
+      console.log(`${new Date().toString().slice(4, 24)}: ${command.config.name} unloaded`)
     } catch (error) {
       console.log(error);
       message.channel.send(`Error while unloading command \`${command.config.name}\`:\n\`${error.message}\``);

@@ -42,7 +42,7 @@ module.exports = async (client, message) => {
         }
 
         client.commandCount += 1
-        console.log(`${new Date().toString().slice(4, 24)}: ${message.author.username} used ${commandFile.config.name} ${args}`);
+        console.log(`${new Date().toString().slice(4, 24)}: ${message.author.tag} used ${commandFile.config.name} ${args.join(" ")}`);
         return commandFile.run(client, message, args);
       }
     } catch (e) {

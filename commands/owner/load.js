@@ -21,7 +21,7 @@ module.exports = {
         newCommand.config.aliases.forEach((a) => client.aliases.set(a, newCommand.config.name));
       }
       message.react('✅')
-      console.log(`${newCommand.config.name} loaded: ${new Date().toString().slice(4, 24)}`)
+      console.log(`${new Date().toString().slice(4, 24)}: ${newCommand.config.name} loaded`)
     } catch (error) {
       console.log(error);
       message.channel.send(`Error while loading command \`${commandArgs[1]}\`:\n\`${error.message}\``);

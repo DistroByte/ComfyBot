@@ -32,7 +32,7 @@ module.exports = {
       if (key == user.id) {
         authRank = ranks
       }
-      leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${getLevel(value)}`)
+      leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${getLevel(value) || 0}`)
       ranks += 1
     }
 
