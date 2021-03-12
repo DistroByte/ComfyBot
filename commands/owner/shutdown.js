@@ -1,4 +1,4 @@
-const { ownerid, dev1 } = require('../../botconfig.json');
+const { ownerid } = require('../../botconfig.json');
 
 module.exports = {
   config: {
