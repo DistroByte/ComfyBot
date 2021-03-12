@@ -48,16 +48,9 @@ module.exports = {
       }
     }
 
-    var currentLvl = 0
-    var currentXP = 0
-    var levelXP = 0
-
-    if (xp > 0) {
-      currentLvl = getLevel(xp)
-      currentXP = xp - getCommunitiveXp(currentLvl);
-      levelXP = getLevelXp(currentLvl)
-    }
-
+    var currentLvl = getLevel(xp) || 0
+    var currentXP = xp - getCommunitiveXp(currentLvl) || 0
+    var levelXP = getLevelXp(currentLvl) || 0
 
     context.fillStyle = '#23272A'
     context.fillRect(0, 0, width, height)
