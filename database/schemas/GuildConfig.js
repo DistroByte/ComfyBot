@@ -9,7 +9,7 @@ const GuildConfigSchema = new mongoose.Schema({
   prefix: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    default: '!',
+    default: '>',
   },
   ownerId: {
     type: mongoose.SchemaTypes.String,
@@ -29,7 +29,7 @@ const GuildConfigSchema = new mongoose.Schema({
   },
   guildIcon: {
     type: mongoose.SchemaTypes.String,
-    required: true,
+    required: false,
   },
   logEditsDeletes: {
     type: mongoose.SchemaTypes.Boolean,
@@ -49,7 +49,7 @@ const GuildConfigSchema = new mongoose.Schema({
   sendDuplicates: {
     type: mongoose.SchemaTypes.Boolean,
     required: false,
-    default: true
+    default: false
   },
   lockdown: {
     type: mongoose.SchemaTypes.Boolean,
