@@ -28,6 +28,7 @@ module.exports = (client) => {
     "fun",
     "info",
     "moderation",
+    "music",
     "owner",
     "ranking",
     "reactions"
