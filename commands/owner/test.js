@@ -17,6 +17,7 @@ module.exports = {
     FetchTimetable(args[0], capitalizeFirstLetter(args[1]))
       .then(res => {
         let events = res[0]
+        console.log(events);
         message.channel.send(events.CategoryEvents[args[2] || 0].ExtraProperties[0].Value)
       })
       .catch(err => {
