@@ -7,9 +7,19 @@ module.exports = (client) => {
     );
     for (let file of events) {
       const evt = require(`../events/${dirs}/${file}`);
-      let eName = file.split(".")[0];
-      client.on(eName, evt.bind(null, client));
+      client.on(file.split(".")[0], evt.bind(null, client));
     }
   };
   ["client", "guild", "message"].forEach((x) => load(x));
+
+  const playerLoad = (dirs) => {
+    const events = readdirSync(`./events/${dirs}/`).filter((d) =>
+      d.endsWith(".js")
+    );
+    for (let file of events) {
+      const evt = require(`../events/${dirs}/${file}`);
+      client.player.on(file.split(".")[0], evt.bind(null, client));
+    }
+  };
+  ["player"].forEach((x) => playerLoad(x))
 };
