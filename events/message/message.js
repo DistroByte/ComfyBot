@@ -7,6 +7,11 @@ const { getLevel, sendDuplicates } = require('../../utils/functions');
 
 module.exports = async (client, message) => {
   client.messageCount += 1;
+
+  if (message.guild && !message.member) {
+    await message.guild.members.fetch(message.author.id);
+  }
+
   let guildConfig
   try {
     guildConfig = await GuildConfig.findOne({
@@ -20,6 +25,21 @@ module.exports = async (client, message) => {
   let cmd = args.shift().toLowerCase();
 
   if (message.author.bot) return;
+
+  if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
+    if (message.guild) {
+      return message.channel.send("Hello!", {
+        username: message.author.username,
+        prefix: prefix
+      });
+    } else {
+      return message.channel.send("Hello!", {
+        username: message.author.username
+      });
+    }
+  }
+
+
   if (message.content.startsWith(prefix)) {
     try {
       let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));

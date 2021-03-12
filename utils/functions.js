@@ -113,6 +113,7 @@ module.exports = {
     logEvent(client.uptime, "uptime")
     logEvent(client.messageCount, "messages")
     logEvent(client.commandCount, "commands")
+    logEvent(client.voice.connections.size, "voice_connections")
     client.commandCount = 0;
     client.messageCount = 0;
   }

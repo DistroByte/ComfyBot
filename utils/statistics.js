@@ -6,7 +6,7 @@ const {
 } = require('@influxdata/influxdb-client')
 const flushBatchSize = DEFAULT_WriteOptions.batchSize
 const writeOptions = {
-  batchSize: flushBatchSize + 1,
+  batchSize: flushBatchSize + 5,
   flushInterval: 0,
   maxBufferLines: 30_000,
   maxRetries: 3,
@@ -28,7 +28,7 @@ module.exports = {
       .then(() => { })
       .catch(e => {
         console.error(e)
-        console.log('\\nFinished ERROR')
+        console.log('\nFinished ERROR')
       })
   }
 }
