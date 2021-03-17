@@ -12,7 +12,7 @@ module.exports = {
     args: true
   },
   run: async (client, message, args) => {
-    if (!message.author.id == ownerid) return message.channel.send("You don't have the correct perms!")
+    if (!message.author.id === ownerid) return message.channel.send("You don't have the correct perms!")
 
     if (!message.mentions.members.first()) return message.channel.send("Please specify a user!")
     if (!args[1]) return message.channel.send("Please specify amount of xp to set!")
