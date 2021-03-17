@@ -6,9 +6,6 @@ module.exports = async (client, guild) => {
     const guildConfig = await GuildConfig.deleteOne({
       guildId: guild.id
     });
-    const guildLevels = await GuildLevels.deleteOne({
-      guildId: guild.id
-    });
     console.log("Server removed!", guild.name);
   } catch (err) {
     console.log(err);
