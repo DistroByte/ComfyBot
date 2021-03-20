@@ -110,10 +110,10 @@ module.exports = class {
       return message.channel.send(`Hello **${message.author.username}**, as you are currently in direct message you don't need to add a prefix before a command name.`)
     }
 
-    if (cmd.config.args && !args.length) {
+    if (cmd.conf.args && !args.length) {
       let reply = `Please provide some arguments, ${message.author}!`
       if (cmd.config.usage) {
-        reply += `\nThe proper usage would be: \`${prefix}${cmd.config.name} ${cmd.config.usage}\``;
+        reply += `\nThe proper usage would be: \`${prefix}${cmd.conf.name} ${cmd.conf.usage}\``;
       }
       return message.channel.send(reply);
     }
