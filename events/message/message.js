@@ -110,6 +110,14 @@ module.exports = class {
       return message.channel.send(`Hello **${message.author.username}**, as you are currently in direct message you don't need to add a prefix before a command name.`)
     }
 
+    if (cmd.config.args && !args.length) {
+      let reply = `Please provide some arguments, ${message.author}!`
+      if (cmd.config.usage) {
+        reply += `\nThe proper usage would be: \`${prefix}${cmd.config.name} ${cmd.config.usage}\``;
+      }
+      return message.channel.send(reply);
+    }
+
     if (message.guild && data.guild.ignoredChannels.includes(message.channel.id) && !message.member.hasPermission('MANAGE_MESSAGES')) {
       return message.author.send(`Commands are not allowed in ${message.channel.toString()}!`);
     }
@@ -179,7 +187,7 @@ module.exports = class {
 
     cmdCooldown[message.author.id][cmd.help.name] = Date.now() + cmd.conf.cooldown;
 
-    client.logger.log(`${message.author.username} (${message.author.id}) ran command ${cmd.help.name} ${args.join(" ")}`, 'cmd');
+    client.logger.log(`${message.author.username} (${message.author.id}) ran command ${cmd.help.name} in ${message.guild.name} | Content ${args.join(" ")}`, 'cmd');
 
     const log = new this.client.logs({
       commandName: cmd.help.name,
