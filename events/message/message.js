@@ -187,7 +187,7 @@ module.exports = class {
 
     cmdCooldown[message.author.id][cmd.help.name] = Date.now() + cmd.conf.cooldown;
 
-    client.logger.log(`${message.author.username} (${message.author.id}) ran command ${cmd.help.name} in ${message.guild.name} | Content ${args.join(" ")}`, 'cmd');
+    client.logger.log(`${message.author.username} (${message.author.id}) in ${message.guild.name} | Content ${cmd.help.name} ${args.join(" ")}`, 'cmd');
 
     const log = new this.client.logs({
       commandName: cmd.help.name,
