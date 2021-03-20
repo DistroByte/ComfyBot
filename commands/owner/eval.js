@@ -1,42 +1,55 @@
-const { inspect } = require('util');
-var { MessageEmbed } = require('discord.js');
-const GuildLevels = require('../../database/schemas/GuildLevels');
-const GuildConfig = require('../../database/schemas/GuildConfig');
-const storage = require("storage-to-json");
-const fs = require('fs')
+const Command = require("../../base/Command.js");
 
-module.exports = {
-  config: {
-    name: 'eval',
-    description: 'Evaluates code',
-    accessableby: 'owner',
-    category: 'owner',
-    usage: `<input>`,
-    args: true,
-    permissions: 'ADMINISTRATOR'
-  },
-  run: async (client, message, args) => {
-    const clean = text => {
-      if (typeof (text) === "string")
-        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-      else
-        return text;
-    }
+class Eval extends Command {
+  constructor(client) {
+    super(client, {
+      name: "eval",
+      description: "Executes the given code",
+      usage: "[code]",
+      examples: ["{{p}}eval message.author.send(message.client.token);"],
+      dirname: __dirname,
+      enabled: true,
+      guildOnly: false,
+      aliases: [],
+      memberPermissions: [],
+      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+      nsfw: false,
+      ownerOnly: true,
+      cooldown: 3000
+    });
+  }
 
-    let guildConfig = await GuildConfig
-    let guildLevels = await GuildLevels
-    if (message.author.id === client.ownerId) {
-      try {
-        const code = args.join(" ");
-        let evaled = eval(code);
+  // eslint-disable-next-line no-unused-vars
+  async run(message, args, data) {
 
-        if (typeof evaled !== "string")
-          evaled = require("util").inspect(evaled);
+    // eslint-disable-next-line no-unused-vars
+    const usersData = this.client.usersData;
+    // eslint-disable-next-line no-unused-vars
+    const guildsData = this.client.guildsData;
 
-        message.channel.send(clean(evaled), { code: "xl" });
-      } catch (err) {
-        message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    const content = message.content.split(" ").slice(1).join(" ");
+    const result = new Promise((resolve) => resolve(eval(content)));
+
+    return result.then((output) => {
+      if (typeof output !== "string") {
+        output = require("util").inspect(output, { depth: 0 });
       }
-    }
-  },
-};
+      if (output.includes(this.client.token)) {
+        output = output.replace(this.client.token, "T0K3N");
+      }
+      message.channel.send(output, {
+        code: "js"
+      });
+    }).catch((err) => {
+      err = err.toString();
+      if (err.includes(this.client.token)) {
+        err = err.replace(this.client.token, "T0K3N");
+      }
+      message.channel.send(err, {
+        code: "js"
+      });
+    });
+  }
+}
+
+module.exports = Eval;

@@ -1,31 +1,49 @@
-const { sendLogs } = require("./utils/functions");
-const { Client, Collection } = require("discord.js");
-const { token, url, dbOptions, ownerid, emojis, filters } = require("./botconfig.json");
-const { Player } = require('discord-player');
-const client = new Client({ partials: ['MESSAGE', 'REACTION'] });
+const util = require('util'),
+  fs = require('fs'),
+  readdir = util.promisify(fs.readdir),
+  mongoose = require('mongoose');
 
-const mongoose = require('mongoose');
-mongoose.connect(url, dbOptions);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () { console.log("Connected to DB"); });
+const Comfy = require('./base/Comfy'),
+  client = new Comfy();
 
+const init = async () => {
 
-client.talkedRecently = new Set();
-client.emojiRoleMappings = {};
-client.ownerId = ownerid;
-client.messageCount = 0;
-client.commandCount = 0;
-client.player = new Player(client);
-client.emotes = emojis;
-client.filters = filters;
+  // Loads commands
+  const dirs = await readdir('./commands/');
+  dirs.forEach(async (dir) => {
+    const cmds = await readdir(`./commands/${dir}/`);
+    cmds.filter(cmd => cmd.split('.').pop() === 'js').forEach(cmd => {
+      const res = client.loadCommand(`./commands/${dir}`, cmd);
+      if (res) client.logger.log(res, 'error');
+    });
+  });
 
-["authCodes", "cachedMessageReactions"].forEach(x => client[x] = new Map());
-["commands", "aliases"].forEach(x => client[x] = new Collection());
-["command", "event"].forEach(x => require(`./handlers/${x}`)(client));
+  // Loads events
+  const evtDirs = await readdir('./events/')
+  evtDirs.forEach(async dir => {
+    const evts = await readdir(`./events/${dir}/`);
+    evts.forEach(evt => {
+      const evtName = evt.split('.')[0];
+      const event = new (require(`./events/${dir}/${evt}`))(client);
+      client.on(evtName, (...args) => event.run(...args));
+      delete require.cache[require.resolve(`./events/${dir}/${evt}`)];
+    });
+  });
 
-client.login(token);
+  client.login(client.config.token);
 
-setInterval(function () {
-  sendLogs(client)
-}, 30 * 1000)
+  mongoose.connect(client.config.mongoDB, client.config.dbOptions).then(() => {
+    client.logger.log('Database connected', 'log');
+  }).catch(err => client.logger.log('Error connecting to database. Error:' + err, 'error'));
+}
+
+init()
+
+client.on('disconnect', () => client.logger.log('Bot is disconnecting...', 'warn'))
+  .on('reconnecting', () => client.logger.log('Bot reconnecting...', 'log'))
+  .on('error', (e) => client.logger.log(e, 'error'))
+  .on('warn', (info) => client.logger.log(info, 'warn'));
+
+process.on('unhandledRejection', (err) => {
+  console.error(err);
+});

@@ -1,9 +1,46 @@
-module.exports = async (client, member) => {
-  let guildId = member.guild.id
-  if (guildId === "759921793422458901") {
-    member.send('Hi there! Welcome to the 2024 Computer Applications Discord server! Before we continue, I need to verify you are who you say you are :eyes:\nPlease reply with !verify number <student number (CAO number)> (ignore the angle brackets)!');
+const stringCleaner = require('@sindresorhus/slugify');
+// const Canvas = require('ca')
+const Discord = require('discord.js');
+const { resolve } = require('path');
+
+module.exports = class {
+
+  constructor(client) {
+    this.client = client;
   }
-  if (guildId === "802256858198835220") {
-    member.send('Welcome to the DCU Esports Community server!\nPlease verify using one of the following processes.\n```diff\nTo verify, please follow these instructions.\nIf you are using a DCU account, use this method:\n!verify email DCU-Esports <email address>\n\n> Replace the <email address> with your DCU email address, for example:\n!verify email DCU-Esports james.hackett5@mail.dcu.ie\n\n+ If you are using a non DCU account, use this method:\n!verify other DCU-Esports <reason>\n\nReplace the reason with a reason for joining, for example:\n!verify other I know xyz and he said this server is good fun!\n```')
+
+  async run(member) {
+
+    member.guild.fetch().then(async (guild) => {
+
+      const guildData = await this.client.findOrCreateGuild({ id: guild.id });
+      member.guild.data = guildData;
+
+      const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: guild.id });
+      if (memberData.mute.muted && memberData.mute.endDate > Date.now()) {
+        guild.channels.cache.forEach((channel) => {
+          channel.updateOverwrite(member.id, {
+            SEND_MESSAGES: false,
+            ADD_REACTIONS: false,
+            CONNECT: false
+          }).catch(() => { });
+        });
+      }
+
+      if (guildData.plugins.autorole.enabled) {
+        member.roles.add(guildData.plugins.autorole.role).catch(() => { });
+      }
+
+      if (guildData.plugins.welcome.enabled) {
+        const channel = member.guild.channels.cache.get(guildData.plugins.welcome.channel);
+        if (channel) {
+          const message = guildData.plugins.welcome.message
+            .replace(/{user}/g, member)
+            .replace(/{server}/g, guild.name)
+            .replace(/{membercount}/g, guild.memberCount);
+          channel.send(message);
+        }
+      }
+    });
   }
-};
+}

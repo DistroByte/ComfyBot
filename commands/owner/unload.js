@@ -1,36 +1,33 @@
-const { ownerid } = require('../../botconfig.json');
-const fs = require('fs');
+const Command = require("../../base/Command");
 
-module.exports = {
-  config: {
-    name: 'unload',
-    usage: '<command>',
-    category: 'owner',
-    description: 'Unloads a command',
-    accessableby: 'Owner',
-    args: true
-  },
-  run: async (client, message, args) => {
-    if (message.author.id !== ownerid) return message.reply("You can't use that command!")
+class Unload extends Command {
+  constructor(client) {
+    super(client, {
+      name: "unload",
+      description: "Unloads a command",
+      usage: "[command]",
+      examples: "{{p}}unload help",
+      dirname: __dirname,
+      enabled: true,
+      guildOnly: false,
+      aliases: [],
+      memberPermissions: [],
+      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+      nsfw: false,
+      ownerOnly: true,
+      cooldown: 3000
+    });
+  }
 
-    const commandName = args[0].toLowerCase();
-    const command = client.commands.get(commandName)
-      || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-
-    if (!command) {
-      return message.channel.send(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
+  async run(message, args, data) {
+    const command = args[0];
+    const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
+    if (!cmd) {
+      message.channel.send(`${command} is not an available command`)
     }
-
-    const commandFolders = fs.readdirSync('./commands');
-    const folderName = commandFolders.find(folder => fs.readdirSync(`./commands/${folder}`).includes(`${commandName}.js`));
-
-    try {
-      delete require.cache[require.resolve(`../${folderName}/${command.config.name}.js`)];
-      message.react('✅')
-      console.log(`${new Date().toString().slice(4, 24)}: ${command.config.name} unloaded`)
-    } catch (error) {
-      console.log(error);
-      message.channel.send(`Error while unloading command \`${command.config.name}\`:\n\`${error.message}\``);
-    } if (!command) return message.channel.send(`There is no command with name or alias \`${commandName}\`!`);
+    await this.client.unloadCommand(cmd.conf.location, cmd.help.name);
+    message.channel.send(`${cmd.help.name} successfully unloaded!`)
   }
 }
+
+module.exports = Unload;

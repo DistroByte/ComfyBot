@@ -1,25 +1,36 @@
-module.exports = {
-  config: {
-    name: 'resume',
-    aliases: [],
-    usage: '',
-    category: 'music',
-    description: 'Resumes a paused song',
-    accessableby: 'Members',
-    permissions: '',
-    args: false,
-  },
-  run: async (client, message, args) => {
-    if (!message.member.voice.channel) return message.channel.send(`${client.emotes.error} - You're not in a voice channel!`);
+const Command = require("../../base/Command");
 
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${client.emotes.error} - You are not in the same voice channel!`);
+class Resume extends Command {
+  constructor(client) {
+    super(client, {
+      name: "resume",
+      description: "Resumes after pausing the music!",
+      dirname: __dirname,
+      enabled: true,
+      guildOnly: false,
+      aliases: [],
+      memberPermissions: [],
+      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+      nsfw: false,
+      ownerOnly: false,
+      cooldown: 3000
+    });
+  }
 
-    if (!client.player.getQueue(message)) return message.channel.send(`${client.emotes.error} - No music currently playing!`);
+  async run(message, args, data) {
+    if (!message.member.voice.channel) return message.channel.send(`${this.client.emotes.error} - You're not in a voice channel!`);
 
-    if (!client.player.getQueue(message).paused) return message.channel.send(`${client.emotes.error} - The music is already playing!`);
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${this.client.emotes.error} - You are not in the same voice channel!`);
 
-    const success = client.player.resume(message);
+    if (!this.client.player.getQueue(message)) return message.channel.send(`${this.client.emotes.error} - No music currently playing!`);
 
-    if (success) message.channel.send(`${client.emotes.success} - Song ${client.player.getQueue(message).playing.title} resumed!`);
+    if (!this.client.player.getQueue(message).paused) return message.channel.send(`${this.client.emotes.error} - The music is already playing!`);
+
+    const success = this.client.player.resume(message);
+
+    if (success) message.channel.send(`${this.client.emotes.success} - Song ${this.client.player.getQueue(message).playing.title} resumed!`);
+
   }
 }
+
+module.exports = Resume;

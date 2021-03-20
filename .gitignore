@@ -106,3 +106,5 @@ dist
 botconfig.json
 storage
 ecosystem.config.js
+config.js
+/dashboard/*

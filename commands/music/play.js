@@ -1,20 +1,32 @@
-const ytdl = require('ytdl-core');
+const Command = require("../../base/Command.js");
 
-module.exports = {
-  config: {
-    name: 'play',
-    aliases: ['p'],
-    usage: '<song name>',
-    category: 'music',
-    description: 'Join a voice channel and play the song!',
-    accessableby: 'Members',
-    permissions: '',
-    args: true,
-  },
-  run: async (client, message, args) => {
-    if (!message.member.voice.channel) return message.channel.send(`${client.emotes.error} - You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${client.emotes.error} - You are not in the same voice channel!`);
+class Play extends Command {
 
-    client.player.play(message, args.join(" "), { firstResult: true });
+  constructor(client) {
+    super(client, {
+      name: "play",
+      description: "Plays music for you! Works with Spotify links for both songs and playlists",
+      usage: "[song]",
+      examples: "{{p}}play Despacito",
+      dirname: __dirname,
+      enabled: true,
+      guildOnly: true,
+      aliases: ["p"],
+      memberPermissions: [],
+      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
+      nsfw: false,
+      ownerOnly: false,
+      cooldown: 5000
+    });
   }
+
+  async run(message, args) {
+    if (!message.member.voice.channel) return message.channel.send(`${this.client.emotes.error} - You're not in a voice channel!`);
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${this.client.emotes.error} - You are not in the same voice channel!`);
+
+    await this.client.player.play(message, args.join(" "), { firstResult: true });
+  }
+
 }
+
+module.exports = Play;
