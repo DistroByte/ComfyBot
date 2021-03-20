@@ -112,7 +112,7 @@ module.exports = class {
 
     if (cmd.conf.args && !args.length) {
       let reply = `Please provide some arguments, ${message.author}!`
-      if (cmd.config.usage) {
+      if (cmd.conf.usage) {
         reply += `\nThe proper usage would be: \`${prefix}${cmd.conf.name} ${cmd.conf.usage}\``;
       }
       return message.channel.send(reply);
