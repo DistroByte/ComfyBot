@@ -10,7 +10,7 @@ class Calc extends Command {
       usage: "[calculation]",
       examples: ["{{p}}calc 10 * 5 + sin(3)", "{{p}}calc 10cm to m"],
       dirname: __dirname,
-      enabled: true,
+      enabled: false,
       guildOnly: false,
       aliases: [],
       memberPermissions: [],
