@@ -46,4 +46,8 @@ client.on('disconnect', () => client.logger.log('Bot is disconnecting...', 'warn
 
 process.on('unhandledRejection', (err) => {
   console.error(err);
+  try {
+    const ch = await client.channels.fetch("823166851668246548");
+    ch.send(err);
+  } catch (err) { }
 });
