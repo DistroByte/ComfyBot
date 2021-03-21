@@ -29,7 +29,7 @@ class Help extends Command {
       if (!cmd && isCustom) {
         return message.channel.send('A custom command doesn\'t have help page');
       } else if (!cmd) {
-        return message.error(`\`${args[0]}\` is not a valid command`);
+        return message.channel.send(`\`${args[0]}\` is not a valid command`);
       }
 
       const description = cmd.help.description ? cmd.help.description : 'No description';
