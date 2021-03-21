@@ -39,6 +39,8 @@ class Comfy extends Client {
     this.databaseCache.usersReminds = new Collection();
     this.databaseCache.mutedUsers = new Collection();
 
+    this.authCodes = new Map();
+
     this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
 
     this.player = new Player(this, { leaveOnEmpty: false });

@@ -26,7 +26,7 @@ class Verify extends Command {
     if (!args[0]) return message.reply('Please specify verification type!');
 
     const emailFilter = m => {
-      emailArgs = m.toLowerCase().split("@");
+      const emailArgs = m.toLowerCase().split("@");
       if (emailArgs[1] === "mail.dcu.ie") {
         return true;
       } else return false;
@@ -53,15 +53,15 @@ class Verify extends Command {
 
     if (args[0] === "email") {
       if (args[1].toLowerCase() === "dcu-esports") {
-        if (this.client.authCodes.get(message.author.id)) return message.channel.send("**You already have a code!**\nPlease check your email for a code and use:\n```\n!verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n```")
+        if (this.client.authCodes.get(message.author.id)) return message.channel.send("**You already have a code!**\nPlease check your email for a code and use:\n```\nverify code DCU-Esports <code>\nfor example:\nverify code DCU-Esports 123456\n```")
         if (emailFilter(args[2])) {
           const authCode = Math.floor(Math.random() * 1000000)
           this.client.authCodes.set(message.author.id, authCode);
-          this.this.client.functions.sendEmail(args[2], authCode, (callback) => {
+          this.client.functions.sendEmail(args[2], authCode, (callback) => {
             if (callback.rejected.length > 0) {
               message.channel.send("Sorry, there seems to be an error with your email. Please try again!")
             } else {
-              message.channel.send(`Email sent! Check your \`${args[2]}\` inbox! Please send:\n\`\`\`diff\n+ !verify code DCU-Esports <code>\nfor example:\n!verify code DCU-Esports 123456\n\`\`\``)
+              message.channel.send(`Email sent! Check your \`${args[2]}\` inbox! Please send:\n\`\`\`diff\n+ verify code DCU-Esports <code>\nfor example:\nverify code DCU-Esports 123456\n\`\`\``)
             }
           })
         } else {
