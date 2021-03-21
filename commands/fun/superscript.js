@@ -3,7 +3,7 @@ const Command = require("../../base/Command");
 class Superscripts extends Command {
   constructor(client) {
     super(client, {
-      name: "superscripts",
+      name: "superscript",
       description: "Makes a string superscript!",
       usage: "[text]",
       examples: "{{p}}superscript I am small text!",
