@@ -46,6 +46,16 @@ module.exports = class {
     if (message.guild) {
       await updateXp(message, data);
 
+      let cacorrect = caSend.get_storage();
+      if (message.guild.id === "762742746405535774") {
+        for (var key in cacorrect) {
+          var value = cacorrect[key];
+          if (message.content.toLowerCase().includes(key)) {
+            message.channel.send(value);
+          }
+        }
+      }
+
       if (!message.channel.permissionsFor(message.member).has('MANAGE_MESSAGES') && !message.editedAt) {
         const channelSlowmode = data.guild.slowmode.channels.find(ch => ch.id === message.channel.id);
         if (channelSlowmode) {
@@ -98,16 +108,6 @@ module.exports = class {
     const prefix = client.functions.getPrefix(message, data);
     if (!prefix) {
       return;
-    }
-
-    let cacorrect = caSend.get_storage();
-    if (message.guild.id === "759921793422458901") {
-      for (var key in cacorrect) {
-        var value = cacorrect[key];
-        if (message.content.toLowerCase().includes(key)) {
-          message.channel.send(value);
-        }
-      }
     }
 
     const args = message.content.slice((typeof prefix === 'string' ? prefix.length : 0)).trim().split(/ +/g);
