@@ -16,6 +16,6 @@ module.exports = class {
       .setColor('#B22222')
       .setDescription(text);
     this.client.channels.cache.get(this.client.config.support.logs).send(embed);
-
+    this.client.logger(`Guild removed! ${guild.name}`, "log");
   }
 };
