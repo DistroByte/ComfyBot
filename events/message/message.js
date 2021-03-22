@@ -47,7 +47,7 @@ module.exports = class {
       await updateXp(message, data);
 
       let cacorrect = caSend.get_storage();
-      if (message.guild.id === "762742746405535774") {
+      if (message.guild.id === "759921793422458901") {
         for (var key in cacorrect) {
           var value = cacorrect[key];
           if (message.content.toLowerCase().includes(key)) {
