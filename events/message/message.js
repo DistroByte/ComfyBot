@@ -1,5 +1,7 @@
 const xpCooldown = {},
-  cmdCooldown = {};
+  cmdCooldown = {},
+  storage = require('storage-to-json'),
+  caSend = new storage('computerAppsCorrect');
 
 module.exports = class {
   constructor(client) {
@@ -98,6 +100,16 @@ module.exports = class {
       return;
     }
 
+    let cacorrect = caSend.get_storage();
+    if (message.guild.id === "759921793422458901") {
+      for (var key in cacorrect) {
+        var value = cacorrect[key];
+        if (message.content.toLowerCase().includes(key)) {
+          message.channel.send(value);
+        }
+      }
+    }
+
     const args = message.content.slice((typeof prefix === 'string' ? prefix.length : 0)).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
@@ -110,12 +122,14 @@ module.exports = class {
       return message.channel.send(`Hello **${message.author.username}**, as you are currently in direct message you don't need to add a prefix before a command name.`)
     }
 
-    if (cmd.conf.args && !customCommandAnswer && !args.length) {
-      let reply = `Please provide some arguments, ${message.author}!`
-      if (cmd.help.usage) {
-        reply += `\nThe proper usage would be: \`${prefix}${cmd.help.name} ${cmd.help.usage}\``;
+    if (!customCommandAnswer) {
+      if (cmd.conf.args && !customCommandAnswer && !args.length) {
+        let reply = `Please provide some arguments, ${message.author}!`
+        if (cmd.help.usage) {
+          reply += `\nThe proper usage would be: \`${prefix}${cmd.help.name} ${cmd.help.usage}\``;
+        }
+        return message.channel.send(reply);
       }
-      return message.channel.send(reply);
     }
 
     if (message.guild && data.guild.ignoredChannels.includes(message.channel.id) && !message.member.hasPermission('MANAGE_MESSAGES')) {
