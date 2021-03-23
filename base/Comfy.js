@@ -44,6 +44,7 @@ class Comfy extends Client {
     this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
 
     this.player = new Player(this, { leaveOnEmpty: false });
+    this.filters = this.config.filters
     this.player
       .on('trackStart', (message, track) => {
         message.channel.send(`${this.emotes.music} - Now playing ${track.title} into \`${message.member.voice.channel.name}\``);
