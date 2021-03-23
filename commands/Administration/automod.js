@@ -16,12 +16,12 @@ class Automod extends Command {
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
       ownerOnly: false,
+      args: true,
       cooldown: 5000
     });
   }
 
   async run(message, args, data) {
-
     const status = args[0];
     if (!status || (status !== "on" && status !== "off")) {
       return message.channel.send('Please enter a valid value between `on` and `off`');

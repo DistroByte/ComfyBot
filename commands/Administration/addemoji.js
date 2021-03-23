@@ -16,17 +16,12 @@ class Addemoji extends Command {
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
       ownerOnly: false,
+      args: true,
       cooldown: 5000
     });
   }
 
   async run(message, args) {
-
-    const URL = args[0];
-    if (!URL) {
-      return message.channel.send('Please provide an image URL!');
-    }
-
     const name = args[1] ? args[1].replace(/[^a-z0-9]/gi, "") : null;
     if (!name) {
       return message.channel.send('Please provide an emoji name!');

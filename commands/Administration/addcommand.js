@@ -15,15 +15,12 @@ class Addcommand extends Command {
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
       ownerOnly: false,
+      args: true,
       cooldown: 3000
     });
   }
 
   async run(message, args, data) {
-
-    if (!args[0])
-      return message.channel.send("Please provide a command name!");
-
     const name = args[0].split("\n")[0];
 
     if (
