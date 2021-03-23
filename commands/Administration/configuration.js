@@ -66,8 +66,8 @@ class Configuration extends Command {
     embed.addField("Special channels", `${modlogs}\n${suggestions}\n${reports}`);
 
     // Auto sanctions
-    const warnsCountKick = guildData.plugins.warnsSanctions.kick ? `__Kick : __ After **${guildData.plugins.warnsSanctions.kick}** warnings` : "__Kick:__ Not defined";
-    const warnsCountBan = guildData.plugins.warnsSanctions.ban ? `__Ban : __ After **${guildData.plugins.warnsSanctions.ban}** warnings` : "__Ban:__ Not defined";
+    const warnsCountKick = guildData.plugins.warnsSanctions.kick ? `Kick :  After **${guildData.plugins.warnsSanctions.kick}** warnings` : "Kick: Not defined";
+    const warnsCountBan = guildData.plugins.warnsSanctions.ban ? `Ban :  After **${guildData.plugins.warnsSanctions.ban}** warnings` : "Ban: Not defined";
     embed.addField(`Automatic sanctions`, `${warnsCountKick}\n${warnsCountBan}`);
 
     // Automod plugin

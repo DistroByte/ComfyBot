@@ -248,6 +248,9 @@ class Comfy extends Client {
       user = this.users.find((u) => u.username === username && u.discriminator === discriminator);
       if (user) return user;
     }
+    if (search.match(/^!?(\w+)/)) {
+      user = this.users.find((u) => (u.user.tag.toLowerCase() === search || u.user.username.toLowerCase() === search));
+    }
     user = await this.users.fetch(search).catch(() => { });
     return user;
   }
@@ -262,9 +265,9 @@ class Comfy extends Client {
       if (member) return member;
     }
     // Try username search
-    if (search.match(/^!?(\w+)#(\d+)$/)) {
+    if (search.match(/^!?(\w+)/)) {
       guild = await guild.fetch();
-      member = guild.members.cache.find((m) => m.user.tag === search);
+      member = guild.members.cache.find((m) => (m.user.tag.toLowerCase() === search || m.user.username.toLowerCase() === search));
       if (member) return member;
     }
     member = await guild.members.fetch(search).catch(() => { });
