@@ -48,9 +48,10 @@ class Levels extends Command {
       .setThumbnail(message.guild.iconURL)
       .setFooter(`Page ${page}`)
 
-    let slice = leaderboard.length >= 10 ? slice = 10 : slice = leaderboard.length;
+    let slice = 0;
+    leaderboard.length >= 10 ? slice = 10 : slice = leaderboard.length;
 
-    embed.addField(`You (${message.member.displayName}) are rank #${authRank} (page ${Math.floor(authRank / 10) + 1})`, leaderboard.slice(0, slice));
+    embed.addField(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})`, leaderboard.slice(0, slice));
     message.channel.send(embed);
   }
 }
