@@ -3,8 +3,8 @@ const Command = require("../../base/Command");
 class Shuffle extends Command {
   constructor(client) {
     super(client, {
-      name: "",
-      description: "",
+      name: "shuffle",
+      description: "Shuffles the current queue",
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
