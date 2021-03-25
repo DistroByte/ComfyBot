@@ -234,7 +234,7 @@ class Comfy extends Client {
 
   async resolveUser(search) {
     let user = null;
-    if (!search || typeof search !== 'string') return;
+    if (!search || typeof search !== "string") return;
     // Try ID search
     if (search.match(/^<@!?(\d+)>$/)) {
       const id = search.match(/^<@!?(\d+)>$/)[1];
@@ -245,11 +245,12 @@ class Comfy extends Client {
     if (search.match(/^!?(\w+)#(\d+)$/)) {
       const username = search.match(/^!?(\w+)#(\d+)$/)[0];
       const discriminator = search.match(/^!?(\w+)#(\d+)$/)[1];
-      user = this.users.find((u) => u.username === username && u.discriminator === discriminator);
+      user = this.users.cache.find((u) => u.username === username && u.discriminator === discriminator);
       if (user) return user;
     }
-    if (search.match(/^!?(\w+)/)) {
-      user = this.users.find((u) => (u.user.tag.toLowerCase() === search || u.user.username.toLowerCase() === search));
+    if (search.match(/^!?(\w+)$/)) {
+      user = this.users.cache.find((u) => u.username.toLowerCase() === search.toLowerCase())
+      if (user) return user;
     }
     user = await this.users.fetch(search).catch(() => { });
     return user;
