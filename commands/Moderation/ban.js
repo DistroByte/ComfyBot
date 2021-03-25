@@ -31,7 +31,7 @@ class Ban extends Command {
     const memberData = message.guild.members.cache.get(user.id) ? await this.client.findOrCreateMember({ id: user.id, guildID: message.guild.id }) : null;
 
     if (user.id === message.author.id) {
-      return message.channel.send("You can't ban yourself!")
+      return message.channel.send("You can't ban yourself!");
     }
 
     // If the user is already banned
