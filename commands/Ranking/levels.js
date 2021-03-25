@@ -36,7 +36,7 @@ class Levels extends Command {
       if (key == user.id) {
         authorRank = ranks;
       }
-      leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${getLevel(value) || 0}`);
+      leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${this.client.functions.getLevel(value) || 0}`);
       ranks += 1;
     }
 
