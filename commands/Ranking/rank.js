@@ -30,11 +30,12 @@ class Rank extends Command {
   async run(message, args, data) {
     let user;
 
+    // if (!message.mentions.members.first()) {
     if (args[0]) {
-      user = this.client.resolveUser(args[0]);
-    } else {
-      user = message.author;
+      user = await this.client.resolveUser(args[0]);
     }
+
+    if (!user) user = message.author
 
     if (user.bot) return message.channel.send("Bots can't have xp!");
 
