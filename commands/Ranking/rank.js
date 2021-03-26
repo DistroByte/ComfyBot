@@ -16,7 +16,7 @@ class Rank extends Command {
       examples: ["{{p}}rank", "{{p}}rank @DistroByte#1000", "{{p}}rank DistroByte"],
       dirname: __dirname,
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       aliases: ["level", "lvl", "exp", "xp"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],

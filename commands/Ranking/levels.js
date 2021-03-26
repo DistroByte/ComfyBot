@@ -8,7 +8,7 @@ class Levels extends Command {
       description: "Shows the server leaderboard",
       dirname: __dirname,
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       aliases: ["ranks"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
