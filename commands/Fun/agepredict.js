@@ -8,7 +8,7 @@ class AgePredict extends Command {
       name: "agepredict",
       description: "Guesses the age of a name",
       usage: "[name]",
-      examples: "{{p}}agepredict John",
+      examples: ["{{p}}agepredict John"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

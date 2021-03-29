@@ -7,7 +7,7 @@ class Play extends Command {
       name: "play",
       description: "Plays music for you! Works with Spotify links for both songs and playlists",
       usage: "[song]",
-      examples: "{{p}}play Despacito",
+      examples: ["{{p}}play Despacito"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

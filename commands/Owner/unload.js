@@ -6,7 +6,7 @@ class Unload extends Command {
       name: "unload",
       description: "Unloads a command",
       usage: "[command]",
-      examples: "{{p}}unload help",
+      examples: ["{{p}}unload help"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

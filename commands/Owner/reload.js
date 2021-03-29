@@ -7,7 +7,7 @@ class Reload extends Command {
       name: "reload",
       description: "Reload a command!",
       usage: "[command]",
-      examples: "{{p}}reload help",
+      examples: ["{{p}}reload help"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

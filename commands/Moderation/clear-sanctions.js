@@ -7,7 +7,7 @@ class Clearsanctions extends Command {
       name: "clear-sanctions",
       description: "Clear a member sanctions!",
       usage: "[@member]",
-      examples: "{{prefix}}clear-sanctions @DistroByte#1000",
+      examples: ["{{prefix}}clear-sanctions @DistroByte#1000"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

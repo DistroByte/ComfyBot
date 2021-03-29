@@ -10,7 +10,7 @@ class Ascii extends Command {
       name: "ascii",
       description: "Turn your text into ascii characters!",
       usage: "[text]",
-      examples: "{{p}}ascii Hello world!",
+      examples: ["{{p}}ascii Hello world!"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

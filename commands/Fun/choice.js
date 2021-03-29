@@ -7,7 +7,7 @@ class Choice extends Command {
       name: "choice",
       description: "Helps you choose between the given choices!",
       usage: "[choice1/choice2/etc...]",
-      examples: "{{p}}choice Fire/Wind/Water",
+      examples: ["{{p}}choice Fire/Wind/Water"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

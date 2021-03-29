@@ -8,7 +8,7 @@ class Suggest extends Command {
       name: "suggest",
       description: "Send your suggestion to the defined channel!",
       usage: "[message]",
-      examples: "{{p}}suggest New channel #offtopic please",
+      examples: ["{{p}}suggest New channel #offtopic please"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

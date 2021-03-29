@@ -8,7 +8,7 @@ class Qrcode extends Command {
       name: "qrcode",
       description: "Generates a QR code image from a given text",
       usage: "[text]",
-      examples: "{{p}}qrcode Hello",
+      examples: ["{{p}}qrcode Hello"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

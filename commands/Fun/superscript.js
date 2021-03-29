@@ -6,7 +6,7 @@ class Superscripts extends Command {
       name: "superscript",
       description: "Makes a string superscript!",
       usage: "[text]",
-      examples: "{{p}}superscript I am small text!",
+      examples: ["{{p}}superscript I am small text!"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

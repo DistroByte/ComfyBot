@@ -8,7 +8,7 @@ class Kick extends Command {
       name: "kick",
       description: "Kick the mentioned member!",
       usage: "[@member] (reason)",
-      examples: "{{p}}kick @DistroByte#1000 Spam",
+      examples: ["{{p}}kick @DistroByte#1000 Spam"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

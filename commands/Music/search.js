@@ -6,7 +6,7 @@ class Search extends Command {
       name: "search",
       description: "Searches Youtube for your query and offers you some options",
       usage: "[name/url]",
-      examples: "{{p}}search never gonna give you up",
+      examples: ["{{p}}search never gonna give you up"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

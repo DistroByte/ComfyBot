@@ -6,7 +6,7 @@ class Load extends Command {
       name: "load",
       description: "Loads a command",
       usage: "[command]",
-      examples: "{{p}}load help",
+      examples: ["{{p}}load help"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

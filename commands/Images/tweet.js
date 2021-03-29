@@ -9,7 +9,7 @@ class Tweet extends Command {
       name: "tweet",
       description: "Generates a \"tweet\" image using Nekobot API",
       usage: "[@twitter_username] [content]",
-      examples: "{{p}}tweet @ElonMusk Hello",
+      examples: ["{{p}}tweet @ElonMusk Hello"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

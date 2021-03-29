@@ -8,7 +8,7 @@ class Poll extends Command {
       name: "poll",
       description: "Launch a survey in the current channel!",
       usage: "[question]",
-      examples: "{{p}}poll Is the Earth flat?",
+      examples: ["{{p}}poll Is the Earth flat?"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

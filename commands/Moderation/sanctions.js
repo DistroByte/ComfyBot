@@ -8,7 +8,7 @@ class Sanctions extends Command {
       name: "sanctions",
       description: "Displays the list of infractions committed by a member!",
       usage: "[@member]",
-      examples: "{{p}}sanctions [@member]",
+      examples: ["{{p}}sanctions [@member]"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

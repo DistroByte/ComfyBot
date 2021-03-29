@@ -8,7 +8,7 @@ class Announcement extends Command {
       name: "announcement",
       description: "Send an announcement in the current channel!",
       usage: "[text]",
-      examples: "{{p}}announcement New staff member!",
+      examples: ["{{p}}announcement New staff member!"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
