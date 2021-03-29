@@ -19,8 +19,8 @@ class Ping extends Command {
   }
 
   async run(message) {
-    message.channel.send(`Pong! My ping is \`...\` ms.`).then((m) => {
-      m.edit(`Pong! My ping is \`${m.createdTimestamp - message.createdTimestamp}\`ms. API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
+    message.channel.send(`Pong! My ping is \`...ms\`.`).then((m) => {
+      m.edit(`Pong! My ping is \`${m.createdTimestamp - message.createdTimestamp}ms\`. API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
     });
   }
 
