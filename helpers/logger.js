@@ -23,16 +23,16 @@ module.exports = class Logger {
     const date = `[${format(new Date(Date.now()))}]`;
     switch (type) {
       case 'log': {
-        return console.log(`${date} ${bgBlue(type.toUpperCase())} ${content} `);
+        return console.log(`${date} ${bgBlue(type.toUpperCase())} ${content}`);
       }
       case 'warn': {
-        return console.log(`${date} ${black.bgYellow(type.toUpperCase())} ${content} `);
+        return console.log(`${date} ${black.bgYellow(type.toUpperCase())} ${content}`);
       }
       case 'error': {
-        return console.log(`${date} ${black.bgRed(type.toUpperCase())} ${content} `);
+        return console.log(`${date} ${black.bgRed(type.toUpperCase())} ${content}`);
       }
       case 'debug': {
-        return console.log(`${date} ${green(type.toUpperCase())} ${content} `);
+        return console.log(`${date} ${green(type.toUpperCase())} ${content}`);
       }
       case 'cmd': {
         return console.log(`${date} ${black.bgWhite(type.toUpperCase())} ${content}`);

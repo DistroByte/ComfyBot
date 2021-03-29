@@ -37,7 +37,7 @@ const init = async () => {
   }).catch(err => client.logger.log('Error connecting to database. Error:' + err, 'error'));
 }
 
-init()
+init();
 
 client.on('disconnect', () => client.logger.log('Bot is disconnecting...', 'warn'))
   .on('reconnecting', () => client.logger.log('Bot reconnecting...', 'log'))
