@@ -15,12 +15,13 @@ class Emit extends Command {
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
       ownerOnly: true,
+      args: true,
       cooldown: 3000
     });
   }
 
   async run(message, args, data) {
-    this.client.emit(args[0], client, args[1])
+    this.client.emit(args[0], this.client, args[1])
   }
 }
 
