@@ -19,7 +19,7 @@ module.exports = class {
 
     const messageOptions = {};
     const thanksEmbed = new Discord.MessageEmbed()
-      .setAuthor('Thank you for adding me to your guild !')
+      .setAuthor('Thank you for adding me to your guild!')
       .setDescription('To configure me, type `' + this.client.config.prefix + 'help` and look at the administration commands!')
       .setColor(this.client.config.embed.color)
       .setFooter(this.client.config.embed.footer)
