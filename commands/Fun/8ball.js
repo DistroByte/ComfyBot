@@ -30,9 +30,8 @@ class Eightball extends Command {
     ]
 
     const answerNO = parseInt(Math.floor(Math.random() * 10), 10) + 1;
-    const answer = message.channel.send(options[answerNO]);
 
-    message.channel.send(`${message.author.username}, ${answer}`);
+    message.channel.send(`${message.author.username}, ${options[answerNO]}`);
   }
 
 }
