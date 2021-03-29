@@ -36,7 +36,6 @@ module.exports = class {
       .setColor('#32CD32')
       .setDescription(text);
     this.client.channels.cache.get(this.client.config.support.logs).send(logsEmbed);
-    this.client.logger(`Guild added! ${guild.name}`, "log");
-
+    this.client.logger.log(`Guild added! ${guild.name}`, "log");
   }
 };
