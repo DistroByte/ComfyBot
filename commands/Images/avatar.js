@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const Command = require("../../base/Command");
 
 class Avatar extends Command {
