@@ -7,7 +7,7 @@ class Unban extends Command {
       name: "unban",
       description: "Unban the user from the server!",
       usage: "[userID/user#0000]",
-      examples: ["{{p}}unban 422820341791064085", "{{p}}unban DistroByte#1000"],
+      examples: ["{{p}}unban 422820341791064085", "{{p}}unban DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

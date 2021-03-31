@@ -7,7 +7,7 @@ class Verify extends Command {
   constructor(client) {
     super(client, {
       name: "verify",
-      description: "Custom verification command, DM @DistroByte#1000 to get a verification method!",
+      description: "Custom verification command, DM @DistroByte#0001 to get a verification method!",
       usage: "<number/email/code/other> (information)",
       dirname: __dirname,
       enabled: true,

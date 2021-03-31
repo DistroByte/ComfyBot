@@ -9,7 +9,7 @@ class Userinfo extends Command {
       name: "userinfo",
       description: "Shows user information!",
       usage: "(@user/userID)",
-      examples: ["{{p}}userinfo\n{{p}}userinfo @DistroByte#1000\n{{p}}userinfo 180375991133143040"],
+      examples: ["{{p}}userinfo\n{{p}}userinfo @DistroByte#0001\n{{p}}userinfo 180375991133143040"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

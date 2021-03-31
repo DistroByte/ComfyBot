@@ -7,7 +7,7 @@ class Scary extends Command {
       name: "scary",
       description: "Generates a \"scary\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}scary", "{{p}}scary @DistroByte#1000"],
+      examples: ["{{p}}scary", "{{p}}scary @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

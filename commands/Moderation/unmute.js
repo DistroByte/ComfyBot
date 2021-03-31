@@ -7,7 +7,7 @@ class Unmute extends Command {
       name: "unmute",
       description: "Unmute the mentioned member!",
       usage: "[@member]",
-      examples: ["{{p}}unmute @DistroByte#1000"],
+      examples: ["{{p}}unmute @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

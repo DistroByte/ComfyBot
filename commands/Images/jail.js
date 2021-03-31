@@ -7,7 +7,7 @@ class Jail extends Command {
       name: "jail",
       description: "Generates a \"jail\" image using Amethyste API",
       usage: "(@member)",
-      examples: ["{{p}}jail", "{{p}}jail @DistroByte#1000"],
+      examples: ["{{p}}jail", "{{p}}jail @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

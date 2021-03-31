@@ -7,7 +7,7 @@ class XP extends Command {
       name: "xp",
       description: "Allows modification of xp for a user",
       usage: "[add/set/remove] [@member] [number]",
-      examples: ["{{p}}xp add @DistroByte#1000 1000", "{{p}}xp set @DistroByte#1000 0", "{{p}}xp remove @DistroByte#1000 1000"],
+      examples: ["{{p}}xp add @DistroByte#0001 1000", "{{p}}xp set @DistroByte#0001 0", "{{p}}xp remove @DistroByte#0001 1000"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

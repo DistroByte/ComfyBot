@@ -8,7 +8,7 @@ class Ban extends Command {
       name: "ban",
       description: "Ban the mentioned member!",
       usage: "[@user] (reason)",
-      examples: ["{{p}}ban @DistroByte#1000 Spam"],
+      examples: ["{{p}}ban @DistroByte#0001 Spam"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

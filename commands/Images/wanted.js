@@ -7,7 +7,7 @@ class Wanted extends Command {
       name: "wanted",
       description: "Generates a \"wanted\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}wanted", "{{p}}wanted @DistroByte#1000"],
+      examples: ["{{p}}wanted", "{{p}}wanted @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

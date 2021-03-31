@@ -7,7 +7,7 @@ class Wasted extends Command {
       name: "wasted",
       description: "Generates a \"wasted\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}wasted", "{{p}}wasted @DistroByte#1000"],
+      examples: ["{{p}}wasted", "{{p}}wasted @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

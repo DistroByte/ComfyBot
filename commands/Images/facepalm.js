@@ -8,7 +8,7 @@ class Facepalm extends Command {
       name: "facepalm",
       description: "Generates a \"facepalm\" image using canvas",
       usage: "(@member)",
-      examples: ["{{p}}facepalm", "{{p}}facepalm DistroByte#1000"],
+      examples: ["{{p}}facepalm", "{{p}}facepalm DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

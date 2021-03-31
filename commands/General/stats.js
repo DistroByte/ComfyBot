@@ -25,7 +25,7 @@ class Stats extends Command {
       .setColor(data.config.embed.color)
       .setFooter(data.config.embed.footer)
       .setAuthor("Stats")
-      .setDescription("ComfyBot is a Discord bot developed by DistroByte#1000")
+      .setDescription("ComfyBot is a Discord bot developed by DistroByte#0001")
       .addField("• Statistics", `\`Servers: ${this.client.guilds.cache.size}\`\n\`Users: ${this.client.users.cache.size}\``, true)
       .addField("• Using", `\`Discord.js : v${Discord.version}\`\n\`Nodejs : v${process.versions.node}\``, true)
       .addField("• RAM", `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB\``, true)

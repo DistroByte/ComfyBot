@@ -7,7 +7,7 @@ class Tobecontinued extends Command {
       name: "tobecontinued",
       description: "Generates a \"tobecontinued\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}tobecontinued", "{{p}}tobecontinued @DistroByte#1000"],
+      examples: ["{{p}}tobecontinued", "{{p}}tobecontinued @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

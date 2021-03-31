@@ -8,7 +8,7 @@ class Love extends Command {
       name: "love",
       description: "Generates a \"love\" image using the Nekobot API",
       usage: "[@member1] (@member2)",
-      examples: ["{{p}}love @DistroByte#1000\n{{p}}love @DistroByte#1000 @ComfyBot#4093"],
+      examples: ["{{p}}love @DistroByte#0001\n{{p}}love @DistroByte#0001 @ComfyBot#4093"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

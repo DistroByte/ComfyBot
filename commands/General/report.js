@@ -8,7 +8,7 @@ class Report extends Command {
       name: "report",
       description: "Report a user to the moderation team!",
       usage: '[@user] [reason]',
-      examples: ['{{p}}report @DistroByt#1000 Breaking the rules'],
+      examples: ['{{p}}report @DistroByt#0001 Breaking the rules'],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

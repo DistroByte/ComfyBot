@@ -8,7 +8,7 @@ class Warn extends Command {
       name: "warn",
       description: "Warn a member in private messages",
       usage: "[@member] [reason]",
-      examples: ["{{p}}warn @DistroByte#1000 Dumb"],
+      examples: ["{{p}}warn @DistroByte#0001 Dumb"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

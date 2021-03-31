@@ -8,7 +8,7 @@ class Invitations extends Command {
       name: "invitations",
       description: "Shows the number of people you have invited to the server!",
       usage: "(@member)",
-      examples: ["{{p}}invitations", "{{p}}invitations @DistroByte#1000"],
+      examples: ["{{p}}invitations", "{{p}}invitations @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

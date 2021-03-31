@@ -9,7 +9,7 @@ class Lovecalc extends Command {
       name: "lovecalc",
       description: "How much love is there between two people?\n*This is a fun command, not to be taken seriously*",
       usage: "[@member1] (@member2)",
-      examples: ["{{p}}lovecalc @DistroByte#1000", "{{p}}lovecalc @DistroByte#1000 @ComfyBot#4093"],
+      examples: ["{{p}}lovecalc @DistroByte#0001", "{{p}}lovecalc @DistroByte#0001 @ComfyBot#4093"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

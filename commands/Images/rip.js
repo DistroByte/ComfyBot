@@ -7,7 +7,7 @@ class Rip extends Command {
       name: "rip",
       description: "Generates a \"rip\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}rip", "{{p}}rip @DistroByte#1000"],
+      examples: ["{{p}}rip", "{{p}}rip @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

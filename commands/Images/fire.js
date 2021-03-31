@@ -7,7 +7,7 @@ class Fire extends Command {
       name: "fire",
       description: "Generates a \"fire\" image using Amethyste API",
       usage: "(@member)",
-      examples: ["{{p}}fire\n{{p}}fire @DistroByte#1000"],
+      examples: ["{{p}}fire\n{{p}}fire @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

@@ -7,7 +7,7 @@ class Triggered extends Command {
       name: "triggered",
       description: "Generates a \"triggered\" image using Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}triggered", "{{p}}triggered @DistroByte#1000"],
+      examples: ["{{p}}triggered", "{{p}}triggered @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

@@ -7,7 +7,7 @@ class Mission extends Command {
       name: "mission",
       description: "Generates a \"mission\" image using Amethyste API",
       usage: "(@member)",
-      examples: ["{{p}}mission", "{{p}}mission @DistroByte#1000"],
+      examples: ["{{p}}mission", "{{p}}mission @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

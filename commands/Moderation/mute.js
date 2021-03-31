@@ -9,7 +9,7 @@ class Mute extends Command {
       name: "mute",
       description: "Prevents a member from sending messages and connecting to a voice chat room for a defined period of time!",
       usage: "[@member] [time]",
-      examples: ["{{p}}mute @DistroByte#1000 Spam"],
+      examples: ["{{p}}mute @DistroByte#0001 Spam"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

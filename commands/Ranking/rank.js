@@ -13,7 +13,7 @@ class Rank extends Command {
       name: "rank",
       description: "Gets your current rank",
       usage: "(@member/member)",
-      examples: ["{{p}}rank", "{{p}}rank @DistroByte#1000", "{{p}}rank DistroByte"],
+      examples: ["{{p}}rank", "{{p}}rank @DistroByte#0001", "{{p}}rank DistroByte"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

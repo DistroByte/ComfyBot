@@ -8,7 +8,7 @@ class Captcha extends Command {
       name: "captcha",
       description: "Generates a \"captcha\" image using the Nekobot API",
       usage: "(@member)",
-      examples: ["{{p}}captcha @DistroByte#1000", "{{p}}captcha"],
+      examples: ["{{p}}captcha @DistroByte#0001", "{{p}}captcha"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,

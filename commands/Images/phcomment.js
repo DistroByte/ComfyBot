@@ -8,7 +8,7 @@ class Phcomment extends Command {
       name: "phcomment",
       description: "Generates a \"phcomment\" image using Nekobot API",
       usage: "(@member) [text]",
-      examples: ["{{p}}phcomment Hi!", "{{p}}phcomment @DistroByte#1000 Hi!"],
+      examples: ["{{p}}phcomment Hi!", "{{p}}phcomment @DistroByte#0001 Hi!"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
