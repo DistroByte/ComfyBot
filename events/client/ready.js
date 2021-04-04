@@ -17,7 +17,7 @@ module.exports = class {
     // const discordbotsorg = require('../helpers/discordbots.org.js');
     // discordbotsorg.init(client);
 
-    if (client.config.dashboard.enabled) {
+    if (client.config.dashboard && client.config.dashboard.enabled) {
       client.dashboard.load(client);
     }
 
