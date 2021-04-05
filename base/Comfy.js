@@ -47,10 +47,10 @@ class Comfy extends Client {
     this.filters = this.config.filters
     this.player
       .on('trackStart', (message, track) => {
-        message.channel.send(`${this.emotes.music} - Now playing ${track.title} into \`${message.member.voice.channel.name}\``);
+        message.channel.send(`${this.emotes?.music} - Now playing ${track.title} into \`${message.member.voice.channel.name}\``);
       })
       .on('playlistStart', (message, queue, playlist, track) => {
-        message.channel.send(this.emotes.success + ' | ' + message.translate('music/play:PLAYING_PLAYLIST', {
+        message.channel.send(this.emotes?.success + ' | ' + message.translate('music/play:PLAYING_PLAYLIST', {
           playlistTitle: playlist.title,
           playlistEmoji: this.customEmojis.playlist,
           songName: track.title
@@ -70,51 +70,51 @@ class Comfy extends Client {
       .on('searchInvalidResponse', (message, query, tracks, content, collector) => {
         if (content === 'cancel') {
           collector.stop();
-          return message.channel.send(`${this.emotes.success} - The selection has been **cancelled**!`);
-        } else message.channel.send(`${this.emotes.error} - You must send a valid number between **1** and **${tracks.length}**!`);
+          return message.channel.send(`${this.emotes?.success} - The selection has been **cancelled**!`);
+        } else message.channel.send(`${this.emotes?.error} - You must send a valid number between **1** and **${tracks.length}**!`);
 
       })
       .on('searchCancel', (message) => {
-        message.channel.send(`${this.emotes.error} - You did not provide a valid response. Please send the command again!`);
+        message.channel.send(`${this.emotes?.error} - You did not provide a valid response. Please send the command again!`);
       })
       .on('botDisconnect', (message) => {
-        message.channel.send(`${this.emotes.error} - Music stopped as I have been disconnected from the channel!`);
+        message.channel.send(`${this.emotes?.error} - Music stopped as I have been disconnected from the channel!`);
       })
       .on('noResults', (message) => {
-        message.channel.send(`${this.emotes.error} - No results found on YouTube for ${query}!`);
+        message.channel.send(`${this.emotes?.error} - No results found on YouTube for ${query}!`);
       })
       .on('queueEnd', (message) => {
-        message.channel.send(`${this.emotes.error} - No more music in the queue!`);
+        message.channel.send(`${this.emotes?.error} - No more music in the queue!`);
       })
       .on('playlistAdd', (message, queue, playlist) => {
-        message.channel.send(`${this.emotes.music} - ${playlist.title} has been added to the queue (**${playlist.tracks.length}** songs)!`);
+        message.channel.send(`${this.emotes?.music} - ${playlist.title} has been added to the queue (**${playlist.tracks.length}** songs)!`);
       })
       .on('trackAdd', (message, queue, track) => {
-        message.channel.send(`${this.emotes.music} - ${track.title} has been added to the queue!`);
+        message.channel.send(`${this.emotes?.music} - ${track.title} has been added to the queue!`);
       })
       .on('channelEmpty', () => {
-        // message.channel.send(`${client.emotes.error} - Music stopped as there is no more member in the voice channel!`);
+        // message.channel.send(`${client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
         // leaveOnEmpty disabled, will do nothing
       })
       .on('error', (message, error) => {
         switch (error) {
           case 'NotPlaying':
-            message.channel.send(`${this.emotes.error} - There is no music being played on this server!`);
+            message.channel.send(`${this.emotes?.error} - There is no music being played on this server!`);
             break;
           case 'NotConnected':
-            message.channel.send(`${this.emotes.error} - You are not connected in any voice channel!`);
+            message.channel.send(`${this.emotes?.error} - You are not connected in any voice channel!`);
             break;
           case 'UnableToJoin':
-            message.channel.send(`${this.emotes.error} - I am not able to join your voice channel, please check my permissions!`);
+            message.channel.send(`${this.emotes?.error} - I am not able to join your voice channel, please check my permissions!`);
             break;
           case 'VideoUnavailable':
-            message.channel.send(`${this.emotes.error} - ${args[0].title} is not available in your country! Skipping!`);
+            message.channel.send(`${this.emotes?.error} - ${args[0].title} is not available in your country! Skipping!`);
             break;
           case 'MusicStarting':
             message.channel.send(`The music is starting! please wait and retry!`);
             break;
           default:
-            message.channel.send(`${this.emotes.error} - Something went wrong. Error: ${error}`);
+            message.channel.send(`${this.emotes?.error} - Something went wrong. Error: ${error}`);
         };
       });
 

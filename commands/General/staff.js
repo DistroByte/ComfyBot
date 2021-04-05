@@ -25,8 +25,8 @@ class Staff extends Command {
     const moderators = guild.members.cache.filter((m) => !administrators.has(m.id) && m.hasPermission("MANAGE_MESSAGES") && !m.user.bot);
     const embed = new Discord.MessageEmbed()
       .setAuthor(`${message.guild.name} staff members`)
-      .addField("Administrators", (administrators.size > 0 ? administrators.map((a) => `${this.client.emotes.status[a.presence.status]} | ${a.user.tag}`).join("\n") : "No administrators"))
-      .addField("Moderators", (moderators.size > 0 ? moderators.map((m) => `${this.client.emotes.status[m.presence.status]} | ${m.user.tag}`).join("\n") : "No moderators"))
+      .addField("Administrators", (administrators.size > 0 ? administrators.map((a) => `${this.client.emotes?.status[a.presence.status]} | ${a.user.tag}`).join("\n") : "No administrators"))
+      .addField("Moderators", (moderators.size > 0 ? moderators.map((m) => `${this.client.emotes?.status[m.presence.status]} | ${m.user.tag}`).join("\n") : "No moderators"))
       .setColor(data.config.embed.color)
       .setFooter(data.config.embed.footer);
     message.channel.send(embed);

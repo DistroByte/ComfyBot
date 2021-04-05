@@ -35,7 +35,7 @@ class XP extends Command {
       await user.save();
       await data.guild.save()
 
-      const success = Util.parseEmoji(this.client.emotes.success).id
+      const success = Util.parseEmoji(this.client.emotes?.success).id
       return message.react(success)
     }
 
@@ -49,7 +49,7 @@ class XP extends Command {
       await user.save();
       await data.guild.save()
 
-      const success = Util.parseEmoji(this.client.emotes.success).id
+      const success = Util.parseEmoji(this.client.emotes?.success).id
       return message.react(success)
     }
 
@@ -62,7 +62,7 @@ class XP extends Command {
       await user.save();
       await data.guild.save()
 
-      const success = Util.parseEmoji(this.client.emotes.success).id
+      const success = Util.parseEmoji(this.client.emotes?.success).id
       return message.react(success)
     }
   }
