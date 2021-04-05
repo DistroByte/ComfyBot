@@ -8,7 +8,7 @@ class Skip extends Command {
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
-      aliases: [],
+      aliases: ["s", "next"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
