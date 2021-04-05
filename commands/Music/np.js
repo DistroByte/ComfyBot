@@ -19,11 +19,11 @@ class Np extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.channel.send(`${this.client.emotes.error} - You're not in a voice channel!`);
+    if (!message.member.voice.channel) return message.channel.send(`${this.client.emotes?.error} - You're not in a voice channel!`);
 
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${this.client.emotes.error} - You are not in the same voice channel!`);
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${this.client.emotes?.error} - You are not in the same voice channel!`);
 
-    if (!this.client.player.getQueue(message)) return message.channel.send(`${this.client.emotes.error} - No music currently playing!`);
+    if (!this.client.player.getQueue(message)) return message.channel.send(`${this.client.emotes?.error} - No music currently playing!`);
 
     const track = this.client.player.nowPlaying(message);
     const filters = [];

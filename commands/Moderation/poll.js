@@ -78,8 +78,8 @@ class Poll extends Command {
         return message.channel.send("Time's up! Please send the command again!");
       }
 
-      const success = this.client.emotes.success.split(":")[1];
-      const error = this.client.emotes.error.split(":")[1];
+      const success = this.client.emotes?.success.split(":")[1];
+      const error = this.client.emotes?.error.split(":")[1];
 
       const emojis = [
         this.client.emojis.cache.find((e) => e.name === success),
