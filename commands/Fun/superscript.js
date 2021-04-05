@@ -19,7 +19,6 @@ class Superscripts extends Command {
   }
 
   async run(message, args, data) {
-    if (!args[0]) return message.channel.send("You must send a piece of text to superscript!")
     var raise = require('superscript-text');
     message.channel.send(raise(args.join(" ")));
   }
