@@ -32,7 +32,7 @@ class NewAssignment extends Command {
     }
 
     let ModCode = args[0]
-    let DueDate = args[1] + "T" + args[2]
+    let DueDate = args[1] + " " + (args[2] ? args[2] : "00:00")
     let ModuleName = await FetchModuleNameFromCode(ModCode)
       .catch(err => {
         message.reply(`Invalid module code provided: ${ModCode}`)
