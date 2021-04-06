@@ -30,7 +30,7 @@ class Comfy extends Client {
     this.dashboard = require('../dashboard/app');
     this.states = {};
 
-    this.knownGuilds = []
+    this.knownGuilds = [];
 
     this.databaseCache = {};
     this.databaseCache.users = new Collection();
