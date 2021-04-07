@@ -49,7 +49,7 @@ async function FetchAllAssignments() {
       for (i in docs) {
         let ToCheck = docs[i]
 
-        let now = new Date(); now.setHours(now.getHours() + 1) // Daylight Shitty Time made made do this
+        let now = new Date(); now.setHours(now.getHours() + 2) // Daylight Shitty Time made made do this
 
         ToCheck['Countdown'] = timeDiff(ToCheck.dueDate, now)
 
@@ -76,7 +76,7 @@ async function UpdateAssignmentsEmbed(client) {
   for (i in assignmentsData) {
     let NewAssignment = assignmentsData[i]
     let moduleName = NewAssignment.moduleName || await FetchModuleNameFromCode(NewAssignment.moduleCode)
-    embedContent += `**${NewAssignment.moduleCode} - ${moduleName}**\n**Due in:** ${NewAssignment.Countdown}\n**Description:** ${NewAssignment.description}\n\n`
+    embedContent += `**${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n**Description:** ${NewAssignment.description}\n**Due in:** ${NewAssignment.Countdown}\n**Due Date:** ${NewAssignment.dueDate}\n`
   }
 
   let AssignmentsChannel = await client.channels.cache.get("829045215679610891")
