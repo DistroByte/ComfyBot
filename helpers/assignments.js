@@ -49,7 +49,7 @@ async function FetchAllAssignments() {
       for (i in docs) {
         let ToCheck = docs[i]
 
-        let now = new Date(); now.setHours(now.getHours() + 2) // Daylight Shitty Time made made do this
+        let now = new Date(); now.setHours(now.getHours()) // Daylight Shitty Time made made do this
 
         ToCheck['Countdown'] = timeDiff(ToCheck.dueDate, now)
 
