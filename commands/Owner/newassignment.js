@@ -50,22 +50,17 @@ class NewAssignment extends Command {
                   message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
                     .then(ConfirmationResponse => {
                       if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.', 0xff2b2b);
-
                       Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username }, function (err, new_instance) {
                         if (err) return console.log(err);
-
                         message.channel.send('New assignment created.')
-
                         UpdateAssignmentsEmbed(message.client)
                       });
-
                     })
                     .catch(err => {
                       console.log(err)
                       message.channel.send(`Command timed out. \n ${err}`);
                     });
                 });
-
             })
             .catch(err => {
               console.log(err)
