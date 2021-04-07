@@ -108,3 +108,6 @@ storage
 ecosystem.config.js
 config.js
 /dashboard/*
+
+ComfyBot.*
+helpers/assignmentsor*
