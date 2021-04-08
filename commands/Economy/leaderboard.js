@@ -22,7 +22,7 @@ class LeaderBoard extends Command {
   async run(message, args, data) {
     let contentm = "";
 
-    let memberMoney = {};
+    let memberMoney = new Map();
     i = 0
     data.guild.members.forEach(m => {
       let user = this.client.users.cache.get(m.id) || "Unregistered user";
