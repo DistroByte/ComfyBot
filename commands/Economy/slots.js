@@ -43,7 +43,6 @@ class Slots extends Command {
       results = machine.play(),
       winnings = Math.ceil(times * results.totalPoints),
       hasWon = results.winCount > 0,
-      { slotMachine: slot } = bot.lang,
       embed = new MessageEmbed()
         .setTitle("**Slot Machine**")
         .setColor(RANDOM)
