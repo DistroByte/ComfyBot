@@ -39,6 +39,7 @@
 		"figlet": "^1.5.0",
 		"fluent-ffmpeg": "^2.1.2",
 		"fs": "0.0.1-security",
+		"imageapi.js": "^1.6.1",
 		"influx": "^5.7.0",
 		"mathjs": "^9.3.0",
 		"md5": "^2.3.0",
