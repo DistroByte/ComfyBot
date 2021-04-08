@@ -52,6 +52,7 @@
 		"nodemailer-smtp-transport": "^2.7.4",
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6",
+		"slot-machine": "^2.1.0",
 		"storage-to-json": "^1.0.34",
 		"superscript-text": "^1.0.0",
 		"ws": "^7.4.1",

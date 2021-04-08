@@ -16,7 +16,7 @@ class Meme extends Command {
       nsfw: false,
       ownerOnly: false,
       args: false,
-      cooldown: 3000
+      cooldown: 30000
     });
   }
 
