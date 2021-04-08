@@ -45,7 +45,7 @@ class Slots extends Command {
       hasWon = results.winCount > 0,
       embed = new MessageEmbed()
         .setTitle("**Slot Machine**")
-        .setColor(RANDOM)
+        .setColor("RANDOM")
         .setThumbnail(message.author.displayAvatarURL())
         .setDescription(results.visualize(false))
         .setTimestamp();
