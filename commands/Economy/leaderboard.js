@@ -22,10 +22,20 @@ class LeaderBoard extends Command {
   async run(message, args, data) {
     let contentm = "";
 
-    for (let i = 0; i < data.users.length; i++) {
-      let user = this.client.users.cache.get(data.users[i].id) || "Unregistered user";
-      contentm += `${i + 1}. ${user} ~ ${data.users[i].money}\n`
-    }
+    let memberMoney = {};
+    i = 0
+    data.guild.members.forEach(m => {
+      let user = this.client.users.cache.get(m.id) || "Unregistered user";
+      memberMoney.push(m.money, `${i + 1}. ${user} ~ ${m.money}\n`)
+    });
+
+    var sortable = new Map([...memberMoney.keys()].sort(function (a, b) {
+      return b[1] - a[1];
+    }));
+
+    sortable.forEach(e => {
+      contentm += e
+    });
 
     const pages = {
       "💸": {

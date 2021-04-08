@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   bio: { type: String },
   birthdate: { type: Number },
   lover: { type: String },
-  money: { type: Number, default: 0 },
 
   registeredAt: { type: Number, default: Date.now() },
 
