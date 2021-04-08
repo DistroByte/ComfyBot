@@ -31,7 +31,7 @@ class Timer extends Command {
       return;
     }
 
-    let content = args.slice[1].join(' ');
+    let content = args.slice(1).join(' ');
     let tick = 1000;
 
     message.channel.send(this.formatBomb(count)).then(msg => {
