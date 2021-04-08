@@ -86,7 +86,9 @@ class Slots extends Command {
         const toAdd = credits - amount;
         data.memberData.money = data.memberData.money + toAdd;
         data.memberData.markModified("money")
+        data.guild.markModified("money")
         await data.memberData.save();
+        await data.guild.save()
         return;
       }
 
@@ -98,7 +100,9 @@ class Slots extends Command {
         const toAdd = credits - amount;
         data.memberData.money = data.memberData.money + toAdd;
         data.memberData.markModified("money")
+        data.guild.markModified("money")
         await data.memberData.save();
+        await data.guild.save()
         return;
       }
 
@@ -106,7 +110,9 @@ class Slots extends Command {
       message.channel.send(`**${message.author.username}** used ${amount} credit(s) and lost everything.`);
       data.memberData.money = data.memberData.money - amount;
       data.memberData.markModified("money")
+      data.guild.markModified("money")
       await data.memberData.save();
+      await data.guild.save()
       return;
 
     }
