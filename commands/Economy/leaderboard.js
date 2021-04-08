@@ -101,7 +101,7 @@ class LeaderBoard extends Command {
     };
 
     const botMessage = await message.reply(
-      `React with ${this.client.emojis.money} to see the coins leaderboard.`
+      `React with 💸 to see the coins leaderboard.`
       // React with 👟 to see nikes leaderboard. 
       // React with 🚙 to see car leaderboard. 
       // React with 🏠 mansion to see mansion leaderboard`
