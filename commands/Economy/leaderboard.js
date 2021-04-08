@@ -26,14 +26,14 @@ class LeaderBoard extends Command {
     i = 0
     data.guild.members.forEach(m => {
       let user = this.client.users.cache.get(m.id) || "Unregistered user";
-      memberMoney.set(m.id, `${i + 1}. ${user} ~ ${m.money}\n`)
+      memberMoney.set(m.id, `${++i}. ${user} ~ ${m.money}\n`)
     });
 
     var sortable = new Map([...memberMoney.entries()].sort(function (a, b) {
+      console.log(a, "bruh", b)
       return b[0] - a[0];
     }));
 
-    console.log(sortable)
 
     sortable.forEach(e => {
       contentm += e
