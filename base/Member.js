@@ -4,7 +4,14 @@ module.exports = mongoose.model('Member', new mongoose.Schema({
 
   id: { type: String },
   guildID: { type: String },
-  money: { type: Number, default: 0 },
+  money: {
+    type: Number,
+    default: 2000
+  },
+  daily: {
+    type: Number,
+    default: new Date() - 86400000
+  },
   xp: { type: Number, default: 0 },
 
   registeredAt: { type: Number, default: Date.now() }, // Registered date of the member
