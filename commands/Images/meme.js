@@ -36,10 +36,11 @@ class Meme extends Command {
       "meme",
       "techsupportanimals",
       "wholesomememes"
-    ].random(),
-      image = await api(subreddit),
+    ],
+      randomNum = Math.round(Math.random() * subreddit.length),
+      image = await api(subreddit[randomNum]),
       embed = new MessageEmbed()
-        .setTitle(`A Meme From ${subreddit}`)
+        .setTitle(`A Meme From ${subreddit[randomNum]}`)
         .setColor("RANDOM")
         .setImage(image);
 
