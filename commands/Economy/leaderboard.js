@@ -26,7 +26,7 @@ class LeaderBoard extends Command {
     i = 0
     data.guild.members.forEach(m => {
       let user = this.client.users.cache.get(m.id) || "Unregistered user";
-      memberMoney.push(m.money, `${i + 1}. ${user} ~ ${m.money}\n`)
+      memberMoney.set(m.money, `${i + 1}. ${user} ~ ${m.money}\n`)
     });
 
     var sortable = new Map([...memberMoney.keys()].sort(function (a, b) {
