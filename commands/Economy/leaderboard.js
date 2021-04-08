@@ -23,21 +23,20 @@ class LeaderBoard extends Command {
     let contentm = "";
 
     let memberMoney = new Map();
-    i = 0
+
     data.guild.members.forEach(m => {
-      let user = this.client.users.cache.get(m.id) || "Unregistered user";
-      memberMoney.set(m.id, `${++i}. ${user} ~ ${m.money}\n`)
+      memberMoney.set(m.id, m.money)
     });
 
     var sortable = new Map([...memberMoney.entries()].sort(function (a, b) {
-      console.log(a, "bruh", b)
-      return b[0] - a[0];
+      return b[1] - a[1];
     }));
 
-
-    sortable.forEach(e => {
-      contentm += e
-    });
+    i = 0
+    for (var [key, value] of sortable.entries()) {
+      let user = this.client.users.cache.get(key) || "Unregistered user";
+      contentm += `${++i}. ${user} - ${value}\n`
+    }
 
     const pages = {
       "💸": {
