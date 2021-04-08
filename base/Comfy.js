@@ -290,6 +290,31 @@ class Comfy extends Client {
     role = guild.roles.cache.get(search);
     return role;
   }
+
+  bar(used, free) {
+    const full = '▰';
+    const empty = '▱';
+    const total = used + free;
+    used = Math.round((used / total) * 10);
+    free = Math.round((free / total) * 10);
+    return full.repeat(used) + empty.repeat(free);
+  };
+
+  match(msg, i) {
+    if (!msg) return undefined;
+    if (!i) return undefined;
+    let user = i.members.cache.find(
+      m =>
+        m.user.username.toLowerCase().startsWith(msg) ||
+        m.user.username.toLowerCase() === msg ||
+        m.user.username.toLowerCase().includes(msg) ||
+        m.displayName.toLowerCase().startsWith(msg) ||
+        m.displayName.toLowerCase() === msg ||
+        m.displayName.toLowerCase().includes(msg)
+    );
+    if (!user) return undefined;
+    return user.user;
+  }
 }
 
 module.exports = Comfy;

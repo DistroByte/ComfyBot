@@ -13,10 +13,10 @@ const userSchema = new mongoose.Schema({
 
   id: { type: String },
 
-  rep: { type: Number, default: 0 },
   bio: { type: String },
   birthdate: { type: Number },
   lover: { type: String },
+  money: { type: Number, default: 0 },
 
   registeredAt: { type: Number, default: Date.now() },
 
