@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
   { SlotMachine } = require('slot-machine'),
-  symbols = require('./slot-symbol.js'),
+  symbols = require('./slot-symbols.js'),
   machine = new SlotMachine(3, Object.values(symbols)),
   { MessageEmbed } = require('discord.js')
 
