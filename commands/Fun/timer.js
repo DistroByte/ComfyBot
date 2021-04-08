@@ -4,7 +4,9 @@ class Timer extends Command {
   constructor(client) {
     super(client, {
       name: "timer",
-      description: "Starts a countdown!",
+      description: "Sends an bomb into the chat!",
+      usage: "[time in seconds] [message to send after]",
+      examples: ["{{p}}timer 10 Oh god we're all dead"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
@@ -21,7 +23,7 @@ class Timer extends Command {
   async run(message, args, data) {
     message.delete();
 
-    let count = Number(args.pop());
+    let count = Number(args[0]);
 
     if (!Number.isInteger(count) || count < 1) {
       message.reply("Please specify a number!");
@@ -29,7 +31,7 @@ class Timer extends Command {
       return;
     }
 
-    let content = args.join(' ');
+    let content = args.slice[1].join(' ');
     let tick = 1000;
 
     message.channel.send(this.formatBomb(count)).then(msg => {
