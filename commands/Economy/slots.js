@@ -85,6 +85,7 @@ class Slots extends Command {
         message.channel.send("**!! JACKPOT !!**\n" + `**${message.author.username}** used ${amount} credit(s) and won ${credits} credit(s)!`);
         const toAdd = credits - amount;
         data.memberData.money = data.memberData.money + toAdd;
+        data.memberData.markModified("money")
         await data.memberData.save();
         return;
       }
@@ -96,6 +97,7 @@ class Slots extends Command {
         message.channel.send(`**${message.author.username}** used ${amount} credit(s) and won ${credits} credit(s)!`);
         const toAdd = credits - amount;
         data.memberData.money = data.memberData.money + toAdd;
+        data.memberData.markModified("money")
         await data.memberData.save();
         return;
       }
@@ -103,6 +105,7 @@ class Slots extends Command {
       msg += "| : : :  **DEFEAT**  : : : |";
       message.channel.send(`**${message.author.username}** used ${amount} credit(s) and lost everything.`);
       data.memberData.money = data.memberData.money - amount;
+      data.memberData.markModified("money")
       await data.memberData.save();
       return;
 
