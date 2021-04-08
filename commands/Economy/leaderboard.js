@@ -29,8 +29,8 @@ class LeaderBoard extends Command {
       memberMoney.set(m.money, `${i + 1}. ${user} ~ ${m.money}\n`)
     });
 
-    var sortable = new Map([...memberMoney.keys()].sort(function (a, b) {
-      return b[1] - a[1];
+    var sortable = new Map([...memberMoney.entries()].sort(function (a, b) {
+      return b[0] - a[0];
     }));
 
     sortable.forEach(e => {
