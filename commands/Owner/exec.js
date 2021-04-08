@@ -28,7 +28,7 @@ class Exec extends Command {
 
       res = res.replace(this.client.token, "T0K3N")
 
-      message.channel.send(`\`${cmd}\`\n\n${res}`, { split: true });
+      message.channel.send(`\`\`\`\n${cmd}\n\n${res}\n\`\`\``, { split: true });
     } catch (e) {
       this.client.logger.log(e.stderr || e.message, "error");
       message.channel.send("Something went wrong!");
