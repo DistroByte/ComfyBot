@@ -26,12 +26,14 @@ class LeaderBoard extends Command {
     i = 0
     data.guild.members.forEach(m => {
       let user = this.client.users.cache.get(m.id) || "Unregistered user";
-      memberMoney.set(m.money, `${i + 1}. ${user} ~ ${m.money}\n`)
+      memberMoney.set(m.id, `${i + 1}. ${user} ~ ${m.money}\n`)
     });
 
     var sortable = new Map([...memberMoney.entries()].sort(function (a, b) {
       return b[0] - a[0];
     }));
+
+    console.log(sortable)
 
     sortable.forEach(e => {
       contentm += e
@@ -101,7 +103,7 @@ class LeaderBoard extends Command {
     };
 
     const botMessage = await message.reply(
-      `React with ${this.client.emojis.money} to see the coins leaderboard.`
+      `React with 💸 to see the coins leaderboard.`
       // React with 👟 to see nikes leaderboard. 
       // React with 🚙 to see car leaderboard. 
       // React with 🏠 mansion to see mansion leaderboard`
