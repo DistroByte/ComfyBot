@@ -55,15 +55,15 @@ class Assignment extends Command {
                       .then(ConfirmationResponse => {
                         if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.');
                         let AssignmentID = 0;
-                        Assignments.find({}, 'id', function (err, ids) {
+                        Assignments.find({}, 'assignmentID', function (err, ids) {
                           ids.forEach(id => {
-                            if (id.id > AssignmentID) {
-                              AssignmentID = id.id
+                            if (id.assignmentID > AssignmentID) {
+                              AssignmentID = id.assignmentID + 1
                             }
                           });
                         });
 
-                        Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "id": AssignmentID }, function (err, new_instance) {
+                        Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID }, function (err, new_instance) {
                           if (err) return console.log(err);
                           message.channel.send('New assignment created.')
                           UpdateAssignmentsEmbed(message.client)
