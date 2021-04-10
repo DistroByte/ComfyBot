@@ -57,6 +57,7 @@ class Assignment extends Command {
                         let AssignmentID = 0;
                         Assignments.find({}, 'assignmentID', function (err, ids) {
                           ids.forEach(id => {
+                            console.log(id);
                             if (id.assignmentID > AssignmentID) {
                               AssignmentID = id.assignmentID;
                             }
