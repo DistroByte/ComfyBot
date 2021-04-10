@@ -54,7 +54,7 @@ class Assignment extends Command {
                     message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
                       .then(ConfirmationResponse => {
                         if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.');
-                        AssignmentID = 0;
+                        let AssignmentID = 0;
                         Assignments.find({}, 'id', function (err, ids) {
                           ids.forEach(id => {
                             if (id.id > AssignmentID) {
