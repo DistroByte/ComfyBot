@@ -76,7 +76,7 @@ async function UpdateAssignmentsEmbed(client) {
   for (i in assignmentsData) {
     let NewAssignment = assignmentsData[i]
     let moduleName = NewAssignment.moduleName || await FetchModuleNameFromCode(NewAssignment.moduleCode)
-    embedContent += `**${NewAssignment.moduleCode} - ${moduleName.slice(9)} (ID: ${NewAssignment.id})**\n**Description:** ${NewAssignment.description}\n**Due in:** ${NewAssignment.Countdown}\n**Due Date:** ${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59:00".length)}\n\n`
+    embedContent += `**${NewAssignment.moduleCode} - ${moduleName.slice(9)} (ID: ${NewAssignment.assignmentID})**\n**Description:** ${NewAssignment.description}\n**Due in:** ${NewAssignment.Countdown}\n**Due Date:** ${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59:00".length)}\n\n`
   }
 
   let AssignmentsChannel = await client.channels.cache.get("829045215679610891")
