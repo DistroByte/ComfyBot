@@ -58,12 +58,12 @@ class Assignment extends Command {
                         Assignments.find({}, 'assignmentID', function (err, ids) {
                           ids.forEach(id => {
                             if (id.assignmentID > AssignmentID) {
-                              AssignmentID = id.assignmentID + 1
+                              AssignmentID = id.assignmentID;
                             }
                           });
                         });
 
-                        Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID }, function (err, new_instance) {
+                        Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
                           if (err) return console.log(err);
                           message.channel.send('New assignment created.')
                           UpdateAssignmentsEmbed(message.client)
