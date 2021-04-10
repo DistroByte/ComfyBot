@@ -2,7 +2,7 @@ const Command = require("../../base/Command"),
   { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require('../../helpers/assignments'),
   Assignments = require('../../base/Assignment');
 
-class NewAssignment extends Command {
+class Assignments extends Command {
   constructor(client) {
     super(client, {
       name: "assignments",
@@ -89,4 +89,4 @@ class NewAssignment extends Command {
   }
 }
 
-module.exports = NewAssignment;
+module.exports = Assignments;
