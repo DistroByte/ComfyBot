@@ -56,10 +56,8 @@ class Assignment extends Command {
                         if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.');
                         let AssignmentID = 0;
                         Assignments.find({}, 'assignmentID', function (err, ids) {
-                          AssignmentID = ids[0].assignmentID
                           ids.forEach(id => {
-                            console.log(id);
-                            if (id.assignmentID >= AssignmentID) {
+                            if (id.assignmentID > AssignmentID) {
                               AssignmentID = id.assignmentID;
                             }
                           });
