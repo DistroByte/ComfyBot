@@ -14,5 +14,6 @@ module.exports = mongoose.model('Assignment', new Schema({
   },
   description: String,
   dueDate: Date,
-  uploader: String
+  uploader: String,
+  id: Number
 }));

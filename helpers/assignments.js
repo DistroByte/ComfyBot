@@ -76,7 +76,7 @@ async function UpdateAssignmentsEmbed(client) {
   for (i in assignmentsData) {
     let NewAssignment = assignmentsData[i]
     let moduleName = NewAssignment.moduleName || await FetchModuleNameFromCode(NewAssignment.moduleCode)
-    embedContent += `**${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n**Description:** ${NewAssignment.description}\n**Due in:** ${NewAssignment.Countdown}\n**Due Date:** ${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59:00".length)}\n\n`
+    embedContent += `**${NewAssignment.moduleCode} - ${moduleName.slice(9)} (ID: ${NewAssignment.id})**\n**Description:** ${NewAssignment.description}\n**Due in:** ${NewAssignment.Countdown}\n**Due Date:** ${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59:00".length)}\n\n`
   }
 
   let AssignmentsChannel = await client.channels.cache.get("829045215679610891")
@@ -90,56 +90,6 @@ async function UpdateAssignmentsEmbed(client) {
   // AssignmentsChannel.send(AssignmentEmbed);
   ExistingEmbed.edit(AssignmentEmbed);
 }
-
-// module.exports.CreateNewAssignment = async (bot, message, CommandData) => {
-// const AwaitFilter = response => {
-//   return response.author.id === message.author.id;
-// };
-
-// let ModCode = CommandData['ModuleCode']
-// let DueDate = CommandData['DueDate']
-// console.log(CommandData)
-// let ModuleName = await FetchModuleNameFromCode(ModCode)
-//   .catch(err => {
-//     message.reply(`Invalid module code provided: ${ModCode}`)
-//     return;
-//   })
-
-// if (ModuleName) {
-//   message.channel.send(Utility.Embedify(bot, `Please enter a description for this assignment.`))
-//     .then(() => {
-//       message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
-//         .then(ConfirmationResponse => {
-//           let AssignmentDescription = ConfirmationResponse.first().content
-//           message.channel.send(Utility.Embedify(bot, `Type "confirm" or "cancel" to confirm or cancel this submission: \n\n**Module Code:** ${ModCode}\n\n **Module Name:** ${ModuleName}\n\n**Due Date:** ${DueDate.toString().slice(0, 24)}\n\n**Description:** ${AssignmentDescription} `))
-//             .then(() => {
-//               message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
-//                 .then(ConfirmationResponse => {
-//                   if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send(Utility.Embedify(bot, 'Confirmation denied - request was not submitted.', 0xff2b2b));
-
-//                   Assignments.create({ "ModuleCode": ModCode, "ModuleName": ModuleName, "Description": AssignmentDescription, "DueDate": DueDate, "Uploader": message.author.username }, function (err, new_instance) {
-//                     if (err) return console.log(err);
-
-//                     message.channel.send(Utility.Embedify(bot, 'New assignment created.', 0x00ff62))
-
-//                     UpdateAssignmentsEmbed(bot)
-//                   });
-
-//                 })
-//                 .catch(err => {
-//                   console.log(err)
-//                   message.channel.send(Utility.Embedify(bot, `Command timed out. \n \n ${err}`, 0xff2b2b));
-//                 });
-//             });
-
-//         })
-//         .catch(err => {
-//           console.log(err)
-//           message.channel.send(Utility.Embedify(bot, `Command timed out. \n \n ${err}`, 0xff2b2b));
-//         });
-//     });
-// }
-// }
 
 async function Initialise(bot) {
   await UpdateAssignmentsEmbed(bot)
