@@ -14,7 +14,7 @@ module.exports = class {
     const checkReminds = require('../../helpers/checkReminds.js');
     checkReminds.init(client);
 
-    const assignments = require('../../helpers/assignments');
+    const assignments = require('../../helpers/assignmentsHelper');
     assignments.init(client);
 
     // const discordbotsorg = require('../helpers/discordbots.org.js');

@@ -1,5 +1,5 @@
 const Command = require("../../base/Command"),
-  { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require('../../helpers/assignments'),
+  { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require('../../helpers/assignmentsHelper'),
   Assignments = require('../../base/Assignment');
 
 class Assignments extends Command {

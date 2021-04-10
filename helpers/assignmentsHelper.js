@@ -2,7 +2,7 @@ const Discord = require('discord.js'),
   scheduler = require('node-schedule'),
   Request = require('request-promise'),
   Assignments = require('../base/Assignment'),
-  { timeDiff } = require('../helpers/functions');
+  { timeDiff } = require('./functions');
 
 const ReqHeaders = {
   "Authorization": "basic T64Mdy7m[",
