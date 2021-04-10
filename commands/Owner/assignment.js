@@ -43,6 +43,15 @@ class Assignment extends Command {
           return;
         })
 
+      let AssignmentID = 0;
+      await Assignments.find({}, 'assignmentID', function (err, ids) {
+        ids.forEach(id => {
+          if (id.assignmentID >= AssignmentID) {
+            AssignmentID = id.assignmentID;
+          }
+        });
+      });
+
       if (ModuleName) {
         message.channel.send(`Please enter a description for this assignment.`)
           .then(() => {
@@ -54,14 +63,6 @@ class Assignment extends Command {
                     message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
                       .then(ConfirmationResponse => {
                         if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.');
-                        let AssignmentID = 0;
-                        Assignments.find({}, 'assignmentID', function (err, ids) {
-                          ids.forEach(id => {
-                            if (id.assignmentID >= AssignmentID) {
-                              AssignmentID = id.assignmentID;
-                            }
-                          });
-                        });
 
                         Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
                           if (err) return console.log(err);
