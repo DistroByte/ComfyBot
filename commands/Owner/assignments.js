@@ -5,7 +5,7 @@ const Command = require("../../base/Command"),
 class NewAssignment extends Command {
   constructor(client) {
     super(client, {
-      name: "assignment",
+      name: "assignments",
       description: "Adds a new assignment to CA Server",
       usage: "([new] [module code] [due date] [due time] [description])/([update/delete] [id])",
       examples: ["{{p}}assignment new CA117 2020-06-27 10:00:00 Final Exam", "{{p}}assignment edit 2", "{{p}}assignment delete 1"],
