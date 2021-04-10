@@ -153,12 +153,12 @@ module.exports = {
 
     let difference = '';
     if (days > 0) {
-      difference += (days === 1) ? `**${days}** day, ` : `**${days}** days, `;
+      difference += (days === 1) ? `**${days} day, **` : `**${days} days, **`;
     }
 
-    difference += (hours === 0 || hours === 1) ? `**${hours}** hour, ` : `**${hours}** hours, `;
+    difference += (hours === 0 || hours === 1) ? `**${hours} hour, **` : `**${hours} hours, **`;
 
-    difference += (minutes === 0 || hours === 1) ? `**${minutes}** mins` : `**${minutes}** mins`;
+    difference += (minutes === 0 || hours === 1) ? `**${minutes} mins**` : `**${minutes} mins**`;
 
     return difference;
   },
