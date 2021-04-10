@@ -2,10 +2,10 @@ const Command = require("../../base/Command"),
   { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require('../../helpers/assignmentsHelper'),
   Assignments = require('../../base/Assignment');
 
-class Assignments extends Command {
+class Assignment extends Command {
   constructor(client) {
     super(client, {
-      name: "assignments",
+      name: "assignment",
       description: "Adds a new assignment to CA Server",
       usage: "([new] [module code] [due date] [due time] [description])/([update/delete] [id])",
       examples: ["{{p}}assignment new CA117 2020-06-27 10:00:00 Final Exam", "{{p}}assignment edit 2", "{{p}}assignment delete 1"],
@@ -89,4 +89,4 @@ class Assignments extends Command {
   }
 }
 
-module.exports = Assignments;
+module.exports = Assignment;
