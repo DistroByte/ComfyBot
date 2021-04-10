@@ -38,7 +38,7 @@ class Eval extends Command {
         output = output.replace(this.client.token, "T0K3N");
       }
       message.channel.send(output, {
-        code: "js"
+        code: "js", split: true
       });
     }).catch((err) => {
       err = err.toString();
