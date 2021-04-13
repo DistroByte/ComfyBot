@@ -7,7 +7,7 @@ class Clear extends Command {
       name: "clear",
       description: "Quickly delete multiple messages!",
       usage: "[number of messages] (@user)",
-      examples: ["{{p}} clear 10", "{ {p} } clear 10 @DistroByte#0001"],
+      examples: ["{{p}} clear 10", "{{p}} clear 10 @DistroByte#0001"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
