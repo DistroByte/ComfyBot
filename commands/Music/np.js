@@ -12,7 +12,7 @@ class Np extends Command {
       aliases: ["nowplaying", "now-playing"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
-      nsfw: true,
+      nsfw: false,
       ownerOnly: false,
       cooldown: 5000
     });
