@@ -86,7 +86,7 @@ module.exports = {
 
 If you want some support for setting the bot up yourself, or want to learn more, do not hesitate to join or contact the following:
 - [ComfyBot help server](https://discord.gg/P5qRX8h)
-- DistroByte#0001 on discord
+- DistroByte#0001 on Discord
 - Open an issue on this repository
   
   
