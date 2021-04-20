@@ -1,4 +1,13 @@
+<img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="Comfy" src="https://i.dbyte.xyz/2021-04-yH.png">  
+
 # ComfyBot
+
+[![](https://img.shields.io/discord/762742746405535774?color=7289DA&label=Discord&logo=Discord)](https://invite.dbtye.xyz)
+[![](https://img.shields.io/badge/discord.js-v12.0.0--dev-blue.svg?logo=npm)](https://github.com/discordjs)
+[![](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/distrobyte)
+[![CodeFactor](https://www.codefactor.io/repository/github/distrobyte/comfybot/badge)](https://www.codefactor.io/repository/github/distrobyte/comfybot)
+
+> This bot is used by more than 5,000 Discord users and more than 30 servers.
 
 ComfyBot is a multi-purpose, open-source Discord bot with functions ranging from music to ranking, from economy to custom commands.
 
