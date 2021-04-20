@@ -11,7 +11,13 @@
 
 ComfyBot is a multi-purpose, open-source Discord bot with functions ranging from music to ranking, from economy to custom commands.
 
-ComfyBot was developed by @DistroByte#0001 (Discord username)
+ComfyBot was developed by @DistroByte#0001
+
+### Invite ComfyBot
+
+If you don't want to edit the code of the bot, a permanent online version is available, which you can invite to your own Discord!   
+
+[Invite Link](https://top.gg/bot/666393146351026176)
 
 ## Features
 
