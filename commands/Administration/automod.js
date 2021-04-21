@@ -24,7 +24,7 @@ class Automod extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (!status || (status !== "on" && status !== "off")) {
-      return message.channel.send('Please enter a valid value between `on` and `off`');
+      return message.error('Please enter a valid value between `on` and `off`');
     }
 
     if (status === "on") {
@@ -38,16 +38,15 @@ class Automod extends Command {
         data.guild.plugins.automod.ignored.push(channel);
         data.guild.markModified("plugins.automod");
         data.guild.save();
-        message.channel.send(`Auto-moderation will no longer be performed in ${channel.toString()}!`);
+        message.success(`Auto-moderation will **no longer** be performed in ${channel.toString()}!`);
       } else {
         data.guild.plugins.automod = { enabled: false, ignored: [] };
         data.guild.markModified("plugins.automod");
         data.guild.save();
-        message.channel.send('Auto moderation is no longer enabled on this server!');
+        message.success('Auto moderation is **no longer** enabled on this server!');
       }
     }
   }
-
 }
 
 module.exports = Automod;

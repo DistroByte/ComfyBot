@@ -23,7 +23,7 @@ class Jail extends Command {
   async run(message, args) {
 
     const user = await this.client.resolveUser(args[0]) || message.author;
-    const m = await message.channel.send("Please wait...")
+    const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });
     const buffer = await this.client.AmeAPI.generate("jail", { url: user.displayAvatarURL({ format: "png", size: 1024 }) });
     const attachment = new Discord.MessageAttachment(buffer, "jail.png");
     m.delete();

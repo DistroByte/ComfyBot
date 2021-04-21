@@ -20,14 +20,13 @@ class Setafk extends Command {
   }
 
   async run(message, args, data) {
-
     const reason = args.join(" ");
     if (!reason) {
-      return message.channel.send('Please specify the reason for your AFK status!');
+      return message.error('Please specify the reason for your AFK status!');
     }
 
     // Send success message
-    message.channel.send(`You're now AFK (reason: ${reason})`);
+    message.success(`You're now AFK (reason: ${reason})`);
 
     data.userData.afk = reason;
     data.userData.save();

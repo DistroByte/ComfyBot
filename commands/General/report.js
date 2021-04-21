@@ -22,24 +22,23 @@ class Report extends Command {
   }
 
   async run(message, args, data) {
-
     const repChannel = message.guild.channels.cache.get(data.guild.plugins.reports);
     if (!repChannel) {
-      return message.channel.send('No report channel set!');
+      return message.error('No report channel set!');
     }
 
     const member = await this.client.resolveMember(args[0], message.guild);
     if (!member) {
-      return message.channel.send('Please mention the user you want report!');
+      return message.error('Please mention the user you want report!');
     }
 
     if (member.id === message.author.id) {
-      return message.channel.send('You can\'t report yourself');
+      return message.error('You can\'t report yourself');
     }
 
     const rep = args.slice(1).join(" ");
     if (!rep) {
-      return message.channel.send('Please enter a report reason!');
+      return message.error('Please enter a report reason!');
     }
 
     const embed = new Discord.MessageEmbed()
@@ -59,9 +58,8 @@ class Report extends Command {
       await m.react(error);
     });
 
-    message.channel.send(`Your report has been sent in ${repChannel.toString()}!`);
+    message.success(`Your report has been sent in ${repChannel.toString()}!`);
   }
-
 }
 
 module.exports = Report;

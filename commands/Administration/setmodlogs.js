@@ -21,7 +21,6 @@ class Setmodlogs extends Command {
   }
 
   async run(message, args, data) {
-
     const areModLogsEnabled = Boolean(data.guild.plugins.modlogs);
     const sentChannel = await Resolvers.resolveChannel({
       message,
@@ -33,16 +32,15 @@ class Setmodlogs extends Command {
       data.guild.plugins.modlogs = null;
       data.guild.markModified("plugins.modlogs");
       await data.guild.save();
-      return message.channel.send('Moderation logs channel deleted!');
+      return message.success('Moderation logs channel deleted!');
     } else {
       const channel = sentChannel || message.channel;
       data.guild.plugins.modlogs = channel.id;
       data.guild.markModified("plugins.modlogs");
       await data.guild.save();
-      return message.channel.send(`Moderation logs will be sent in **${channel.toString()}**!`);
+      return message.success(`Moderation logs will be sent in **${channel.toString()}**!`);
     }
   }
-
 }
 
 module.exports = Setmodlogs;

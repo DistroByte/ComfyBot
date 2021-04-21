@@ -23,33 +23,22 @@ class Mute extends Command {
   }
 
   async run(message, args, data) {
-
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) {
-      return message.channel.send("Please specify a valid member to mute!");
-    }
-
-    if (member.id === message.author.id) {
-      return message.channel.send("You can't mute yourself!");
-    }
+    if (!member) return message.error("Please specify a valid member to mute!");
+    if (member.id === message.author.id) return message.error("You can't mute yourself!");
 
     const memberPosition = member.roles.highest.position;
     const moderationPosition = message.member.roles.highest.position;
     if (message.member.ownerID !== message.author.id && !(moderationPosition > memberPosition)) {
-      return message.channel.send("You can't kick or update a kick for a member who has an higher or equal role hierarchy to yours!");
+      return message.error("You can't kick or update a kick for a member who has an higher or equal role hierarchy to yours!");
     }
 
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
-
     const time = args[1];
-    if (!time || isNaN(ms(time))) {
-      return message.channel.send("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
-    }
+    if (!time || isNaN(ms(time))) return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
 
     let reason = args.slice(2).join(" ");
-    if (!reason) {
-      reason = "No reason provided";
-    }
+    if (!reason) reason = "No reason provided";
 
     message.guild.channels.cache.forEach((channel) => {
       channel.updateOverwrite(member.id, {
@@ -60,9 +49,7 @@ class Mute extends Command {
     });
 
     member.send(`Hello ${member.user.username},\nYou've just been muted on **${message.guild.name}** by **${message.author.tag}** for **${time}** because of **${reason}**!`);
-
-    message.channel.send(`**${member.user.tag}** is now muted for **${message.guild.name}** because of **${reason}**!`);
-
+    message.success(`**${member.user.tag}** is now muted for **${message.guild.name}** because of **${reason}**!`);
     data.guild.casesCount++;
 
     const caseInfo = {
@@ -83,11 +70,9 @@ class Mute extends Command {
     memberData.markModified("sanctions");
     memberData.markModified("mute");
     await memberData.save();
-
     await data.guild.save();
 
     this.client.databaseCache.mutedUsers.set(`${member.id}${message.guild.id}`, memberData);
-
     if (data.guild.plugins.modlogs) {
       const channel = message.guild.channels.cache.get(data.guild.plugins.modlogs);
       if (!channel) return;

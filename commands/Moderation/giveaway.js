@@ -22,37 +22,36 @@ class Giveaway extends Command {
   }
 
   async run(message, args, data) {
-
     const status = args[0];
     if (!status) {
-      return message.channel.send("You must specify an action between `create`, `reroll`, `end` or `delete`!");
+      return message.error("You must specify an action between `create`, `reroll`, `end` or `delete`!");
     }
 
     if (status === "create") {
       const currentGiveaways = this.client.giveawaysManager.giveaways.filter((g) => g.guildID === message.guild.id && !g.ended).length;
       if (currentGiveaways > 3) {
-        return message.channel.send("There can only be 4 simultaneous giveaways.");
+        return message.error("There can only be 4 simultaneous giveaways.");
       }
       const time = args[1];
       if (!time) {
-        return message.channel.send(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``)
+        return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``)
       }
       if (isNaN(ms(time))) {
-        return message.channel.send("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
+        return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
       }
       if (ms(time) > ms("15d")) {
-        return message.channel.send("The maximum duration of a giveaway is 15 days.");
+        return message.error("The maximum duration of a giveaway is 15 days.");
       }
       const winnersCount = args[2];
       if (!winnersCount) {
-        return message.channel.send(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
+        return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
       }
       if (isNaN(winnersCount) || winnersCount > 10 || winnersCount < 1) {
-        return message.channel.send(`Please specify a valid number between **1** and **10**!`)
+        return message.error(`Please specify a valid number between **1** and **10**!`)
       }
       const prize = args.slice(3).join(" ");
       if (!prize) {
-        return message.channel.send(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
+        return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
       }
       this.client.giveawaysManager.start(message.channel, {
         time: ms(time),
@@ -76,35 +75,35 @@ class Giveaway extends Command {
           }
         }
       }).then(() => {
-        message.channel.send("Giveaway launched!");
+        message.success("Giveaway launched!");
       });
     } else if (status === "reroll") {
       const messageID = args[1];
       if (!messageID) {
-        return message.channel.send("You must enter the giveaway message ID!");
+        return message.error("You must enter the giveaway message ID!");
       }
       this.client.giveawaysManager.reroll(messageID, {
         congrat: "🎉 New winner(s): {winners}! Congratulations!",
         error: "No valid entries, no winners can be chosen!"
       }).then(() => {
-        return message.channel.send("Giveaway re-rolled!");
+        return message.success("Giveaway re-rolled!");
       }).catch(() => {
-        return message.channel.send(`No **ended** giveaway found with message ID \`${messageID}\``);
+        return message.error(`No **ended** giveaway found with message ID \`${messageID}\``);
       });
     } else if (status === "delete") {
       const messageID = args[1];
       if (!messageID) {
-        return message.channel.send("You must enter the giveaway message ID!");
+        return message.error("You must enter the giveaway message ID!");
       }
       this.client.giveawaysManager.delete(messageID).then(() => {
-        return message.channel.send("Giveaway deleted!");
+        return message.success("Giveaway deleted!");
       }).catch(() => {
-        return message.channel.send(`No giveaway found with message ID \`${messageID}\``);
+        return message.error(`No giveaway found with message ID \`${messageID}\``);
       });
     } else if (status === "end") {
       const messageID = args[1];
       if (!messageID) {
-        return message.channel.send(`No giveaway found with message ID \`${messageID}\``);
+        return message.error(`No giveaway found with message ID \`${messageID}\``);
       }
       try {
         this.client.giveawaysManager.edit(messageID, {
@@ -112,10 +111,10 @@ class Giveaway extends Command {
         });
         return message.channel.send("The giveaway will end in less than 15 seconds!");
       } catch (e) {
-        return message.channel.send(`No giveaway found with message ID \`${messageID}\``);
+        return message.error(`No giveaway found with message ID \`${messageID}\``);
       }
     } else {
-      return message.channel.send("You must specify an action between `create`, `reroll`, `end` or `delete`!");
+      return message.error("You must specify an action between `create`, `reroll`, `end` or `delete`!");
     }
   }
 }

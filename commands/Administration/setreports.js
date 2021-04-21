@@ -22,7 +22,6 @@ class Setreports extends Command {
   }
 
   async run(message, args, data) {
-
     const areReportsEnabled = Boolean(data.guild.plugins.reports);
     const sentChannel = await Resolvers.resolveChannel({
       message,
@@ -34,13 +33,13 @@ class Setreports extends Command {
       data.guild.plugins.reports = null;
       data.guild.markModified("plugins.reports");
       await data.guild.save();
-      return message.channel.send("Reports channel no longer set!");
+      return message.success("Reports channel no longer set!");
     } else {
       const channel = sentChannel || message.channel;
       data.guild.plugins.reports = channel.id;
       data.guild.markModified("plugins.reports");
       await data.guild.save();
-      return message.channel.send(`Reports will be sent in **${channel.toString()}**`);
+      return message.success(`Reports will be sent in **${channel.toString()}**`);
     }
   }
 }

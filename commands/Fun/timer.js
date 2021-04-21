@@ -26,9 +26,7 @@ class Timer extends Command {
     let count = Number(args[0]);
 
     if (!Number.isInteger(count) || count < 1) {
-      message.reply("Please specify a number!");
-
-      return;
+      return message.error("Please specify a number!");
     }
 
     let content = args.slice(1).join(' ');

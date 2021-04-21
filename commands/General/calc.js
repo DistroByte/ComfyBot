@@ -22,16 +22,15 @@ class Calc extends Command {
   }
 
   async run(message, args, data) {
-
     if (!args[0]) {
-      return message.channel.send('Please enter a calculation!');
+      return message.error('Please enter a calculation!');
     }
 
     let result;
     try {
       result = math.evaluate(args.join(" ").replace(/[x]/gi, "*").replace(/[,]/g, ".").replace(/[÷]/gi, "/"));
     } catch (e) {
-      return message.channel.send("Please enter a **valid** calculation!");
+      return message.error("Please enter a **valid** calculation!");
     }
 
     const embed = new Discord.MessageEmbed()

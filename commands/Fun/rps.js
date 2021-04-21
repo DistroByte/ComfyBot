@@ -23,7 +23,7 @@ class Rps extends Command {
     let rps = ['rock', 'paper', 'scissors'];
 
     if (!args[0] || !rps.includes(args[0])) {
-      return message.channel.send("Please specify either rock, paper or scissors")
+      return message.error("Please specify either rock, paper or scissors")
     }
 
     let botChoice = rps[Math.floor(Math.random() * rps.length)];
@@ -34,14 +34,14 @@ class Rps extends Command {
       (userChoice === 'paper' && botChoice === 'rock') ||
       (userChoice === 'scissors' && botChoice === 'paper')
     ) {
-      message.channel.send(`**You Won!** ${userChoice} vs ${botChoice}!\nYou won 10 credits!`);
+      message.success(`**You Won!** ${userChoice} vs ${botChoice}!\nYou won 10 credits!`);
       const userdata = await this.client.findOrCreateMember({ id: message.author.id, guildID: message.guild.id });
       userdata.money = userdata.money + 10;
       userdata.save();
     } else if (userChoice === botChoice) {
       message.channel.send(`**It's a draw!** We both picked ${botChoice}!`);
     } else {
-      message.channel.send(`**You Lost!** ${userChoice} vs ${botChoice}!\nYou lost 10 credits!`);
+      message.success(`**You Lost!** ${userChoice} vs ${botChoice}!\nYou lost 10 credits!`);
       const userdata = await this.client.findOrCreateMember({ id: message.author.id, guildID: message.guild.id });
       userdata.money = userdata.money - 10;
       userdata.save();

@@ -30,9 +30,7 @@ class Xkcd extends Command {
         .then((res) => res.json())
         .then((res) => {
           if (!res)
-            return message.channel.send(
-              'No results found for this comic, sorry!'
-            );
+            return message.channel.send('No results found for this comic, sorry!');
           let { safe_title, img, day, month, year, num, alt } = res;
 
           let embed = new MessageEmbed()
@@ -46,7 +44,7 @@ class Xkcd extends Command {
         });
     } catch (e) {
       console.log(e);
-      return message.channel.send('looks like I\'ve broken! Try again.');
+      return message.error('looks like I\'ve broken! Try again.');
     }
   }
 }

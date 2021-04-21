@@ -22,15 +22,14 @@ class Suggest extends Command {
   }
 
   async run(message, args, data) {
-
     const suggChannel = message.guild.channels.cache.get(data.guild.plugins.suggestions);
     if (!suggChannel) {
-      return message.channel.send("No suggestion channel defined!");
+      return message.error("No suggestion channel defined!");
     }
 
     const sugg = args.join(" ");
     if (!sugg) {
-      return message.channel.send("Please enter a suggestion!");
+      return message.error("Please enter a suggestion!");
     }
 
     const embed = new Discord.MessageEmbed()
@@ -48,8 +47,8 @@ class Suggest extends Command {
       await m.react(success);
       await m.react(error);
     });
-
-    message.channel.send(`Your suggestion is being voted in ${suggChannel.toString()}`);
+    message.delete();
+    message.success(`Your suggestion is being voted in ${suggChannel.toString()}`);
   }
 }
 

@@ -22,22 +22,18 @@ class Qrcode extends Command {
   }
 
   async run(message, args, data) {
-
     const text = args.join(" ");
     if (!text) {
       return message.channel.send("Please specify the QR code source text!")
     }
 
-    const pleaseWait = await message.channel.send("Please wait...")
-
+    const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });
     const embed = new Discord.MessageEmbed()
       .setImage(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${text.replace(new RegExp(" ", "g"), "%20")}`)
       .setColor(data.config.embed.color);
 
-    pleaseWait.edit("Here's your QR code", { embed });
-
+    m.edit("Here's your QR code", { embed });
   }
-
 }
 
 module.exports = Qrcode;

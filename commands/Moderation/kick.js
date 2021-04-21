@@ -22,32 +22,24 @@ class Kick extends Command {
   }
 
   async run(message, args, data) {
-
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) {
-      return message.channel.send("Please specify a valid member to kick!");
-    }
-
-    if (member.id === message.author.id) {
-      return message.channel.send("You can't kick yourself!");
-    }
+    if (!member) return message.error("Please specify a valid member to kick!");
+    if (member.id === message.author.id) return message.error("You can't kick yourself!");
 
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
 
     // Gets the kick reason
     let reason = args.slice(1).join(" ");
-    if (!reason) {
-      reason = "No reason provided";
-    }
+    if (!reason) reason = "No reason provided";
 
     const memberPosition = member.roles.highest.position;
     const moderationPosition = message.member.roles.highest.position;
     if (message.member.ownerID !== message.author.id && !(moderationPosition > memberPosition)) {
-      return message.channel.send("You can't kick or update a kick for a member who has an higher or equal role hierarchy to yours!");
+      return message.error("You can't kick or update a kick for a member who has an higher or equal role hierarchy to yours!");
     }
 
     if (!member.kickable) {
-      return message.channel.send("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
+      return message.error("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
     }
 
     await member.send(`Hello ${member.user.tag},\nYou have just been kicked from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`).catch(() => { });
@@ -56,7 +48,7 @@ class Kick extends Command {
     member.kick(reason).then(() => {
 
       // Send a success message in the current channel
-      message.channel.send(`**${member.user.tag}** has just been kicked from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`);
+      message.success(`**${member.user.tag}** has just been kicked from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`);
 
       data.guild.casesCount++;
       data.guild.save();
@@ -86,7 +78,7 @@ class Kick extends Command {
       }
 
     }).catch(() => {
-      return message.channel.send("An error has occurred... Please check that I have the permission to kick this specific member and try again!");
+      return message.error("An error has occurred... Please check that I have the permission to kick this specific member and try again!");
     });
   }
 }

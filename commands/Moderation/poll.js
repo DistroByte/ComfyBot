@@ -22,22 +22,16 @@ class Poll extends Command {
   }
 
   async run(message, args, data) {
-
     const question = args.join(" ");
-    if (!question) {
-      return message.channel.send("Please specify a question!");
-    }
+    if (!question) return message.error("Please specify a question!");
 
     message.delete().catch(() => { });
 
     let mention = "";
-
-    const msg = await message.channel.send("Would you like to add a mention to your message?\nAnswer by sending `yes` or `no`!");
+    const msg = await message.sendM("Would you like to add a mention to your message?\nAnswer by sending `yes` or `no`!", { prefixEmoji: "loading" });
 
     const collector = new Discord.MessageCollector(message.channel, (m) => m.author.id === message.author.id, { time: 240000 });
-
     collector.on("collect", async (tmsg) => {
-
       if (tmsg.content.toLowerCase() === "no") {
         tmsg.delete();
         msg.delete();
@@ -47,7 +41,7 @@ class Poll extends Command {
       if (tmsg.content.toLowerCase() === "yes") {
         tmsg.delete();
         msg.delete();
-        const tmsg1 = await message.channel.send("Choose to mention `@`everyone by typing `every` or to mention `@`here by typing `here`!");
+        const tmsg1 = await message.sendM("Choose to mention `@`everyone by typing `every` or to mention `@`here by typing `here`!", { prefixEmoji: "loading" });
         const c = new Discord.MessageCollector(message.channel, (m) => m.author.id === message.author.id, { time: 60000 });
         c.on("collect", (m) => {
           if (m.content.toLowerCase() === "here") {
@@ -66,16 +60,15 @@ class Poll extends Command {
         });
         c.on("end", (collected, reason) => {
           if (reason === "time") {
-            return message.channel.send("Time's up! Please send the command again!");
+            return message.error("Time's up! Please send the command again!");
           }
         });
       }
     });
 
     collector.on("end", (collected, reason) => {
-
       if (reason === "time") {
-        return message.channel.send("Time's up! Please send the command again!");
+        return message.error("Time's up! Please send the command again!");
       }
 
       const success = this.client.emotes?.success.split(":")[1];

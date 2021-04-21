@@ -18,7 +18,7 @@ class CurrentPlayers extends Command {
   }
 
   async run(message, args, data) {
-    message.channel.send(`${this.client.emotes?.success} - ${this.client.user.username} connected in **${this.client.voice.connections.size}** channels!`);
+    message.success(`${this.client.user.username} connected in **${this.client.voice.connections.size}** channels!`);
   }
 }
 

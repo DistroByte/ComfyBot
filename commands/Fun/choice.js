@@ -21,12 +21,10 @@ class Choice extends Command {
   }
 
   async run(message, args) {
-
-    // Gets the answers by spliting on "/"
     const answers = args.join(" ").split("/");
-    if (answers.length < 2) return message.channel.send("You must enter more than two choices!\n(or use the `flip` command instead)");
+    if (answers.length < 2) return message.error("You must enter more than two choices!\n(or use the `flip` command instead)");
     if (answers.some(answer => !answer))
-      return message.channel.send("One of your choices seems to be empty....Please try again!");
+      return message.error("One of your choices seems to be empty....Please try again!");
 
     const m = await message.channel.send("Choice being made...");
 
@@ -35,9 +33,7 @@ class Choice extends Command {
       const result = answers[parseInt(Math.floor(Math.random() * answers.length))];
       message.channel.send("```" + result + "```");
     }, 1500);
-
   }
-
 }
 
 module.exports = Choice;

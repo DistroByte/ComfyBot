@@ -23,19 +23,18 @@ class Tweet extends Command {
   }
 
   async run(message, args) {
-
     const user = args[0];
     const text = args.slice(1).join(" ");
 
     if (!user) {
-      return message.channel.send("Please include a twitter handle");
+      return message.error("Please include a twitter handle");
     }
 
     if (!text) {
-      return message.channel.send("Please add some tweet content!");
+      return message.error("Please add some tweet content!");
     }
 
-    const m = await message.channel.send("Please wait...")
+    const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });
 
     try {
       const res = await fetch(encodeURI(`https://nekobot.xyz/api/imagegen?type=tweet&username=${user}&text=${text}`));
@@ -45,11 +44,9 @@ class Tweet extends Command {
       message.channel.send(attachment);
     } catch (e) {
       console.log(e);
-      message.channel.send(`Error occured: ${e}`)
+      message.error(`Error occured: ${e}`)
     }
-
   }
-
 }
 
 module.exports = Tweet;

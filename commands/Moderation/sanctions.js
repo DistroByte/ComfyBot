@@ -22,13 +22,9 @@ class Sanctions extends Command {
   }
 
   async run(message, args, data) {
-
     const user = await this.client.resolveUser(args[0]);
-    if (!user) {
-      return message.channel.send("You must specify a member!");
-    }
+    if (!user) return message.error("You must specify a member!");
     const memberData = await this.client.findOrCreateMember({ id: user.id, guildID: message.guild.id });
-
     const embed = new Discord.MessageEmbed()
       .setAuthor(user.tag, user.displayAvatarURL())
       .setColor(data.config.embed.color)
@@ -42,7 +38,6 @@ class Sanctions extends Command {
         embed.addField(s.type + " | #" + s.case, `Moderator: <@${s.moderator}>\nReason: ${s.reason}`, true);
       });
     }
-
     message.channel.send(embed);
   }
 }

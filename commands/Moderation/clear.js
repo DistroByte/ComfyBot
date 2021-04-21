@@ -21,15 +21,14 @@ class Clear extends Command {
   }
 
   async run(message, args) {
-
     if (args[0] === "all") {
-      message.channel.send("All the channel messages will be deleted! To confirm type `-confirm`");
+      message.sendM("All the channel messages will be deleted! To confirm type `-confirm`", { prefixEmoji: "loading" });
       await message.channel.awaitMessages((m) => (m.author.id === message.author.id) && (m.content === "-confirm"), {
         max: 1,
         time: 20000,
         errors: ["time"]
       }).catch(() => {
-        return message.channel.send("Error: Time's up!");
+        return message.error("Error: Time's up!");
       });
       const position = message.channel.position;
       const newChannel = await message.channel.clone();
@@ -40,13 +39,11 @@ class Clear extends Command {
 
     let amount = args[0];
     if (!amount || isNaN(amount) || parseInt(amount) < 1) {
-      return message.channel.send("You must specify a number of messages to delete!");
+      return message.error("You must specify a number of messages to delete!");
     }
 
     await message.delete();
-
     const user = message.mentions.users.first();
-
     let messages = await message.channel.messages.fetch({ limit: 100 });
     messages = messages.array();
     if (user) {
@@ -61,11 +58,10 @@ class Clear extends Command {
     message.channel.bulkDelete(messages, true);
 
     let toDelete = null;
-
     if (user) {
-      toDelete = await message.channel.send(`**${--amount}** messages of **${user.tag}** were deleted!`)
+      toDelete = await message.success(`**${--amount}** messages of **${user.tag}** were deleted!`)
     } else {
-      toDelete = await message.channel.send(`**${--amount}** were messages deleted!`)
+      toDelete = await message.success(`**${--amount}** were messages deleted!`)
     }
 
     setTimeout(function () {

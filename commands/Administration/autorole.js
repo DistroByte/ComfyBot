@@ -23,10 +23,9 @@ class Autorole extends Command {
   }
 
   async run(message, args, data) {
-
     const status = args[0];
     if (status !== "on" && status !== "off") {
-      return message.channel.send('Please specify a valid value between`on` and`off`');
+      return message.error('Please specify a valid value between`on` and`off`');
     }
 
     if (status === "on") {
@@ -35,7 +34,7 @@ class Autorole extends Command {
         search: args.slice(1).join(" ")
       });
       if (!role) {
-        return message.channel.send('Please specify a valid role!');
+        return message.error('Please specify a valid role!');
       }
 
       data.guild.plugins.autorole = {
@@ -45,13 +44,13 @@ class Autorole extends Command {
       data.guild.markModified("plugins.autorole");
       await data.guild.save();
 
-      message.channel.send(`Autorole enabled! New members will automatically receive the **${role.name}** role`);
+      message.success(`Autorole enabled! New members will automatically receive the **${role.name}** role`);
     }
 
     if (status === "off") {
 
       if (!data.guild.plugins.autorole.enabled) {
-        return message.channel.send(`**The autorole is already disabled.**\n\n:arrow_right_hook: *Send \`${data.guild.prefix}autorole on @YourRole\` to enable it again!*`);
+        return message.success(`**The autorole is already disabled.**\n\n:arrow_right_hook: *Send \`${data.guild.prefix}autorole on @YourRole\` to enable it again!*`);
       }
 
       data.guild.plugins.autorole = {
@@ -61,7 +60,7 @@ class Autorole extends Command {
       data.guild.markModified("plugins.autorole");
       await data.guild.save();
 
-      message.channel.send(`**Autorole disabled!**\n\n:arrow_right_hook: *Send \`${data.guild.prefix} configuration\` to see the updated configuration!*`);
+      message.success(`**Autorole disabled!**\n\n:arrow_right_hook: *Send \`${data.guild.prefix} configuration\` to see the updated configuration!*`);
     }
   }
 }

@@ -22,8 +22,8 @@ class XP extends Command {
   }
 
   async run(message, args, data) {
-    if (!args[1]) return message.channel.send("Please specify a user!")
-    if (!args[2]) return message.channel.send("Please specify amount of xp to add!")
+    if (!args[1]) return message.error("Please specify a user!")
+    if (!args[2]) return message.error("Please specify amount of xp to add!")
     let user = data.guild.members.find(u => u.id === message.mentions.members.first().id)
     if (args[0] === "add") {
       const xp = user.xp;

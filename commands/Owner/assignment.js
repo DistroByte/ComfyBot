@@ -23,16 +23,12 @@ class Assignment extends Command {
   }
 
   async run(message, args, data) {
-    const AwaitFilter = response => {
-      return response.author.id === message.author.id;
-    };
+    const AwaitFilter = response => { return response.author.id === message.author.id; }
 
     let action = args.shift();
-
     if (action === "new") {
-
       if (!args[1]) {
-        return message.channel.send("Please specify a due date!");
+        return message.error("Please specify a due date!");
       }
 
       let ModCode = args[0]
@@ -53,32 +49,32 @@ class Assignment extends Command {
       });
 
       if (ModuleName) {
-        message.channel.send(`Please enter a description for this assignment.`)
+        message.sendM(`Please enter a description for this assignment.`, { prefixEmoji: "loading" })
           .then(() => {
             message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
               .then(ConfirmationResponse => {
                 let AssignmentDescription = ConfirmationResponse.first().content
-                message.channel.send(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${ModCode}\n**Module Name:** ${ModuleName}\n**Due Date:** ${DueDate.toString().slice(0, 24)}\n**Description:** ${AssignmentDescription} `)
+                message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${ModCode}\n**Module Name:** ${ModuleName}\n**Due Date:** ${DueDate.toString().slice(0, 24)}\n**Description:** ${AssignmentDescription}`, { prefixEmoji: "loading" })
                   .then(() => {
                     message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
                       .then(ConfirmationResponse => {
-                        if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.channel.send('Confirmation denied - request was not submitted.');
+                        if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.error('Confirmation denied - request was not submitted.');
 
                         Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
                           if (err) return console.log(err);
-                          message.channel.send('New assignment created.')
+                          message.success('New assignment created.')
                           UpdateAssignmentsEmbed(message.client)
                         });
                       })
                       .catch(err => {
                         console.log(err)
-                        message.channel.send(`Command timed out. \n ${err}`);
+                        message.error(`Command timed out. \n ${err}`);
                       });
                   });
               })
               .catch(err => {
                 console.log(err)
-                message.channel.send(`Command timed out. \n ${err}`);
+                message.error(`Command timed out. \n ${err}`);
               });
           });
       }

@@ -22,30 +22,21 @@ class Warn extends Command {
   }
 
   async run(message, args, data) {
-
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) {
-      return message.channel.send("Please specify the member you want to warn!");
-    }
-    if (member.user.bot) {
-      return message.channel.send("This user is a bot!");
-    }
+    if (!member) return message.error("Please specify the member you want to warn!");
+    if (member.user.bot) return message.error("This user is a bot!");
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
 
-    if (member.id === message.author.id) {
-      return message.channel.send("You can't warn yourself!")
-    }
+    if (member.id === message.author.id) return message.error("You can't warn yourself!");
 
     const memberPosition = member.roles.highest.position;
     const moderationPosition = message.member.roles.highest.position;
     if (message.member.ownerID !== message.author.id && !(moderationPosition > memberPosition)) {
-      return message.channel.send("You can't warn or update a warn for a member who has an higher or equal role hierarchy to yours!");
+      return message.error("You can't warn or update a warn for a member who has an higher or equal role hierarchy to yours!");
     }
 
     const reason = args.slice(1).join(" ");
-    if (!reason) {
-      return message.channel.send("Please enter a reason!");
-    }
+    if (!reason) return message.error("Please enter a reason!");
 
     // Gets current member sanctions
     const sanctions = memberData.sanctions.filter((s) => s.type === "warn").length;
@@ -76,7 +67,7 @@ class Warn extends Command {
         embed.setAuthor(`Warn | Case #${data.guild.casesCount}`)
           .setColor("#e02316");
         message.guild.members.ban(member).catch(() => { });
-        message.channel.send(`**${member.user.tag}** was automatically banned because they reach more than **${banCount}** warns!`);
+        message.success(`**${member.user.tag}** was automatically banned because they reach more than **${banCount}** warns!`);
       }
     }
 
@@ -87,7 +78,7 @@ class Warn extends Command {
         embed.setAuthor(`Kick | Case #${data.guild.casesCount}`)
           .setColor("#e88709");
         member.kick().catch(() => { });
-        message.channel.send(`**${member.user.tag}** was automatically kicked because they reach more than **${banCount}** warns!`);
+        message.success(`**${member.user.tag}** was automatically kicked because they reach more than **${banCount}** warns!`);
       }
     }
 
@@ -95,7 +86,7 @@ class Warn extends Command {
     caseInfo.type = "warn";
     embed.setAuthor(`Warn | Case #${data.guild.casesCount}`)
       .setColor("#8c14e2");
-    message.channel.send(`**${member.user.tag}** has been warned in private messages for **${reason}**!`);
+    message.success(`**${member.user.tag}** has been warned in private messages for **${reason}**!`);
 
     memberData.sanctions.push(caseInfo);
     memberData.save();

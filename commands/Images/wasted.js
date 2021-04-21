@@ -21,9 +21,8 @@ class Wasted extends Command {
   }
 
   async run(message, args) {
-
     const user = await this.client.resolveUser(args[0]) || message.author;
-    const m = await message.channel.send("Please wait...")
+    const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });
     const buffer = await this.client.AmeAPI.generate("wasted", { url: user.displayAvatarURL({ format: "png", size: 512 }) });
     const attachment = new Discord.MessageAttachment(buffer, "wasted.png");
     m.delete();

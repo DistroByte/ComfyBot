@@ -24,9 +24,7 @@ class Clyde extends Command {
   async run(message, args) {
     const text = args.join(" ");
 
-    if (!text) {
-      return message.channel.send("Please specify the message text!");
-    }
+    if (!text) return message.channel.send("Please specify the message text!");
 
     try {
       const res = await fetch(encodeURI(`https://nekobot.xyz/api/imagegen?type=clyde&text=${text}`));
@@ -35,7 +33,7 @@ class Clyde extends Command {
       message.channel.send(attachment);
     } catch (e) {
       console.log(e);
-      message.channel.send(`Error occured: ${e}`)
+      message.error(`Error occured: ${e}`)
     }
   }
 }

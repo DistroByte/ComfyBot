@@ -22,21 +22,20 @@ class Invitations extends Command {
   }
 
   async run(message, args, data) {
-
     let member = await this.client.resolveMember(args[0], message.guild);
     if (!member) member = message.member;
 
     // Gets the invites
     const invites = await message.guild.fetchInvites().catch(() => { });
-    if (!invites) return message.channel.send("Something went wrong...Please retry again later!");
+    if (!invites) return message.error("Something went wrong...Please retry again later!");
 
     const memberInvites = invites.filter((i) => i.inviter && i.inviter.id === member.user.id);
 
     if (memberInvites.size <= 0) {
       if (member === message.member) {
-        return message.channel.send("You haven't invited anyone to the server!");
+        return message.error("You haven't invited anyone to the server!");
       } else {
-        return message.channel.send(`${member.user.tag} didn't invite anyone to the server!`);
+        return message.error(`${member.user.tag} didn't invite anyone to the server!`);
       }
     }
 

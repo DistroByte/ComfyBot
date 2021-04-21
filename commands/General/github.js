@@ -21,7 +21,6 @@ class Github extends Command {
   }
 
   async run(message, args, data) {
-
     const res = await fetch("https://api.github.com/repos/DistroByte/ComfyBot");
     const json = await res.json();
 

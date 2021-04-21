@@ -27,9 +27,9 @@ class Help extends Command {
 
       const cmd = this.client.commands.get(args[0]) || this.client.commands.get(this.client.aliases.get(args[0]));
       if (!cmd && isCustom) {
-        return message.channel.send('A custom command doesn\'t have help page');
+        return message.error('A custom command doesn\'t have help page');
       } else if (!cmd) {
-        return message.channel.send(`\`${args[0]}\` is not a valid command\nType \`${data.guild.prefix}help\` to see a list of available commands!`);
+        return message.error(`\`${args[0]}\` is not a valid command\nType \`${data.guild.prefix}help\` to see a list of available commands!`);
       }
 
       const description = cmd.help.description ? cmd.help.description : 'No description';

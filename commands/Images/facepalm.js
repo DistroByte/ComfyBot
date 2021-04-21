@@ -42,9 +42,7 @@ class Facepalm extends Command {
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), "facepalm.png");
 
     message.channel.send(attachment);
-
   }
-
 }
 
 module.exports = Facepalm;

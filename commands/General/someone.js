@@ -20,7 +20,6 @@ class Someone extends Command {
   }
 
   async run(message, args, data) {
-
     const member = message.guild.members.cache.random(1)[0];
 
     const embed = new Discord.MessageEmbed()
@@ -30,9 +29,7 @@ class Someone extends Command {
       .setThumbnail(member.user.displayAvatarURL())
       .setColor(data.config.embed.color);
     message.channel.send(embed);
-
   }
-
 }
 
 module.exports = Someone;

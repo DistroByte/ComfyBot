@@ -22,20 +22,19 @@ class Announcement extends Command {
   }
 
   async run(message, args, data) {
-
     const text = args.join(" ");
     if (!text) {
-      return message.channel.send("You must enter the announcement text!");
+      return message.error("You must enter the announcement text!");
     }
     if (text.length > 1030) {
-      return message.channe.send("Your text should be shorter than 1030 characters!");
+      return message.error("Your text should be shorter than 1030 characters!");
     }
 
     message.delete().catch(() => { });
 
     let mention = "";
 
-    const msg = await message.channel.send("Would you like to add a mention to your message?\nAnswer by sending `yes` or `no`!");
+    const msg = await message.sendM("Would you like to add a mention to your message?\nAnswer by sending `yes` or `no`!", { prefixEmoji: "loading" });
 
     const collector = new Discord.MessageCollector(message.channel, (m) => m.author.id === message.author.id, { time: 240000 });
 
@@ -50,7 +49,7 @@ class Announcement extends Command {
       if (tmsg.content.toLowerCase() === "yes") {
         tmsg.delete();
         msg.delete();
-        const tmsg1 = await message.channel.send("Choose to mention `@`everyone by typing `every` or to mention `@`here by typing `here`!");
+        const tmsg1 = await message.sendM("Choose to mention `@`everyone by typing `every` or to mention `@`here by typing `here`!", { prefixEmoji: "loading" });
         const c = new Discord.MessageCollector(message.channel, (m) => m.author.id === message.author.id, { time: 60000 });
         c.on("collect", (m) => {
           if (m.content.toLowerCase() === "here") {
@@ -69,18 +68,14 @@ class Announcement extends Command {
         });
         c.on("end", (collected, reason) => {
           if (reason === "time") {
-            return message.channel.send("Time's up! Please send the command again!");
+            return message.error("Time's up! Please send the command again!");
           }
         });
       }
     });
 
     collector.on("end", (collected, reason) => {
-
-      if (reason === "time") {
-        return message.channel.send("Time's up! Please send the command again!");
-      }
-
+      if (reason === "time") return message.error("Time's up! Please send the command again!");
       const embed = new Discord.MessageEmbed()
         .setAuthor("📢 Announcement")
         .setColor(data.config.embed.color)

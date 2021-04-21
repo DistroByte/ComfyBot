@@ -25,7 +25,7 @@ class Lyrics extends Command {
   async run(message, args, data) {
     const songName = args.join(" ") || this.client.player.nowPlaying(message).title;
     if (!songName || !this.client.player.nowPlaying(message)) {
-      return message.channel.send("Please specify a song name!");
+      return message.error("Please specify a song name!");
     }
 
     const embed = new Discord.MessageEmbed()
@@ -54,14 +54,14 @@ class Lyrics extends Command {
       if (lyrics.length > 2048) {
         lyrics = lyrics.substr(0, 2031) + "\n**And more...**" + " [Click here]" + `https://www.musixmatch.com/search/${songName}`;
       } else if (!lyrics.length) {
-        return message.channel.send(`No lyrics found for ${songName}`);
+        return message.error(`No lyrics found for ${songName}`);
       }
 
       embed.setDescription(lyrics);
-      message.channel.send(embed);
+      message.channel.send(embed, { split: true });
 
     } catch (e) {
-      message.channel.send(`No lyrics found for ${songName}`);
+      message.error(`No lyrics found for ${songName}`);
     }
   }
 }

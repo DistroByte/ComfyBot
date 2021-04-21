@@ -21,23 +21,19 @@ class Setprefix extends Command {
   }
 
   async run(message, args, data) {
-
     const prefix = args[0];
     if (!prefix) {
-      return message.channel.send('Please enter a valid prefix!');
+      return message.error('Please enter a valid prefix!');
     }
     if (prefix.length > 5) {
-      return message.channel.send('The prefix shouldn\'t exceed 5 characters!');
+      return message.error('The prefix shouldn\'t exceed 5 characters!');
     }
 
     data.guild.prefix = prefix;
     data.guild.save();
 
-    // Sucess
-    return message.channel.send(`The bot prefix has been set to \`${prefix}\``);
-
+    return message.success(`The bot prefix has been set to \`${prefix}\``);
   }
-
 }
 
 module.exports = Setprefix;

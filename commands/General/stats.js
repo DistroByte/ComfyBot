@@ -20,7 +20,6 @@ class Stats extends Command {
   }
 
   async run(message, args, data) {
-
     const statsEmbed = new Discord.MessageEmbed()
       .setColor(data.config.embed.color)
       .setFooter(data.config.embed.footer)

@@ -21,14 +21,9 @@ class Unban extends Command {
   }
 
   async run(message, args) {
-
     let user = null;
 
-    if (!args[0]) {
-      return message.channel.send("Please specify the ID of the member you wish to unban!");
-    }
-
-    // Check if the arg is an ID or a username
+    if (!args[0]) return message.error("Please specify the ID of the member you wish to unban!");
     const isId = !isNaN(args[0]);
 
     if (isId) {
@@ -40,26 +35,24 @@ class Unban extends Command {
     } else if (!isId) {
       const arr = args[0].split("#");
       if (arr.length < 2) {
-        return message.channel.send(`No user on Discord has the ID \`${args[0]}\`!`);
+        return message.error(`No user on Discord has the ID \`${args[0]}\`!`);
       }
       user = this.client.users.filter((u) => u.username === arr[0]).find((u) => u.discriminator === arr[1]);
     }
 
-    if (!user) {
-      return message.error(`No user on Discord has the ID \`${args[0]}\`!`);
-    }
+    if (!user) return message.error(`No user on Discord has the ID \`${args[0]}\`!`);
 
     // check if the user is banned
     const banned = await message.guild.fetchBans();
     if (!banned.some((e) => e.user.id === user.id)) {
-      return message.channel.send(`**${user.tag}** is not banned!`);
+      return message.error(`**${user.tag}** is not banned!`);
     }
 
     // Unban user
     message.guild.members.unban(user).catch(() => { });
 
     // Send a success message in the current channel
-    message.channel.send(`**${user.tag}** has just been unbanned from **${message.guild.name}**!`);
+    message.success(`**${user.tag}** has just been unbanned from **${message.guild.name}**!`);
   }
 }
 

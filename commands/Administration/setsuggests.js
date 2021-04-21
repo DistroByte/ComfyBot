@@ -34,13 +34,13 @@ class Setsuggests extends Command {
       data.guild.plugins.suggestions = null;
       data.guild.markModified("plugins.suggestions");
       await data.guild.save();
-      return message.channel.send('Suggestions channel no longer set!');
+      return message.success('Suggestions channel no longer set!');
     } else {
       const channel = sentChannel || message.channel;
       data.guild.plugins.suggestions = channel.id;
       data.guild.markModified("plugins.suggestions");
       await data.guild.save();
-      return message.channel.send(`Suggestions will be sent in **${channel.toString()}**!`);
+      return message.success(`Suggestions will be sent in **${channel.toString()}**!`);
     }
   }
 }

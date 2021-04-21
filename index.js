@@ -1,3 +1,5 @@
+require("./helpers/extenders");
+
 const util = require('util'),
   fs = require('fs'),
   readdir = util.promisify(fs.readdir),

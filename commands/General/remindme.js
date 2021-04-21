@@ -21,15 +21,14 @@ class Remindme extends Command {
   }
 
   async run(message, args, data) {
-
     const time = args[0];
     if (!time || isNaN(ms(time))) {
-      return message.channel.send('You must enter a valid time! Available units: `s`, `m`, `h` or`d`');
+      return message.error('You must enter a valid time! Available units: `s`, `m`, `h` or`d`');
     }
 
     const msg = args.slice(1).join(" ");
     if (!msg) {
-      return message.channel.send('You must enter a message!');
+      return message.error('You must enter a message!');
     }
 
     const rData = {
@@ -48,9 +47,8 @@ class Remindme extends Command {
     this.client.databaseCache.usersReminds.set(message.author.id, data.userData);
 
     // Send success message
-    message.channel.send(`Reminder set! I will send you \`${msg}\` in \`${time}\``);
+    message.success(`Reminder set! I will send you \`${msg}\` in \`${time}\``);
   }
-
 }
 
 module.exports = Remindme;

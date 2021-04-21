@@ -22,7 +22,6 @@ class Phcomment extends Command {
   }
 
   async run(message, args) {
-
     let user = await this.client.resolveUser(args[0]);
     let text = args.join(" ");
 
@@ -33,7 +32,7 @@ class Phcomment extends Command {
     }
 
     if (!text) {
-      return message.channel.send("Please specify some text!");
+      return message.error("Please specify some text!");
     }
 
     try {
@@ -43,7 +42,7 @@ class Phcomment extends Command {
       message.channel.send(attachment);
     } catch (e) {
       console.log(e);
-      message.channel.send(`Error occured: ${e}`)
+      message.error(`Error occured: ${e}`)
     }
 
   }

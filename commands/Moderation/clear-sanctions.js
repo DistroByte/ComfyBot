@@ -21,15 +21,14 @@ class Clearsanctions extends Command {
   }
 
   async run(message, args) {
-
     const member = await this.client.resolveMember(args[0], message.guild);
     if (!member) {
-      return message.channel.send("Please mention the member you wish to remove the sanctions from!");
+      return message.error("Please mention the member you wish to remove the sanctions from!");
     }
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
     memberData.sanctions = [];
     memberData.save();
-    message.channel.send(`${member.user.tag}'s sanctions were removed!`)
+    message.success(`${member.user.tag}'s sanctions were removed!`)
   }
 
 }

@@ -23,7 +23,6 @@ class Flip extends Command {
       ? message.channel.send("🎲 | Heads!")
       : message.channel.send("🎲 | Tails!");
   }
-
 }
 
 module.exports = Flip;

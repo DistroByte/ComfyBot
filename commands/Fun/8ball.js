@@ -20,20 +20,18 @@ class Eightball extends Command {
   }
 
   async run(message, args) {
-
     if (!args[0] || !message.content.endsWith("?")) {
-      return message.channel.send("You must enter a question!");
+      return message.error("You must enter a question!");
     }
 
     const options = ["I'm sure of it.", "it's definitely safe.", "yes, definitely.", "better not tell you now.",
       "ask again later.", "don't count on it.", "I don't think.", "my sources say no.", "no.", "outlook not so good."
     ]
 
-    const answerNO = parseInt(Math.floor(Math.random() * 10), 10) + 1;
+    const answer = parseInt(Math.floor(Math.random() * 10), 10) + 1;
 
-    message.channel.send(`${message.author.username}, ${options[answerNO]}`);
+    message.channel.send(`${message.author.username}, ${options[answer]}`);
   }
-
 }
 
 module.exports = Eightball;

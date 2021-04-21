@@ -23,7 +23,7 @@ class Ignore extends Command {
   async run(message, args, data) {
     const channel = message.mentions.channels.filter((ch) => ch.type === "text" && ch.guild.id === message.guild.id).first() || message.channel;
     if (!channel) {
-      return message.channel.send('Please specify a valid channel!');
+      return message.error('Please specify a valid channel!');
     }
 
     const ignored = data.guild.ignoredChannels.includes(channel.id);
@@ -31,11 +31,11 @@ class Ignore extends Command {
     if (ignored) {
       data.guild.ignoredChannels = data.guild.ignoredChannels.filter((ch) => ch !== channel.id);
       data.guild.save();
-      return message.channel.send(`Commands are now enabled in ${channel.toString()}!`);
+      return message.success(`Commands are now **enabled** in ${channel.toString()}!`);
     } else if (!ignored) {
       data.guild.ignoredChannels.push(channel.id);
       data.guild.save();
-      return message.channel.send(`Commands are now disabled in ${channel.toString()}!`);
+      return message.success(`Commands are now **disabled** in ${channel.toString()}!`);
     }
   }
 }

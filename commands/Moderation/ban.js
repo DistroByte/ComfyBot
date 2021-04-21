@@ -22,39 +22,31 @@ class Ban extends Command {
   }
 
   async run(message, args, data) {
-
     const user = await this.client.resolveUser(args[0]);
-    if (!user) {
-      return message.channel.send("Please specify a valid member to ban!")
-    }
+    if (!user) return message.error("Please specify a valid member to ban!");
 
     const memberData = message.guild.members.cache.get(user.id) ? await this.client.findOrCreateMember({ id: user.id, guildID: message.guild.id }) : null;
 
-    if (user.id === message.author.id) {
-      return message.channel.send("You can't ban yourself!");
-    }
+    if (user.id === message.author.id) return message.error("You can't ban yourself!");
 
     // If the user is already banned
     const banned = await message.guild.fetchBans();
-    if (banned.some((m) => m.user.id === user.id)) {
-      return message.channel.send(`${user.tag} is already banned!`)
-    }
+    if (banned.some((m) => m.user.id === user.id)) return message.error(`${user.tag} is already banned!`);
 
     // Gets the ban reason
     let reason = args.slice(1).join(" ");
-    if (!reason) {
-      reason = "No reason provided";
-    }
+    if (!reason) reason = "No reason provided";
+
 
     const member = await message.guild.members.fetch(user.id).catch(() => { });
     if (member) {
       const memberPosition = member.roles.highest.position;
       const moderationPosition = message.member.roles.highest.position;
       if (message.member.ownerID !== message.author.id && !(moderationPosition > memberPosition)) {
-        return message.channel.send("You can't ban or update a ban for a member who has an higher or equal role hierarchy to yours!");
+        return message.error("You can't ban or update a ban for a member who has an higher or equal role hierarchy to yours!");
       }
       if (!member.bannable) {
-        return message.channel.send("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
+        return message.error("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
       }
     }
 
@@ -64,7 +56,7 @@ class Ban extends Command {
     message.guild.members.ban(user, { reason }).then(() => {
 
       // Send a success message in the current channel
-      message.channel.send(`**${user.tag}** has just been banned from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`);
+      message.success(`**${user.tag}** has just been banned from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`);
 
       const caseInfo = {
         channel: message.channel.id,
@@ -97,7 +89,7 @@ class Ban extends Command {
 
     }).catch((err) => {
       console.log(err);
-      return message.channel.send("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
+      return message.error("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
     });
   }
 }

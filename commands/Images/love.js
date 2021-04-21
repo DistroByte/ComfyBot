@@ -22,7 +22,6 @@ class Love extends Command {
   }
 
   async run(message, args) {
-
     const users = [
       await this.client.resolveUser(args[0]) || message.author,
       await this.client.resolveUser(args[1]) || message.author
@@ -35,7 +34,7 @@ class Love extends Command {
       message.channel.send(attachment);
     } catch (e) {
       console.log(e);
-      message.channel.send(`Error occured: ${e}`)
+      message.error(`Error occured: ${e}`)
     }
 
   }

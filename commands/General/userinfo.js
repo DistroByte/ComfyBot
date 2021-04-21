@@ -23,9 +23,7 @@ class Userinfo extends Command {
   }
 
   async run(message, args, data) {
-
     let displayPresence = true;
-
     const isID = !isNaN(args[0]);
 
     var user;
@@ -43,7 +41,7 @@ class Userinfo extends Command {
       }
     }
 
-    if (!user) return message.channel.send(`No user on Discord has the \`${args[0]}\` ID!`);
+    if (!user) return message.error(`No user on Discord has the \`${args[0]}\` ID!`);
 
     let member = null;
     if (message.guild) member = await message.guild.members.fetch(user).catch(() => { });

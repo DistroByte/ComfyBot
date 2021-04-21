@@ -26,7 +26,7 @@ class Uptime extends Command {
       return `${weeks != 0 ? weeks + " weeks," : ""} ${days != 0 ? days + " days," : ""} ${hrs != 0 ? hrs + " hours," : ""} ${min != 0 ? min + " mins," : ""} ${sec} secs`;
     }
 
-    message.channel.send(`I have been online for \`${duration(this.client.uptime).trim()}\``)
+    message.success(`I have been online for \`${duration(this.client.uptime).trim()}\``)
   }
 }
 

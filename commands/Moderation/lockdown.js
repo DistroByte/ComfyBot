@@ -35,9 +35,9 @@ class Lockdown extends Command {
     data.guild.save()
 
     if (data.guild.lockdown) {
-      message.channel.send("**Success!**\nServer in lockdown")
+      message.success("Server in lockdown")
     } else {
-      message.channel.send("**Success!**\nServer no longer in lockdown")
+      message.error("Server no longer in lockdown")
     }
   }
 }

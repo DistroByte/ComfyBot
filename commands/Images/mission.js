@@ -21,9 +21,8 @@ class Mission extends Command {
   }
 
   async run(message, args) {
-
     const user = await this.client.resolveUser(args[0]) || message.author;
-    const m = await message.channel.send("Please wait...")
+    const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });
     const buffer = await this.client.AmeAPI.generate("missionpassed", { url: user.displayAvatarURL({ format: "png", size: 2048 }) });
     const attachment = new Discord.MessageAttachment(buffer, "mission.png");
     m.delete();

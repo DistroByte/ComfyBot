@@ -26,7 +26,7 @@ class Ascii extends Command {
   async run(message, args) {
     const text = args.join(" ");
     if (!text || text.length > 20) {
-      return message.channel.send("Please enter a valid text (less than 20 characters)!");
+      return message.error("Please enter valid text (less than 20 characters)!");
     }
 
     const rendered = await figletAsync(text);

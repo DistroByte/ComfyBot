@@ -23,10 +23,10 @@ class Load extends Command {
     const command = args[0];
     const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
     if (!cmd) {
-      message.channel.send(`${command} is not an available command`)
+      message.error(`${command} is not an available command`)
     }
     await this.client.loadCommand(cmd.conf.location, cmd.help.name);
-    message.channel.send(`${cmd.help.name} successfully loaded!`)
+    message.success(`${cmd.help.name} successfully loaded!`)
   }
 }
 

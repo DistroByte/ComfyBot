@@ -28,12 +28,12 @@ class Addcommand extends Command {
       this.client.aliases.get(name) ||
       data.guild.customCommands.find((c) => c.name === name)
     ) {
-      return message.channel.send('That command already exists!');
+      return message.error('That command already exists!');
     }
 
     const answer = (args[0].split("\n")[1] || "") + args.slice(1).join(" ");
     if (!answer) {
-      return message.channel.send("Please provide a command answer!");
+      return message.error("Please provide a command answer!");
     }
 
     data.guild.customCommands.push({
@@ -42,9 +42,8 @@ class Addcommand extends Command {
     });
     data.guild.save();
 
-    message.channel.send(`Command **${data.guild.prefix}${name}** added!`);
+    message.success(`Command **${data.guild.prefix}${name}** added!`);
   }
-
 }
 
 module.exports = Addcommand;

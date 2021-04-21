@@ -22,7 +22,7 @@ class Shutdown extends Command {
       await message.react('👋');
       process.exit();
     } catch (e) {
-      message.channel.send(`ERROR: ${e.message}`);
+      message.error(`ERROR: ${e.message}`);
     }
   }
 }
