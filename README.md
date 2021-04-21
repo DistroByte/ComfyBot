@@ -6,6 +6,7 @@
 ![](https://img.shields.io/github/package-json/v/discordjs/discord.js?color=blue&label=discord.js&logo=npm)
 [![](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/distrobyte)
 [![](https://www.codefactor.io/repository/github/distrobyte/comfybot/badge)](https://www.codefactor.io/repository/github/distrobyte/comfybot)
+![](https://img.shields.io/github/checks-status/DistroByte/ComfyBot/dev?label=test&logo=github)
 
 > This bot is used by more than 5,000 Discord users and more than 30 servers.
 
