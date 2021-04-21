@@ -1,0 +1,12 @@
+# Add 'repo' label to any root file changes
+repo:
+  - ./*
+
+command:
+  - ['commands/']
+
+event:
+  - ['events/']
+  
+handler:
+  - ['handlers/']
