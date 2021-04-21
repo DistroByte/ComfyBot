@@ -3,9 +3,9 @@
 # ComfyBot
 
 [![](https://img.shields.io/discord/762742746405535774?color=7289DA&label=Discord&logo=Discord)](https://invite.dbtye.xyz)
-[![](https://img.shields.io/badge/discord.js-v12.0.0--dev-blue.svg?logo=npm)](https://github.com/discordjs)
+![](https://img.shields.io/github/package-json/v/discordjs/discord.js?color=blue&label=discord.js&logo=npm)
 [![](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/distrobyte)
-[![CodeFactor](https://www.codefactor.io/repository/github/distrobyte/comfybot/badge)](https://www.codefactor.io/repository/github/distrobyte/comfybot)
+[![](https://www.codefactor.io/repository/github/distrobyte/comfybot/badge)](https://www.codefactor.io/repository/github/distrobyte/comfybot)
 
 > This bot is used by more than 5,000 Discord users and more than 30 servers.
 
