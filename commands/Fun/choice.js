@@ -26,7 +26,7 @@ class Choice extends Command {
     if (answers.some(answer => !answer))
       return message.error("One of your choices seems to be empty....Please try again!");
 
-    const m = await message.channel.send("Choice being made...");
+    const m = await message.sendM("Choice being made...", { prefixEmoji: "loading" });
 
     setTimeout(() => {
       m.channel.send("Here's my choice:")
