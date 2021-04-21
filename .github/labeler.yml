@@ -3,10 +3,10 @@ repo:
   - ./*
 
 command:
-  - ['commands/']
+  - commands/*
 
 event:
-  - ['events/']
+  - events/*
   
 handler:
-  - ['handlers/']
+  - handlers/*
