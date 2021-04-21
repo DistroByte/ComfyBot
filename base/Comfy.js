@@ -1,6 +1,8 @@
-const { Client, Collection, MessageEmbed } = require('discord.js');
-const { GiveawaysManager } = require('discord-giveaways');
-const { Player } = require('discord-player');
+const { Client, Collection, MessageEmbed } = require('discord.js'),
+  { GiveawaysManager } = require('discord-giveaways'),
+  { Player } = require('discord-player'),
+  Sentry = require('@sentry/node'),
+  Tracing = require('@sentry/tracing');
 
 const util = require('util'),
   path = require('path'),
@@ -40,6 +42,11 @@ class Comfy extends Client {
     this.databaseCache.mutedUsers = new Collection();
 
     this.authCodes = new Map();
+
+    Sentry.init({
+      dsn: this.config.apiKeys.sentry,
+      tracesSampleRate: 1.0,
+    });
 
     this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
 
