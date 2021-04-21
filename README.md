@@ -16,7 +16,7 @@ ComfyBot was developed by @DistroByte#0001
 
 ### Invite ComfyBot
 
-If you don't want to edit the code of the bot, a permanent online version is available, which you can invite to your own Discord!   
+If you don't want to edit the code of the bot, a permanent online version is available, which you can invite to your own Discord server!   
 
 [Invite Link](https://top.gg/bot/666393146351026176)
 
