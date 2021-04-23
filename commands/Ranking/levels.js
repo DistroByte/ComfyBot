@@ -22,6 +22,9 @@ class Levels extends Command {
   async run(message, args, data) {
     const user = message.author;
 
+    let i0 = 0;
+    let i1 = 10;
+
     let memberXp = new Map();
     data.guild.members.forEach(m => { memberXp.set(m.id, m.xp) });
     let leaderboard = [];
@@ -39,7 +42,6 @@ class Levels extends Command {
       leaderboard.push(`\`${ranks}\` **${message.guild.members.cache.get(key)}** *at lvl* ${this.client.functions.getLevel(value) || 0}`);
       ranks += 1;
     }
-
     var page = 1
 
     let embed = new MessageEmbed()
@@ -51,8 +53,48 @@ class Levels extends Command {
     let slice = 0;
     leaderboard.length >= 10 ? slice = 10 : slice = leaderboard.length;
 
-    embed.addField(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})`, leaderboard.slice(0, slice));
-    message.channel.send(embed);
+    embed.setDescription(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})\n${leaderboard.slice(0, slice).join("\n")}`);
+    const msg = await message.channel.send(embed);
+
+    await msg.react("⬅");
+    await msg.react("➡");
+    await msg.react("❌");
+
+    const collector = msg.createReactionCollector((reaction, user) => user.id === message.author.id, { time: 30000 });
+
+    collector.on("collect", async (reaction) => {
+      if (reaction._emoji.name === "⬅" && page !== 1) {
+        i0 = i0 - 10;
+        i1 = i1 - 10;
+        page = page - 1;
+
+        embed.setTitle(`Leaderboard`)
+          .setDescription(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})\n${leaderboard.slice((page - 1) * 10, (page - 1) * 10 + 10).join("\n")}`)
+          .setFooter(`Page ${page}`)
+
+        msg.edit(embed);
+      }
+
+      if (reaction._emoji.name === "➡" && page !== Math.floor(ranks / 10)) {
+        i0 = i0 + 10;
+        i1 = i1 + 10;
+        page = page + 1;
+
+        embed.setTitle(`Leaderboard`)
+          .setDescription(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})\n${leaderboard.slice((page - 1) * 10, (page - 1) * 10 + 10).join("\n")}`)
+          .setFooter(`Page ${page}`)
+
+        msg.edit(embed);
+      }
+
+      if (reaction._emoji.name === "❌") {
+        return collector.stop()
+      }
+
+      try {
+        await reaction.users.remove(message.author.id);
+      } catch (err) { }
+    });
   }
 }
 
