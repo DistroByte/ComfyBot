@@ -6,7 +6,7 @@ const util = require('util'),
   mongoose = require('mongoose');
 
 const Comfy = require('./base/Comfy'),
-  client = new Comfy();
+  client = new Comfy({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER', 'USER'] });
 
 const init = async () => {
 
