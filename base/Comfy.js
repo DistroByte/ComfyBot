@@ -1,8 +1,7 @@
 const { Client, Collection, MessageEmbed } = require('discord.js'),
   { GiveawaysManager } = require('discord-giveaways'),
   { Player } = require('discord-player'),
-  Sentry = require('@sentry/node'),
-  Tracing = require('@sentry/tracing');
+  Sentry = require('@sentry/node');
 
 const util = require('util'),
   path = require('path'),

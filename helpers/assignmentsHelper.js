@@ -79,16 +79,19 @@ async function UpdateAssignmentsEmbed(client) {
     embedContent += `${NewAssignment.assignmentID}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`
   }
 
-  let AssignmentsChannel = await client.channels.cache.get("829045215679610891")
-  let ExistingEmbed = await AssignmentsChannel.messages.fetch('829045217818574848')
+  try {
+    let AssignmentsChannel = await client.channels.cache.get("829045215679610891")
+    let ExistingEmbed = await AssignmentsChannel.messages.fetch('829045217818574848')
 
-  const AssignmentEmbed = new Discord.MessageEmbed()
-    .setColor(0x36393e)
-    .setTitle('Upcoming Assignments (Earliest due first)')
-    .setDescription(embedContent)
-    .setFooter(`Last updated at ${new Date().toString().slice(0, 24)}`)
-  // AssignmentsChannel.send(AssignmentEmbed);
-  ExistingEmbed.edit(AssignmentEmbed);
+
+    const AssignmentEmbed = new Discord.MessageEmbed()
+      .setColor(0x36393e)
+      .setTitle('Upcoming Assignments (Earliest due first)')
+      .setDescription(embedContent)
+      .setFooter(`Last updated at ${new Date().toString().slice(0, 24)}`)
+    // AssignmentsChannel.send(AssignmentEmbed);
+    ExistingEmbed.edit(AssignmentEmbed);
+  } catch (error) { }
 }
 
 async function Initialise(bot) {
