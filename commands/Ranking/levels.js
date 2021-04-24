@@ -56,9 +56,11 @@ class Levels extends Command {
     embed.setDescription(`You (${message.member.displayName}) are rank #${authorRank} (page ${Math.floor(authorRank / 10) + 1})\n${leaderboard.slice(0, slice).join("\n")}`);
     const msg = await message.channel.send(embed);
 
-    await msg.react("⬅");
-    await msg.react("➡");
-    await msg.react("❌");
+    try {
+      await msg.react("⬅");
+      await msg.react("➡");
+      await msg.react("❌");
+    } catch (err) { }
 
     const collector = msg.createReactionCollector((reaction, user) => user.id === message.author.id, { time: 30000 });
 
