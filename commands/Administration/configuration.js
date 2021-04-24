@@ -32,32 +32,16 @@ class Configuration extends Command {
     embed.addField('Server prefix', `\`\`\`${guildData.prefix}\`\`\``);
 
     // Ignored channels
-    embed.addField('Ignored channel(s)',
-      (guildData.ignoredChannels.length > 0) ?
-        guildData.ignoredChannels.map((ch) => `<#${ch}>`).join(", ")
-        : "No ignored channels"
-    );
+    embed.addField('Ignored channel(s)', (guildData.ignoredChannels.length > 0) ? guildData.ignoredChannels.map((ch) => `<#${ch}>`).join(", ") : "No ignored channels");
 
     // Autorole plugin
-    embed.addField('Autorole',
-      (guildData.plugins.autorole.enabled) ?
-        `Role: <@&${guildData.plugins.autorole.role}>`
-        : 'Autorole disabled'
-    );
+    embed.addField('Autorole', (guildData.plugins.autorole.enabled) ? `Role: <@&${guildData.plugins.autorole.role}>` : 'Autorole disabled');
 
     // Welcome plugin
-    embed.addField('Welcome',
-      (guildData.plugins.welcome.enabled) ?
-        `Channel: <#${guildData.plugins.welcome.channel}>`
-        : "Welcome messages disabled"
-    );
+    embed.addField('Welcome', (guildData.plugins.welcome.enabled) ? `Channel: <#${guildData.plugins.welcome.channel}>` : "Welcome messages disabled");
 
     // Goodbye plugin
-    embed.addField("Goodbye",
-      (guildData.plugins.goodbye.enabled) ?
-        `Channel: <#${guildData.plugins.goodbye.channelID}>`
-        : 'Goodbye messages disabled'
-    );
+    embed.addField("Goodbye", (guildData.plugins.goodbye.enabled) ? `Channel: <#${guildData.plugins.goodbye.channelID}>` : 'Goodbye messages disabled');
 
     // Special channels
     const modlogs = guildData.plugins.modlogs ? `Moderation logs: <#${guildData.plugins.modlogs}>` : `Moderation logs: *Not set*`;
@@ -81,7 +65,6 @@ class Configuration extends Command {
 
     message.channel.send(embed);
   }
-
 }
 
 module.exports = Configuration;
