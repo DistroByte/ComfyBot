@@ -49,7 +49,7 @@ class Comfy extends Client {
 
     this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
 
-    this.player = new Player(this, { leaveOnEmpty: true, leaveOnEnd: false, leaveOnEndCooldown: 20000, leaveOnStop: false, leaveOnEmptyCooldown: 10000 });
+    this.player = new Player(this, { leaveOnEmpty: true, leaveOnEnd: true, leaveOnEndCooldown: 12000, leaveOnStop: true, leaveOnEmptyCooldown: 12000 });
     this.filters = this.config.filters
     this.player
       .on('trackStart', (message, track) => {
