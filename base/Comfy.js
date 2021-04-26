@@ -53,7 +53,7 @@ class Comfy extends Client {
     this.filters = this.config.filters
     this.player
       .on('trackStart', (message, track) => {
-        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id);
+        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id && msg.content.includes(`Now playing`));
         let musicMessage = messages.last();
         if (musicMessage) musicMessage.delete();
 
