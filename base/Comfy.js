@@ -58,7 +58,7 @@ class Comfy extends Client {
         });
 
         let musicMessage = messages.last();
-        musicMessage.delete();
+        if (musicMessage) musicMessage.delete();
 
         message.channel.send(`${this.emotes?.music} - Now playing \`${track.title}\` into \`${message.member.voice.channel.name}\``);
       })
