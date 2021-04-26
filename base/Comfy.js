@@ -53,7 +53,14 @@ class Comfy extends Client {
     this.filters = this.config.filters
     this.player
       .on('trackStart', (message, track) => {
-        message.channel.send(`${this.emotes?.music} - Now playing ${track.title} into \`${message.member.voice.channel.name}\``);
+        let messages = message.channel.messages.cache.filter(msg => {
+          msg.author.id == this.user.id && msg.content.startsWith(`${this.emotes?.music} - Now playing`)
+        });
+
+        let musicMessage = messages.last();
+        musicMessage.delete();
+
+        message.channel.send(`${this.emotes?.music} - Now playing \`${track.title}\` into \`${message.member.voice.channel.name}\``);
       })
       .on('playlistStart', (message, queue, playlist, track) => {
         message.channel.send(this.emotes?.success + ' | ' + message.translate('music/play:PLAYING_PLAYLIST', {
@@ -99,7 +106,7 @@ class Comfy extends Client {
         message.channel.send(`${this.emotes?.music} - ${track.title} has been added to the queue!`);
       })
       .on('channelEmpty', () => {
-        // message.channel.send(`${client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
+        message.channel.send(`${client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
         // leaveOnEmpty disabled, will do nothing
       })
       .on('error', (message, error) => {
