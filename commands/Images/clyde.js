@@ -33,7 +33,7 @@ class Clyde extends Command {
       message.channel.send(attachment);
     } catch (e) {
       console.log(e);
-      message.error(`Error occured: ${e}`)
+      message.error(`Error occured: ${e}`);
     }
   }
 }

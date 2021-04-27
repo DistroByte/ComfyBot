@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require('../../helpers/assignmentsHelper'),
-  Assignments = require('../../base/Assignment');
+  { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require("../../helpers/assignmentsHelper"),
+  Assignments = require("../../base/Assignment");
 
 class Assignment extends Command {
   constructor(client) {
@@ -23,7 +23,7 @@ class Assignment extends Command {
   }
 
   async run(message, args, data) {
-    const AwaitFilter = response => { return response.author.id === message.author.id; }
+    const AwaitFilter = response => { return response.author.id === message.author.id; };
 
     let action = args.shift();
     if (action === "new") {
@@ -31,16 +31,16 @@ class Assignment extends Command {
         return message.error("Please specify a due date!");
       }
 
-      let ModCode = args[0]
-      let DueDate = args[1] + " " + (args[2] ? args[2] : "00:00")
+      let ModCode = args[0];
+      let DueDate = args[1] + " " + (args[2] ? args[2] : "00:00");
       let ModuleName = await FetchModuleNameFromCode(ModCode)
         .catch(err => {
-          message.reply(`Invalid module code provided: ${ModCode}`)
+          message.reply(`Invalid module code provided: ${ModCode}`);
           return;
-        })
+        });
 
       let AssignmentID = 0;
-      await Assignments.find({}, 'assignmentID', function (err, ids) {
+      await Assignments.find({}, "assignmentID", function (err, ids) {
         ids.forEach(id => {
           if (id.assignmentID >= AssignmentID) {
             AssignmentID = id.assignmentID;
@@ -49,31 +49,31 @@ class Assignment extends Command {
       });
 
       if (ModuleName) {
-        message.sendM(`Please enter a description for this assignment.`, { prefixEmoji: "loading" })
+        message.sendM("Please enter a description for this assignment.", { prefixEmoji: "loading" })
           .then(() => {
-            message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
+            message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
               .then(ConfirmationResponse => {
-                let AssignmentDescription = ConfirmationResponse.first().content
+                let AssignmentDescription = ConfirmationResponse.first().content;
                 message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${ModCode}\n**Module Name:** ${ModuleName}\n**Due Date:** ${DueDate.toString().slice(0, 24)}\n**Description:** ${AssignmentDescription}`, { prefixEmoji: "loading" })
                   .then(() => {
-                    message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ['time'] })
+                    message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
                       .then(ConfirmationResponse => {
-                        if (ConfirmationResponse.first().content.toLowerCase() != 'confirm') return message.error('Confirmation denied - request was not submitted.');
+                        if (ConfirmationResponse.first().content.toLowerCase() != "confirm") return message.error("Confirmation denied - request was not submitted.");
 
                         Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
                           if (err) return console.log(err);
-                          message.success('New assignment created.')
-                          UpdateAssignmentsEmbed(message.client)
+                          message.success("New assignment created.");
+                          UpdateAssignmentsEmbed(message.client);
                         });
                       })
                       .catch(err => {
-                        console.log(err)
+                        console.log(err);
                         message.error(`Command timed out. \n ${err}`);
                       });
                   });
               })
               .catch(err => {
-                console.log(err)
+                console.log(err);
                 message.error(`Command timed out. \n ${err}`);
               });
           });
@@ -81,7 +81,8 @@ class Assignment extends Command {
     }
 
     if (action == "edit") {
-      let id = args[0]
+      // eslint-disable-next-line no-unused-vars
+      let id = args[0];
     }
   }
 }

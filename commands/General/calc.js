@@ -23,7 +23,7 @@ class Calc extends Command {
 
   async run(message, args, data) {
     if (!args[0]) {
-      return message.error('Please enter a calculation!');
+      return message.error("Please enter a calculation!");
     }
 
     let result;

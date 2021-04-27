@@ -5,8 +5,8 @@ class Addcommand extends Command {
   constructor(client) {
     super(client, {
       name: "addcommand",
-      description: 'Add a custom command!',
-      usage: ['{{p}}addcommand hello Hello {user}! How are you?'],
+      description: "Add a custom command!",
+      usage: ["{{p}}addcommand hello Hello {user}! How are you?"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -28,7 +28,7 @@ class Addcommand extends Command {
       this.client.aliases.get(name) ||
       data.guild.customCommands.find((c) => c.name === name)
     ) {
-      return message.error('That command already exists!');
+      return message.error("That command already exists!");
     }
 
     const answer = (args[0].split("\n")[1] || "") + args.slice(1).join(" ");

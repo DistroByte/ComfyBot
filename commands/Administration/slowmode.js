@@ -7,8 +7,8 @@ class Slowmode extends Command {
     super(client, {
       name: "slowmode",
       description: "Set a channel cooldown",
-      usage: '[#channel] (time)',
-      examples: ['{{p}}slowmode #general 10m', '{{p}}slowmode #general'],
+      usage: "[#channel] (time)",
+      examples: ["{{p}}slowmode #general 10m", "{{p}}slowmode #general"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

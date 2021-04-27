@@ -32,7 +32,7 @@ class Setmodlogs extends Command {
       data.guild.plugins.modlogs = null;
       data.guild.markModified("plugins.modlogs");
       await data.guild.save();
-      return message.success('Moderation logs channel deleted!');
+      return message.success("Moderation logs channel deleted!");
     } else {
       const channel = sentChannel || message.channel;
       data.guild.plugins.modlogs = channel.id;

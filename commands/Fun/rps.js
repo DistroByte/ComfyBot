@@ -20,19 +20,19 @@ class Rps extends Command {
   }
 
   async run(message, args, data) {
-    let rps = ['rock', 'paper', 'scissors'];
+    let rps = ["rock", "paper", "scissors"];
 
     if (!args[0] || !rps.includes(args[0])) {
-      return message.error("Please specify either rock, paper or scissors")
+      return message.error("Please specify either rock, paper or scissors");
     }
 
     let botChoice = rps[Math.floor(Math.random() * rps.length)];
     let userChoice = args[0];
 
     if (
-      (userChoice === 'rock' && botChoice === 'scissors') ||
-      (userChoice === 'paper' && botChoice === 'rock') ||
-      (userChoice === 'scissors' && botChoice === 'paper')
+      (userChoice === "rock" && botChoice === "scissors") ||
+      (userChoice === "paper" && botChoice === "rock") ||
+      (userChoice === "scissors" && botChoice === "paper")
     ) {
       message.success(`**You Won!** ${userChoice} vs ${botChoice}!\nYou won 10 credits!`);
       const userdata = await this.client.findOrCreateMember({ id: message.author.id, guildID: message.guild.id });

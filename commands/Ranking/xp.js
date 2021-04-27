@@ -1,5 +1,5 @@
 const Command = require("../../base/Command"),
-  { Util } = require('discord.js');
+  { Util } = require("discord.js");
 
 class XP extends Command {
   constructor(client) {
@@ -22,21 +22,21 @@ class XP extends Command {
   }
 
   async run(message, args, data) {
-    if (!args[1]) return message.error("Please specify a user!")
-    if (!args[2]) return message.error("Please specify amount of xp to add!")
-    let user = data.guild.members.find(u => u.id === message.mentions.members.first().id)
+    if (!args[1]) return message.error("Please specify a user!");
+    if (!args[2]) return message.error("Please specify amount of xp to add!");
+    let user = data.guild.members.find(u => u.id === message.mentions.members.first().id);
     if (args[0] === "add") {
       const xp = user.xp;
 
       const newXp = Number(xp) + Number(args[2]);
 
       user.xp = newXp;
-      user.markModified("xp")
+      user.markModified("xp");
       await user.save();
-      await data.guild.save()
+      await data.guild.save();
 
-      const success = Util.parseEmoji(this.client.emotes?.success).id
-      return message.react(success)
+      const success = Util.parseEmoji(this.client.emotes?.success).id;
+      return message.react(success);
     }
 
     if (args[0] === "remove") {
@@ -45,12 +45,12 @@ class XP extends Command {
       const newXp = Number(xp) - Number(args[2]);
 
       user.xp = newXp;
-      user.markModified("xp")
+      user.markModified("xp");
       await user.save();
-      await data.guild.save()
+      await data.guild.save();
 
-      const success = Util.parseEmoji(this.client.emotes?.success).id
-      return message.react(success)
+      const success = Util.parseEmoji(this.client.emotes?.success).id;
+      return message.react(success);
     }
 
     if (args[0] === "set") {
@@ -58,12 +58,12 @@ class XP extends Command {
       const newXp = Number(args[2]);
 
       user.xp = newXp;
-      user.markModified("xp")
+      user.markModified("xp");
       await user.save();
-      await data.guild.save()
+      await data.guild.save();
 
-      const success = Util.parseEmoji(this.client.emotes?.success).id
-      return message.react(success)
+      const success = Util.parseEmoji(this.client.emotes?.success).id;
+      return message.react(success);
     }
   }
 }

@@ -7,8 +7,8 @@ class Setreports extends Command {
     super(client, {
       name: "setreports",
       description: "Set the reports channel!",
-      usage: '(#channel)',
-      examples: ['{{p}}setreports #reports', '{{p}}setreports'],
+      usage: "(#channel)",
+      examples: ["{{p}}setreports #reports", "{{p}}setreports"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

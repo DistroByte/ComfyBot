@@ -7,8 +7,8 @@ class Report extends Command {
     super(client, {
       name: "report",
       description: "Report a user to the moderation team!",
-      usage: '[@user] [reason]',
-      examples: ['{{p}}report @DistroByt#0001 Breaking the rules'],
+      usage: "[@user] [reason]",
+      examples: ["{{p}}report @DistroByt#0001 Breaking the rules"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -24,21 +24,21 @@ class Report extends Command {
   async run(message, args, data) {
     const repChannel = message.guild.channels.cache.get(data.guild.plugins.reports);
     if (!repChannel) {
-      return message.error('No report channel set!');
+      return message.error("No report channel set!");
     }
 
     const member = await this.client.resolveMember(args[0], message.guild);
     if (!member) {
-      return message.error('Please mention the user you want report!');
+      return message.error("Please mention the user you want report!");
     }
 
     if (member.id === message.author.id) {
-      return message.error('You can\'t report yourself');
+      return message.error("You can't report yourself");
     }
 
     const rep = args.slice(1).join(" ");
     if (!rep) {
-      return message.error('Please enter a report reason!');
+      return message.error("Please enter a report reason!");
     }
 
     const embed = new Discord.MessageEmbed()

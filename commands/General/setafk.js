@@ -7,7 +7,7 @@ class Setafk extends Command {
       name: "setafk",
       description: "Become AFK (members who mention you will receive a message)",
       usage: "[reason]",
-      examples: ['{{prefix}}setafk I\'m eating :)'],
+      examples: ["{{prefix}}setafk I'm eating :)"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
@@ -22,7 +22,7 @@ class Setafk extends Command {
   async run(message, args, data) {
     const reason = args.join(" ");
     if (!reason) {
-      return message.error('Please specify the reason for your AFK status!');
+      return message.error("Please specify the reason for your AFK status!");
     }
 
     // Send success message

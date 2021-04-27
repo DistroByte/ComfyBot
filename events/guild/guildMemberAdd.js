@@ -1,8 +1,3 @@
-const stringCleaner = require('@sindresorhus/slugify');
-// const Canvas = require('ca')
-const Discord = require('discord.js');
-const { resolve } = require('path');
-
 module.exports = class {
 
   constructor(client) {
@@ -43,4 +38,4 @@ module.exports = class {
       }
     });
   }
-}
+};

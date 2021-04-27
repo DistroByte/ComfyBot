@@ -1,34 +1,34 @@
-const { Client, Collection, MessageEmbed } = require('discord.js'),
-  { GiveawaysManager } = require('discord-giveaways'),
-  { Player } = require('discord-player'),
-  Sentry = require('@sentry/node');
+const { Client, Collection } = require("discord.js"),
+  { GiveawaysManager } = require("discord-giveaways"),
+  { Player } = require("discord-player"),
+  Sentry = require("@sentry/node");
 
-const util = require('util'),
-  path = require('path'),
+const util = require("util"),
+  path = require("path"),
   AmeClient = require("amethyste-api"),
-  moment = require('moment');
+  moment = require("moment");
 
 class Comfy extends Client {
   constructor(options) {
-    super(options)
-    this.config = require('../config');
+    super(options);
+    this.config = require("../config");
     this.emotes = this.config.emojis;
 
     this.commands = new Collection();
     this.aliases = new Collection();
 
-    this.logger = require('../helpers/logger');
-    this.functions = require('../helpers/functions');
+    this.logger = require("../helpers/logger");
+    this.functions = require("../helpers/functions");
     this.wait = util.promisify(setTimeout);
 
-    this.guildsData = require('./Guild');
-    this.usersData = require('./User');
-    this.membersData = require('./Member');
-    this.logs = require('./Log');
+    this.guildsData = require("./Guild");
+    this.usersData = require("./User");
+    this.membersData = require("./Member");
+    this.logs = require("./Log");
 
     this.queues = new Collection();
 
-    this.dashboard = require('../dashboard/app');
+    this.dashboard = require("../dashboard/app");
     this.states = {};
 
     this.knownGuilds = [];
@@ -50,100 +50,100 @@ class Comfy extends Client {
     this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
 
     this.player = new Player(this, { leaveOnEmpty: true, leaveOnEnd: true, leaveOnEndCooldown: 12000, leaveOnStop: true, leaveOnEmptyCooldown: 12000 });
-    this.filters = this.config.filters
+    this.filters = this.config.filters;
     this.player
-      .on('trackStart', (message, track) => {
-        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id && msg.content.includes(`Now playing`));
+      .on("trackStart", (message, track) => {
+        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id && msg.content.includes("Now playing"));
         let musicMessage = messages.last();
         if (musicMessage) musicMessage.delete();
 
         message.channel.send(`${this.emotes?.music} - Now playing \`${track.title}\` into \`${message.member.voice.channel.name}\``);
       })
-      .on('playlistStart', (message, queue, playlist, track) => {
-        message.channel.send(this.emotes?.success + ' | ' + message.translate('music/play:PLAYING_PLAYLIST', {
+      .on("playlistStart", (message, queue, playlist, track) => {
+        message.channel.send(this.emotes?.success + " | " + message.translate("music/play:PLAYING_PLAYLIST", {
           playlistTitle: playlist.title,
           playlistEmoji: this.customEmojis.playlist,
           songName: track.title
         }));
       })
-      .on('searchResults', (message, query, tracks) => {
+      .on("searchResults", (message, query, tracks) => {
         if (tracks.length > 20) tracks = tracks.slice(0, 20);
         message.channel.send({
           embed: {
-            color: 'BLUE',
+            color: "BLUE",
             author: { name: `Here are your search results for ${query}` },
             timestamp: new Date(),
-            description: `${tracks.map((t, i) => `**${i + 1}** - ${t.title}`).join('\n')}`,
+            description: `${tracks.map((t, i) => `**${i + 1}** - ${t.title}`).join("\n")}`,
           },
         });
       })
-      .on('searchInvalidResponse', (message, query, tracks, content, collector) => {
-        if (content === 'cancel') {
+      .on("searchInvalidResponse", (message, query, tracks, content, collector) => {
+        if (content === "cancel") {
           collector.stop();
           return message.channel.send(`${this.emotes?.success} - The selection has been **cancelled**!`);
         } else message.channel.send(`${this.emotes?.error} - You must send a valid number between **1** and **${tracks.length}**!`);
 
       })
-      .on('searchCancel', (message) => {
+      .on("searchCancel", (message) => {
         message.channel.send(`${this.emotes?.error} - You did not provide a valid response. Please send the command again!`);
       })
-      .on('botDisconnect', (message) => {
+      .on("botDisconnect", (message) => {
         message.channel.send(`${this.emotes?.error} - Music stopped as I have been disconnected from the channel!`);
       })
-      .on('noResults', (message) => {
-        message.channel.send(`${this.emotes?.error} - No results found on YouTube for ${query}!`);
+      .on("noResults", (message) => {
+        message.channel.send(`${this.emotes?.error} - No results found on YouTube for ${message.content.split().slice(1).join(" ")}!`);
       })
-      .on('queueEnd', (message) => {
+      .on("queueEnd", (message) => {
         message.channel.send(`${this.emotes?.error} - No more music in the queue!`);
       })
-      .on('playlistAdd', (message, queue, playlist) => {
+      .on("playlistAdd", (message, queue, playlist) => {
         message.channel.send(`${this.emotes?.music} - ${playlist.title} has been added to the queue (**${playlist.tracks.length}** songs)!`);
       })
-      .on('trackAdd', (message, queue, track) => {
+      .on("trackAdd", (message, queue, track) => {
         message.channel.send(`${this.emotes?.music} - ${track.title} has been added to the queue!`);
       })
-      .on('channelEmpty', () => {
-        message.channel.send(`${client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
+      .on("channelEmpty", (message) => {
+        message.channel.send(`${this.client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
         // leaveOnEmpty disabled, will do nothing
       })
-      .on('error', (message, error) => {
+      .on("error", (message, error) => {
         switch (error) {
-          case 'NotPlaying':
+          case "NotPlaying":
             message.channel.send(`${this.emotes?.error} - There is no music being played on this server!`);
             break;
-          case 'NotConnected':
+          case "NotConnected":
             message.channel.send(`${this.emotes?.error} - You are not connected in any voice channel!`);
             break;
-          case 'UnableToJoin':
+          case "UnableToJoin":
             message.channel.send(`${this.emotes?.error} - I am not able to join your voice channel, please check my permissions!`);
             break;
-          case 'VideoUnavailable':
-            message.channel.send(`${this.emotes?.error} - ${args[0].title} is not available in your country! Skipping!`);
+          case "VideoUnavailable":
+            message.channel.send(`${this.emotes?.error} - ${message.content.split()[0].title} is not available in your country! Skipping!`);
             break;
-          case 'MusicStarting':
-            message.channel.send(`The music is starting! please wait and retry!`);
+          case "MusicStarting":
+            message.channel.send("The music is starting! please wait and retry!");
             break;
           default:
             message.channel.send(`${this.emotes?.error} - Something went wrong. Error: ${error}`);
-        };
+        }
       });
 
     this.giveawaysManager = new GiveawaysManager(this, {
-      storage: './giveaways.json',
+      storage: "./giveaways.json",
       updateCountdownEvery: 10000,
       default: {
         botsCanWin: false,
-        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
-        embedColor: '#FF0000',
-        reaction: '🎉'
+        exemptPermissions: ["MANAGE_MESSAGES", "ADMINISTRATOR"],
+        embedColor: "#FF0000",
+        reaction: "🎉"
       }
     });
   }
 
-  printDate(date, format) {
+  printDate(date) {
     return moment(new Date(date))
-      .locale('UTC')
-      .format('hh:mm a, DD-MM-YYYY');
+      .locale("UTC")
+      .format("hh:mm a, DD-MM-YYYY");
   }
 
   loadCommand(commandPath, commandName) {
@@ -184,7 +184,7 @@ class Comfy extends Client {
     if (this.databaseCache.guilds.get(guildID)) {
       return isLean ? this.databaseCache.guilds.get(guildID).toJSON() : this.databaseCache.guilds.get(guildID);
     } else {
-      let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate('members').lean() : await this.guildsData.findOne({ id: guildID }).populate('members'));
+      let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate("members").lean() : await this.guildsData.findOne({ id: guildID }).populate("members"));
       if (guildData) {
         if (!isLean) this.databaseCache.guilds.set(guildID, guildData);
         return guildData;
@@ -236,10 +236,10 @@ class Comfy extends Client {
     }
   }
 
-  convertTime(time, type, noPrefix, locale) {
-    if (!type) time = 'to';
-    const m = moment(time).locale('UTC');
-    return (type === 'to' ? m.toNow(noPrefix) : m.fromNow(noPrefix));
+  convertTime(time, type, noPrefix) {
+    if (!type) time = "to";
+    const m = moment(time).locale("UTC");
+    return (type === "to" ? m.toNow(noPrefix) : m.fromNow(noPrefix));
   }
 
   async resolveUser(search) {
@@ -259,7 +259,7 @@ class Comfy extends Client {
       if (user) return user;
     }
     if (search.match(/^!?(\w+)$/)) {
-      user = this.users.cache.find((u) => u.username.toLowerCase() === search.toLowerCase())
+      user = this.users.cache.find((u) => u.username.toLowerCase() === search.toLowerCase());
       if (user) return user;
     }
     user = await this.users.fetch(search).catch(() => { });
@@ -268,7 +268,7 @@ class Comfy extends Client {
 
   async resolveMember(search, guild) {
     let member = null;
-    if (!search || typeof search !== 'string') return;
+    if (!search || typeof search !== "string") return;
     // Try ID search
     if (search.match(/^<@!?(\d+)>$/)) {
       const id = search.match(/^<@!?(\d+)>$/)[1];
@@ -287,7 +287,7 @@ class Comfy extends Client {
 
   async resolveRole(search, guild) {
     let role = null;
-    if (!search || typeof search !== 'string') return;
+    if (!search || typeof search !== "string") return;
     // Try ID search
     if (search.match(/^<@&!?(\d+)>$/)) {
       const id = search.match(/^<@&!?(\d+)>$/)[1];
@@ -302,13 +302,13 @@ class Comfy extends Client {
   }
 
   bar(used, free) {
-    const full = '▰';
-    const empty = '▱';
+    const full = "▰";
+    const empty = "▱";
     const total = used + free;
     used = Math.round((used / total) * 10);
     free = Math.round((free / total) * 10);
     return full.repeat(used) + empty.repeat(free);
-  };
+  }
 
   match(msg, i) {
     if (!msg) return undefined;

@@ -34,7 +34,7 @@ class Giveaway extends Command {
       }
       const time = args[1];
       if (!time) {
-        return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``)
+        return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
       }
       if (isNaN(ms(time))) {
         return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
@@ -47,7 +47,7 @@ class Giveaway extends Command {
         return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
       }
       if (isNaN(winnersCount) || winnersCount > 10 || winnersCount < 1) {
-        return message.error(`Please specify a valid number between **1** and **10**!`)
+        return message.error("Please specify a valid number between **1** and **10**!");
       }
       const prize = args.slice(3).join(" ");
       if (!prize) {

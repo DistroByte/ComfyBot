@@ -1,10 +1,10 @@
-const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
-const { emailUser, emailPass } = require('../config')
+const nodemailer = require("nodemailer");
+const smtpTransport = require("nodemailer-smtp-transport");
+const { emailUser, emailPass } = require("../config");
 
 module.exports = {
   getPrefix(message, data) {
-    if (message.channel.type !== 'dm') {
+    if (message.channel.type !== "dm") {
       const prefixes = [
         `<@!${message.client.user.id}> `,
         `<@${message.client.user.id}> `,
@@ -15,7 +15,7 @@ module.exports = {
       prefixes.forEach(p => {
         if (message.content.startsWith(p) || message.content.toLowerCase().startsWith(p)) {
           prefix = p;
-        };
+        }
       });
       return prefix;
     } else {
@@ -26,12 +26,12 @@ module.exports = {
   async supportLink(client) {
     const guild = client.guilds.cache.get(client.config.support.id);
     const member = guild.me;
-    const channel = guild.channels.cache.find((ch) => ch.permissionsFor(member.id).has('CREATE_INSTANT_INVITE'));
+    const channel = guild.channels.cache.find((ch) => ch.permissionsFor(member.id).has("CREATE_INSTANT_INVITE"));
     if (channel) {
       const invite = await channel.createInvite({ maxAge: 0 }).catch(() => { });
       return invite ? invite.url : null;
     } else {
-      return 'https://dbyte.xyz';
+      return "https://dbyte.xyz";
     }
   },
 
@@ -72,22 +72,22 @@ module.exports = {
 
     const d = absoluteDays
       ? absoluteDays === 1
-        ? '1 day'
+        ? "1 day"
         : `${absoluteDays} days`
       : null;
     const h = absoluteHours
       ? absoluteHours === 1
-        ? '1 hour'
+        ? "1 hour"
         : `${absoluteHours} hours`
       : null;
     const m = absoluteMinutes
       ? absoluteMinutes === 1
-        ? '1 minute'
+        ? "1 minute"
         : `${absoluteMinutes} minutes`
       : null;
     const s = absoluteSeconds
       ? absoluteSeconds === 1
-        ? '1 second'
+        ? "1 second"
         : `${absoluteSeconds} seconds`
       : null;
 
@@ -97,19 +97,19 @@ module.exports = {
     if (m) absoluteTime.push(m);
     if (s) absoluteTime.push(s);
 
-    return absoluteTime.join(', ');
+    return absoluteTime.join(", ");
   },
 
   getLevel(xp) {
-    return level = Math.floor((((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3) + 61 / (12 * ((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3)) - 9 / 2))
+    return Math.floor((((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3) + 61 / (12 * ((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3)) - 9 / 2));
   },
 
   getCommunitiveXp(lvl) {
-    return communitive = Math.floor(((5 * lvl * lvl * lvl) / 3) + ((45 * lvl * lvl) / 2) + ((455 * lvl) / 6))
+    return Math.floor(((5 * lvl * lvl * lvl) / 3) + ((45 * lvl * lvl) / 2) + ((455 * lvl) / 6));
   },
 
   getLevelXp(lvl) {
-    return levelXp = 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100
+    return 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100;
   },
   sendEmail: function (emailAddress, contents, callback) {
     let transporter = nodemailer.createTransport(smtpTransport({
@@ -131,12 +131,12 @@ module.exports = {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
-        callback(error)
+        callback(error);
       } else {
-        console.log('Email sent: ' + info.response);
-        callback(info)
+        console.log("Email sent: " + info.response);
+        callback(info);
       }
-    })
+    });
   },
 
   timeDiff: function (FutureDate, NowDate) {
@@ -151,7 +151,7 @@ module.exports = {
     const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
     diffInMilliSeconds -= minutes * 60;
 
-    let difference = '';
+    let difference = "";
     if (days > 0) {
       difference += (days === 1) ? `**${days} day,** ` : `**${days} days,** `;
     }
@@ -162,4 +162,4 @@ module.exports = {
 
     return difference;
   },
-}
+};

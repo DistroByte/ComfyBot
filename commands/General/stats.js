@@ -29,7 +29,7 @@ class Stats extends Command {
       .addField("• Using", `\`Discord.js : v${Discord.version}\`\n\`Nodejs : v${process.versions.node}\``, true)
       .addField("• RAM", `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB\``, true)
       .addField("• Online", `Online for ${this.client.convertTime(Date.now() + this.client.uptime, "from", true)}`)
-      .addField("• Music", `Playing music on \`${this.client.voice.connections.size}\` servers`)
+      .addField("• Music", `Playing music on \`${this.client.voice.connections.size}\` servers`);
     // .addField(":heart: • Acknowledgements & credits", "");
 
     statsEmbed.addField("• Links", `[Dashboard](https://dashboard.dbyte.xyz) ● [Donate](https://www.patreon.com/distrobyte) ● [Invite](${this.client.config.inviteURL}) ● [Support](${this.client.config.supportURL}) ● [Github](https://www.github,com/DistroByte)`);

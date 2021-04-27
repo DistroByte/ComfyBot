@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class Food extends Command {
   constructor(client) {
@@ -21,15 +21,15 @@ class Food extends Command {
   }
 
   async run(message, args, data) {
-    fetch(`https://foodish-api.herokuapp.com/api`)
+    fetch("https://foodish-api.herokuapp.com/api")
       .then(res => res.json())
       .then(res => {
         const embed = new MessageEmbed()
-          .setTitle(`Random Meal`)
+          .setTitle("Random Meal")
           .setImage(res.image)
-          .setColor('GREEN')
-        message.channel.send(embed)
-      })
+          .setColor("GREEN");
+        message.channel.send(embed);
+      });
   }
 }
 

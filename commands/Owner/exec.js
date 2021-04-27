@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { promisify } = require('util'),
-  exec = promisify(require('child_process').exec);
+  { promisify } = require("util"),
+  exec = promisify(require("child_process").exec);
 
 class Exec extends Command {
   constructor(client) {
@@ -21,12 +21,12 @@ class Exec extends Command {
   }
 
   async run(message, args, data) {
-    let cmd = args.join(' ');
+    let cmd = args.join(" ");
 
     try {
       let { stdout: res } = await exec(cmd);
 
-      res = res.replace(this.client.token, "T0K3N")
+      res = res.replace(this.client.token, "T0K3N");
 
       message.channel.send(`\n${cmd}\n\n${res}\n`, {
         code: "bash", split: true
