@@ -24,7 +24,7 @@ class Qrcode extends Command {
   async run(message, args, data) {
     const text = args.join(" ");
     if (!text) {
-      return message.channel.send("Please specify the QR code source text!")
+      return message.channel.send("Please specify the QR code source text!");
     }
 
     const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });

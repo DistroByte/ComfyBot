@@ -8,7 +8,7 @@ class Setsuggests extends Command {
       name: "setsuggests",
       description: "Set the suggestions channel!",
       usage: "(#channel)",
-      examples: ['{{p}}setsuggests #suggestions', '{{p}}setsuggests'],
+      examples: ["{{p}}setsuggests #suggestions", "{{p}}setsuggests"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -34,7 +34,7 @@ class Setsuggests extends Command {
       data.guild.plugins.suggestions = null;
       data.guild.markModified("plugins.suggestions");
       await data.guild.save();
-      return message.success('Suggestions channel no longer set!');
+      return message.success("Suggestions channel no longer set!");
     } else {
       const channel = sentChannel || message.channel;
       data.guild.plugins.suggestions = channel.id;

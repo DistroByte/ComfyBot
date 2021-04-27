@@ -1,13 +1,13 @@
-const mongoose = require('mongoose'),
+const mongoose = require("mongoose"),
   Schema = mongoose.Schema,
-  config = require('../config.js');
+  config = require("../config.js");
 
-module.exports = mongoose.model('Guild', new Schema({
+module.exports = mongoose.model("Guild", new Schema({
 
   id: { type: String },
 
   membersData: { type: Object, default: {} },
-  members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
+  members: [{ type: Schema.Types.ObjectId, ref: "Member" }],
 
   prefix: { type: String, default: config.prefix },
   plugins: {
@@ -58,4 +58,4 @@ module.exports = mongoose.model('Guild', new Schema({
   commands: { type: Array, default: [] },
   autoDeleteModCommands: { type: Boolean, default: false },
   disabledCategories: { type: Array, default: [] }
-}))
+}));

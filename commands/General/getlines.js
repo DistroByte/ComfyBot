@@ -22,10 +22,10 @@ class GetLines extends Command {
 
   async run(message, args, data) {
     let extension = args[0],
-      shell = this.client.commands.get('exec'),
+      shell = this.client.commands.get("exec"),
       cmd = extension
         ? `git ls-files | grep "**.${extension}$" | xargs wc -l`
-        : 'git ls-files | xargs wc -l';
+        : "git ls-files | xargs wc -l";
 
     shell.run(message, [cmd]);
   }

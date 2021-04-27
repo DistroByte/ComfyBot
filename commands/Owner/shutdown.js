@@ -8,7 +8,7 @@ class Shutdown extends Command {
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
-      aliases: ['restart'],
+      aliases: ["restart"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
@@ -19,7 +19,7 @@ class Shutdown extends Command {
 
   async run(message, args, data) {
     try {
-      await message.react('👋');
+      await message.react("👋");
       process.exit();
     } catch (e) {
       message.error(`ERROR: ${e.message}`);

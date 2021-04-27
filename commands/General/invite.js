@@ -8,7 +8,7 @@ class Invite extends Command {
       name: "invite",
       description: "Shows Comfy's links!",
       usage: "(copy)",
-      examples: ['{{p}}invite', '{{p}}invite copy'],
+      examples: ["{{p}}invite", "{{p}}invite copy"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
@@ -31,7 +31,7 @@ class Invite extends Command {
     }
 
     const embed = new Discord.MessageEmbed()
-      .setAuthor('ComfyBot links')
+      .setAuthor("ComfyBot links")
       .setDescription(`Send \`${data.guild.prefix}invite copy\` to be able to copy the invite link!`)
       .addField("Invite ComfyBot", inviteLink)
       // .addField(message.translate("general/invite:VOTE"), voteURL)

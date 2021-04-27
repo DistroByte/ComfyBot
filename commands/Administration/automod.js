@@ -7,7 +7,7 @@ class Automod extends Command {
       name: "automod",
       description: "Toggle Discord invites automatic deletion",
       usage: "[on/off] (#channel)",
-      examples: ['{{p}}automod on', '{{p}}automod off #general', '{{p}}automod off'],
+      examples: ["{{p}}automod on", "{{p}}automod off #general", "{{p}}automod off"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -24,7 +24,7 @@ class Automod extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (!status || (status !== "on" && status !== "off")) {
-      return message.error('Please enter a valid value between `on` and `off`');
+      return message.error("Please enter a valid value between `on` and `off`");
     }
 
     if (status === "on") {
@@ -43,7 +43,7 @@ class Automod extends Command {
         data.guild.plugins.automod = { enabled: false, ignored: [] };
         data.guild.markModified("plugins.automod");
         data.guild.save();
-        message.success('Auto moderation is **no longer** enabled on this server!');
+        message.success("Auto moderation is **no longer** enabled on this server!");
       }
     }
   }

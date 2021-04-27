@@ -22,8 +22,8 @@ class MemberCount extends Command {
       .setColor(data.config.embed.color)
       .setThumbnail(message.guild.iconURL)
       .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)
-      .addField('**Member Count:**', `${message.guild.memberCount}`, true)
-      .setFooter(data.config.embed.footer))
+      .addField("**Member Count:**", `${message.guild.memberCount}`, true)
+      .setFooter(data.config.embed.footer));
   }
 }
 

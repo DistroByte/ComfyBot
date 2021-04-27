@@ -61,10 +61,10 @@ class Number extends Command {
         collector.stop(msg.author.username);
       }
       if (parseInt(msg.content) < number) {
-        message.error(`${msg.author.toString()} | My number is **bigger** than \`${parsedNumber}\`!`)
+        message.error(`${msg.author.toString()} | My number is **bigger** than \`${parsedNumber}\`!`);
       }
       if (parseInt(msg.content) > number) {
-        message.error(`${msg.author.toString()} | My number is **smaller** than \`${parsedNumber}\`!`)
+        message.error(`${msg.author.toString()} | My number is **smaller** than \`${parsedNumber}\`!`);
       }
     });
 

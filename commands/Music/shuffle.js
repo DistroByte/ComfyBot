@@ -18,9 +18,9 @@ class Shuffle extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!this.client.player.getQueue(message)) return message.error(`No music currently playing!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!this.client.player.getQueue(message)) return message.error("No music currently playing!");
 
     const success = this.client.player.shuffle(message);
     if (success) message.success(`Queue shuffled **${this.client.player.getQueue(message).tracks.length}** song(s)!`);

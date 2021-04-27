@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class Dog extends Command {
   constructor(client) {
@@ -21,15 +21,15 @@ class Dog extends Command {
   }
 
   async run(message, args, data) {
-    fetch('https://random.dog/woof.json')
+    fetch("https://random.dog/woof.json")
       .then(res => res.json())
       .then(res => {
         const embed = new MessageEmbed()
-          .setTitle('Random Dog')
+          .setTitle("Random Dog")
           .setImage(res.url)
-          .setColor('GREEN')
-        message.channel.send(embed)
-      })
+          .setColor("GREEN");
+        message.channel.send(embed);
+      });
   }
 }
 

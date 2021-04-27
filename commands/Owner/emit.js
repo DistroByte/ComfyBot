@@ -21,7 +21,7 @@ class Emit extends Command {
   }
 
   async run(message, args, data) {
-    this.client.emit(args[0], args[1])
+    this.client.emit(args[0], args[1]);
   }
 }
 

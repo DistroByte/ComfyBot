@@ -5,8 +5,8 @@ class Delcommand extends Command {
   constructor(client) {
     super(client, {
       name: "delcommand",
-      description: 'Remove a custom command!',
-      usage: ['{{p}}delcommand hello'],
+      description: "Remove a custom command!",
+      usage: ["{{p}}delcommand hello"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -22,7 +22,7 @@ class Delcommand extends Command {
   async run(message, args, data) {
     const name = args[0];
     if (!name) {
-      return message.error("Please enter a valid custom command name!")
+      return message.error("Please enter a valid custom command name!");
     }
 
     if (!data.guild.customCommands.find((c) => c.name === name)) {

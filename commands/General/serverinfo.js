@@ -11,7 +11,7 @@ class ServerInfo extends Command {
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
-      aliases: ['si'],
+      aliases: ["si"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,

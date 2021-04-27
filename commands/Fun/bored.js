@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class Bored extends Command {
   constructor(client) {
@@ -21,16 +21,16 @@ class Bored extends Command {
   }
 
   async run(message, args, data) {
-    fetch(`https://www.boredapi.com/api/activity`)
+    fetch("https://www.boredapi.com/api/activity")
       .then(res => res.json())
       .then(res => {
         const embed = new MessageEmbed()
-          .setTitle(`The Bored API says you should do...`)
+          .setTitle("The Bored API says you should do...")
           .setDescription(`**${res.activity}**`)
-          .addField(`Type`, `${res.type}`)
-          .setColor('GREEN')
-        message.channel.send(embed)
-      })
+          .addField("Type", `${res.type}`)
+          .setColor("GREEN");
+        message.channel.send(embed);
+      });
   }
 }
 

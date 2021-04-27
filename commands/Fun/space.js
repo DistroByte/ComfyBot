@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class Space extends Command {
   constructor(client) {
@@ -24,21 +24,21 @@ class Space extends Command {
     var url = "http://api.open-notify.org/astros.json";
 
     const embed = new MessageEmbed()
-      .setTitle("**List of people currently in space**")
+      .setTitle("**List of people currently in space**");
 
     fetch(url)
       .then(res => res.json())
       .then(res => {
         embed
-          .setDescription(`Total number of people in space: **${res.number}**`)
-        let data = []
+          .setDescription(`Total number of people in space: **${res.number}**`);
+        let data = [];
         res.people.forEach(m => {
-          data.push(`${m.craft} - ${m.name}`)
-        })
+          data.push(`${m.craft} - ${m.name}`);
+        });
         embed
-          .addField(`Name`, data)
-        message.channel.send(embed)
-      })
+          .addField("Name", data);
+        message.channel.send(embed);
+      });
   }
 }
 

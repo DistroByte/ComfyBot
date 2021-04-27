@@ -1,31 +1,31 @@
 require("./helpers/extenders");
 
-const util = require('util'),
-  fs = require('fs'),
+const util = require("util"),
+  fs = require("fs"),
   readdir = util.promisify(fs.readdir),
-  mongoose = require('mongoose');
+  mongoose = require("mongoose");
 
-const Comfy = require('./base/Comfy'),
-  client = new Comfy({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER', 'USER'] });
+const Comfy = require("./base/Comfy"),
+  client = new Comfy({ partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"] });
 
 const init = async () => {
 
   // Loads commands
-  const dirs = await readdir('./commands/');
+  const dirs = await readdir("./commands/");
   dirs.forEach(async (dir) => {
     const cmds = await readdir(`./commands/${dir}/`);
-    cmds.filter(cmd => cmd.split('.').pop() === 'js').forEach(cmd => {
+    cmds.filter(cmd => cmd.split(".").pop() === "js").forEach(cmd => {
       const res = client.loadCommand(`./commands/${dir}`, cmd);
-      if (res) client.logger.log(res, 'error');
+      if (res) client.logger.log(res, "error");
     });
   });
 
   // Loads events
-  const evtDirs = await readdir('./events/')
+  const evtDirs = await readdir("./events/");
   evtDirs.forEach(async dir => {
     const evts = await readdir(`./events/${dir}/`);
     evts.forEach(evt => {
-      const evtName = evt.split('.')[0];
+      const evtName = evt.split(".")[0];
       const event = new (require(`./events/${dir}/${evt}`))(client);
       client.on(evtName, (...args) => event.run(...args));
       delete require.cache[require.resolve(`./events/${dir}/${evt}`)];
@@ -35,17 +35,17 @@ const init = async () => {
   client.login(client.config.token);
 
   mongoose.connect(client.config.mongoDB, client.config.dbOptions).then(() => {
-    client.logger.log('Database connected', 'log');
-  }).catch(err => client.logger.log('Error connecting to database. Error:' + err, 'error'));
-}
+    client.logger.log("Database connected", "log");
+  }).catch(err => client.logger.log("Error connecting to database. Error:" + err, "error"));
+};
 
 init();
 
-client.on('disconnect', () => client.logger.log('Bot is disconnecting...', 'warn'))
-  .on('reconnecting', () => client.logger.log('Bot reconnecting...', 'log'))
-  .on('error', (e) => client.logger.log(e, 'error'))
-  .on('warn', (info) => client.logger.log(info, 'warn'));
+client.on("disconnect", () => client.logger.log("Bot is disconnecting...", "warn"))
+  .on("reconnecting", () => client.logger.log("Bot reconnecting...", "log"))
+  .on("error", (e) => client.logger.log(e, "error"))
+  .on("warn", (info) => client.logger.log(info, "warn"));
 
-process.on('unhandledRejection', async (err) => {
+process.on("unhandledRejection", async (err) => {
   console.error(err);
 });

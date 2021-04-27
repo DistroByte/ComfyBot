@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class AgePredict extends Command {
   constructor(client) {
@@ -28,9 +28,9 @@ class AgePredict extends Command {
       .then(res => {
         const embed = new MessageEmbed()
           .setTitle(`${res.name} is about **${res.age}** years old`)
-          .setColor('GREEN')
-        message.channel.send(embed)
-      })
+          .setColor("GREEN");
+        message.channel.send(embed);
+      });
   }
 }
 

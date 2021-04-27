@@ -19,7 +19,7 @@ class Superscripts extends Command {
   }
 
   async run(message, args, data) {
-    var raise = require('superscript-text');
+    var raise = require("superscript-text");
     message.channel.send(raise(args.join(" ")));
   }
 }

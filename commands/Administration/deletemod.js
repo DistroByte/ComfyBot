@@ -6,8 +6,8 @@ class Deletemod extends Command {
     super(client, {
       name: "deletemod",
       description: "Toggle moderation commands auto deletion!",
-      usage: '[on/off]',
-      examples: ['{{p}}deletemod on', '{{p}}deletemod off'],
+      usage: "[on/off]",
+      examples: ["{{p}}deletemod on", "{{p}}deletemod off"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,

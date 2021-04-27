@@ -7,7 +7,7 @@ class Addemoji extends Command {
       name: "addemoji",
       description: "Add an emoji to the server!",
       usage: "[image-url] [name]",
-      examples: ['{{p}}addemoji https://via.placeholder.com/150 test-emoji'],
+      examples: ["{{p}}addemoji https://via.placeholder.com/150 test-emoji"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -24,10 +24,10 @@ class Addemoji extends Command {
   async run(message, args) {
     const name = args[1] ? args[1].replace(/[^a-z0-9]/gi, "") : null;
     if (!name) {
-      return message.error('Please provide an emoji name!');
+      return message.error("Please provide an emoji name!");
     }
     if (name.length < 2 || name > 32) {
-      return message.error('The length of the emoji name must be between 2 and 32 characters!');
+      return message.error("The length of the emoji name must be between 2 and 32 characters!");
     }
 
     message.guild.emojis

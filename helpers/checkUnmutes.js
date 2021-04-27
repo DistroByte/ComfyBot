@@ -1,8 +1,8 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 module.exports = {
   async init(client) {
-    client.membersData.find({ 'mute.muted': true }).then(members => {
+    client.membersData.find({ "mute.muted": true }).then(members => {
       members.forEach(member => {
         client.databaseCache.mutedUsers.set(`${member.id}${member.guildID}`, member);
       });
@@ -19,7 +19,7 @@ module.exports = {
             case: null
           };
           memberData.save();
-          client.logger.log('[unmute] ' + memberData.id + ' cannot be found.');
+          client.logger.log("[unmute] " + memberData.id + " cannot be found.");
           return null;
         });
         const guildData = await client.findOrCreateGuild({ id: guild.id });
@@ -33,7 +33,7 @@ module.exports = {
         const user = member ? member.user : await client.users.fetch(memberData.id);
         const embed = new Discord.MessageEmbed()
           .setDescription(`${user.toString()} (\`${user.tag}\`) has just been unmuted! (mute case: #${memberData.mute.case})`)
-          .setColor('#f44271')
+          .setColor("#f44271")
           .setFooter(guild.client.config.embed.footer);
         const channel = guild.channels.cache.get(guildData.plugins.modlogs);
         if (channel) {

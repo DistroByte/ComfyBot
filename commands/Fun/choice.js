@@ -29,7 +29,7 @@ class Choice extends Command {
     const m = await message.sendM("Choice being made...", { prefixEmoji: "loading" });
 
     setTimeout(() => {
-      m.channel.send("Here's my choice:")
+      m.channel.send("Here's my choice:");
       const result = answers[parseInt(Math.floor(Math.random() * answers.length))];
       message.channel.send("```" + result + "```");
     }, 1500);

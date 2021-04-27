@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 module.exports = class {
 
@@ -10,7 +10,7 @@ module.exports = class {
 
     if (this.client.config.proMode) {
       if ((!this.client.config.proUsers.includes(guild.ownerID) || this.guilds.filter((g) => g.ownerID === guild.ownerID) > 1) && guild.ownerID !== this.client.config.owner.id) {
-        this.client.logger.log(guild.ownerID + ' tried to invite ComfyBot on its server.');
+        this.client.logger.log(guild.ownerID + " tried to invite ComfyBot on its server.");
         return guild.leave();
       }
     }
@@ -19,8 +19,8 @@ module.exports = class {
 
     const messageOptions = {};
     const thanksEmbed = new Discord.MessageEmbed()
-      .setAuthor('Thank you for adding me to your guild!')
-      .setDescription('To configure me, type `' + this.client.config.prefix + 'help` and look at the administration commands!')
+      .setAuthor("Thank you for adding me to your guild!")
+      .setDescription("To configure me, type `" + this.client.config.prefix + "help` and look at the administration commands!")
       .setColor(this.client.config.embed.color)
       .setFooter(this.client.config.embed.footer)
       .setTimestamp();
@@ -33,7 +33,7 @@ module.exports = class {
     // Sends log embed in the logs channel
     const logsEmbed = new Discord.MessageEmbed()
       .setAuthor(guild.name, guild.iconURL())
-      .setColor('#32CD32')
+      .setColor("#32CD32")
       .setDescription(text);
     this.client.channels.cache.get(this.client.config.support.logs).send(logsEmbed);
     this.client.logger.log(`Guild added! ${guild.name}`, "log");
