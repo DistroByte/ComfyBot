@@ -28,7 +28,7 @@ class Clearsanctions extends Command {
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
     memberData.sanctions = [];
     memberData.save();
-    message.success(`${member.user.tag}'s sanctions were removed!`)
+    message.success(`${member.user.tag}'s sanctions were removed!`);
   }
 
 }

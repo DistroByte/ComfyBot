@@ -59,9 +59,9 @@ class Clear extends Command {
 
     let toDelete = null;
     if (user) {
-      toDelete = await message.success(`**${--amount}** messages of **${user.tag}** were deleted!`)
+      toDelete = await message.success(`**${--amount}** messages of **${user.tag}** were deleted!`);
     } else {
-      toDelete = await message.success(`**${--amount}** were messages deleted!`)
+      toDelete = await message.success(`**${--amount}** were messages deleted!`);
     }
 
     setTimeout(function () {

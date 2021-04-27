@@ -18,9 +18,9 @@ class ListFilters extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!this.client.player.getQueue(message)) return message.error(`No music currently playing!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!this.client.player.getQueue(message)) return message.error("No music currently playing!");
 
     const filtersStatuses = [[], []];
 
@@ -31,10 +31,10 @@ class ListFilters extends Command {
 
     message.channel.send({
       embed: {
-        color: 'ORANGE',
+        color: "ORANGE",
         fields: [
-          { name: 'Filters', value: filtersStatuses[0].join('\n'), inline: true },
-          { name: '** **', value: filtersStatuses[1].join('\n'), inline: true },
+          { name: "Filters", value: filtersStatuses[0].join("\n"), inline: true },
+          { name: "** **", value: filtersStatuses[1].join("\n"), inline: true },
         ],
         timestamp: new Date(),
         description: `List of all filters enabled or disabled.\nUse \`${data.guild.prefix}filter\` to add a filter to a song.`,

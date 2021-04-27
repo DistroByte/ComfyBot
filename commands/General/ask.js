@@ -17,8 +17,8 @@ class Ask extends Command {
   }
 
   async run(message, args, data) {
-    message.channel.send('Don\'t ask to ask, just ask!')
-    message.channel.send('https://cdn.discordapp.com/attachments/762797129626288129/770619652127719464/ask.png')
+    message.channel.send("Don't ask to ask, just ask!");
+    message.channel.send("https://cdn.discordapp.com/attachments/762797129626288129/770619652127719464/ask.png");
   }
 }
 

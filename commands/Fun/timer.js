@@ -29,7 +29,7 @@ class Timer extends Command {
       return message.error("Please specify a number!");
     }
 
-    let content = args.slice(1).join(' ');
+    let content = args.slice(1).join(" ");
     let tick = 1000;
 
     message.channel.send(this.formatBomb(count)).then(msg => {
@@ -39,7 +39,7 @@ class Timer extends Command {
           msg.edit(this.formatBomb(count));
         } else {
           clearInterval(timer);
-          msg.edit(':boom:');
+          msg.edit(":boom:");
           this.client.setTimeout(() => {
             msg.edit(content);
           }, tick);
@@ -49,7 +49,7 @@ class Timer extends Command {
   }
 
   formatBomb(count) {
-    return `:bomb: ${'-'.repeat(count)} ${count}`;
+    return `:bomb: ${"-".repeat(count)} ${count}`;
   }
 }
 

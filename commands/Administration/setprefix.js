@@ -7,7 +7,7 @@ class Setprefix extends Command {
       name: "setprefix",
       description: "Set the server prefix!",
       usage: "[prefix]",
-      examples: ['{{p}}setprefix !', '{{p}}setprefix c.'],
+      examples: ["{{p}}setprefix !", "{{p}}setprefix c."],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -23,10 +23,10 @@ class Setprefix extends Command {
   async run(message, args, data) {
     const prefix = args[0];
     if (!prefix) {
-      return message.error('Please enter a valid prefix!');
+      return message.error("Please enter a valid prefix!");
     }
     if (prefix.length > 5) {
-      return message.error('The prefix shouldn\'t exceed 5 characters!');
+      return message.error("The prefix shouldn't exceed 5 characters!");
     }
 
     data.guild.prefix = prefix;

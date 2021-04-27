@@ -6,8 +6,8 @@ class Ignore extends Command {
     super(client, {
       name: "ignore",
       description: "Toggle commands in a channel",
-      usage: '[channel]',
-      examples: ['{{p}}ignore #channel'],
+      usage: "[channel]",
+      examples: ["{{p}}ignore #channel"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -23,7 +23,7 @@ class Ignore extends Command {
   async run(message, args, data) {
     const channel = message.mentions.channels.filter((ch) => ch.type === "text" && ch.guild.id === message.guild.id).first() || message.channel;
     if (!channel) {
-      return message.error('Please specify a valid channel!');
+      return message.error("Please specify a valid channel!");
     }
 
     const ignored = data.guild.ignoredChannels.includes(channel.id);

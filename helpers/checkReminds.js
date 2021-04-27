@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 module.exports = {
   init(client) {
@@ -19,9 +19,9 @@ module.exports = {
           if (mustSend.length > 0) {
             mustSend.forEach(r => {
               const embed = new Discord.MessageEmbed()
-                .setAuthor('ComfyBot Reminder')
-                .addField('Created', `Message created ${client.convertTime(r.createdAt, 'from')}`)
-                .addField('Message', r.message)
+                .setAuthor("ComfyBot Reminder")
+                .addField("Created", `Message created ${client.convertTime(r.createdAt, "from")}`)
+                .addField("Message", r.message)
                 .setColor(client.config.embed.color)
                 .setFooter(client.config.embed.footer);
               dUser.send(embed);
@@ -31,7 +31,7 @@ module.exports = {
             if (user.reminds.length === 0) client.databaseCache.usersReminds.delete(user.id);
           }
         }
-      })
+      });
     }, 1000);
   }
 };

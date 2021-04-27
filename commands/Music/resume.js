@@ -18,10 +18,10 @@ class Resume extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!this.client.player.getQueue(message)) return message.error(`No music currently playing!`);
-    if (!this.client.player.getQueue(message).paused) return message.error(`The music is already playing!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!this.client.player.getQueue(message)) return message.error("No music currently playing!");
+    if (!this.client.player.getQueue(message).paused) return message.error("The music is already playing!");
 
     const success = this.client.player.resume(message);
     if (success) message.success(`Song ${this.client.player.getQueue(message).playing.title} resumed!`);

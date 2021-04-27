@@ -7,16 +7,16 @@ class Avatar extends Command {
       name: "avatar",
       description: "Fetches your avatar!",
       usage: "(@user)",
-      examples: ['{{p}}avatar', '{{p}}avatar @user1 @user2'],
+      examples: ["{{p}}avatar", "{{p}}avatar @user1 @user2"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
-      aliases: ['icon'],
+      aliases: ["icon"],
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
       ownerOnly: false
-    })
+    });
   }
 
   async run(message, args, data) {

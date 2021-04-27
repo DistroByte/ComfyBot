@@ -7,6 +7,7 @@ module.exports = class {
   async run(oldMember, newMember) {
     if (oldMember.guild.id !== this.client.config.support.id) return;
     if (oldMember.roles.cache.some((r) => r.name === "【💳】Donators")) return;
+    // eslint-disable-next-line no-empty
     if (newMember.roles.cache.some((r) => r.name === "【💳】Donators")) { }
   }
 };

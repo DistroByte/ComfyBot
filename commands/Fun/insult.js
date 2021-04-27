@@ -1,6 +1,5 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  fetch = require("node-fetch");
 
 class Insult extends Command {
   constructor(client) {
@@ -21,11 +20,11 @@ class Insult extends Command {
   }
 
   async run(message, args, data) {
-    fetch(`https://evilinsult.com/generate_insult.php?lang=en&type=json`)
+    fetch("https://evilinsult.com/generate_insult.php?lang=en&type=json")
       .then(res => res.json())
       .then(res => {
-        message.channel.send(`${args ? message.channel.mentions.first() : message.author} ${res.insult.toString()}`)
-      })
+        message.channel.send(`${args ? message.channel.mentions.first() : message.author} ${res.insult.toString()}`);
+      });
   }
 }
 

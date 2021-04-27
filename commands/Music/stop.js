@@ -1,5 +1,4 @@
-const Command = require("../../base/Command.js"),
-  Discord = require("discord.js");
+const Command = require("../../base/Command.js");
 
 class Stop extends Command {
 
@@ -20,13 +19,13 @@ class Stop extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!this.client.player.getQueue(message)) return message.error(`No music currently playing!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!this.client.player.getQueue(message)) return message.error("No music currently playing!");
 
     this.client.player.setRepeatMode(message, false);
     const success = this.client.player.stop(message);
-    if (success) message.success(`Music **stopped**!`);
+    if (success) message.success("Music **stopped**!");
   }
 
 }

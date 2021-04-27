@@ -46,7 +46,7 @@ class Setwarns extends Command {
       return message.error("Please specify a valid number!");
     }
     if (number < 1 || number > 10) {
-      return message.error(`Please specify a valid number between **1** and **2** !`);
+      return message.error("Please specify a valid number between **1** and **2** !");
     }
 
     if (sanction === "kick") {
@@ -60,7 +60,7 @@ class Setwarns extends Command {
       data.guild.plugins.warnsSanctions.ban = number;
       data.guild.markModified("plugins.warnsSanctions");
       data.guild.save();
-      return message.success(`**\`${number}\` warnings will result in a ban!**\n\n:arrow_right_hook: *Send \`${data.guild.prefix}configuration\` to see the updated configuration!*`);;
+      return message.success(`**\`${number}\` warnings will result in a ban!**\n\n:arrow_right_hook: *Send \`${data.guild.prefix}configuration\` to see the updated configuration!*`);
     }
   }
 }

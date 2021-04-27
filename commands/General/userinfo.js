@@ -67,7 +67,7 @@ class Userinfo extends Command {
         .addField("Join date", this.client.printDate(member.joinedAt), true)
         .addField("Role colour", member.displayHexColor, true)
         .addField("Nickname", (member.nickname ? member.nickname : "No nickname"), true)
-        .addField("Roles", (member.roles.size > 10 ? member.roles.cache.map((r) => r).slice(0, 9).join(", ") + " " + `and ${member.roles.cache.size - 10}` : (member.roles.cache.size < 1) ? "No roles" : member.roles.cache.map((r) => r).join(", ")))
+        .addField("Roles", (member.roles.size > 10 ? member.roles.cache.map((r) => r).slice(0, 9).join(", ") + " " + `and ${member.roles.cache.size - 10}` : (member.roles.cache.size < 1) ? "No roles" : member.roles.cache.map((r) => r).join(", ")));
     }
 
     if (user.bot && this.client.config.apiKeys.dbl && (this.client.config.apiKeys.dbl !== "")) {

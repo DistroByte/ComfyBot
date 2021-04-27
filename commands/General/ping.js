@@ -1,17 +1,17 @@
-const Command = require('../../base/Command.js');
+const Command = require("../../base/Command.js");
 
 class Ping extends Command {
 
   constructor(client) {
     super(client, {
-      name: 'ping',
+      name: "ping",
       description: "Show bot's ping",
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
-      aliases: ['pong', 'latency'],
+      aliases: ["pong", "latency"],
       memberPermissions: [],
-      botPermissions: ['SEND_MESSAGES'],
+      botPermissions: ["SEND_MESSAGES"],
       nsfw: false,
       ownerOnly: false,
       cooldown: 1000
@@ -19,7 +19,7 @@ class Ping extends Command {
   }
 
   async run(message) {
-    message.success(`Pong! My ping is \`...ms\`.`).then((m) => {
+    message.success("Pong! My ping is `...ms`.").then((m) => {
       m.edit(`Pong! My ping is \`${m.createdTimestamp - message.createdTimestamp}ms\`. API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
     });
   }

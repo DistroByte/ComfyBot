@@ -26,10 +26,10 @@ class Say extends Command {
 
     message.delete();
     if (mentionedChannel) {
-      argsresult = args.slice(1).join(' ');
+      argsresult = args.slice(1).join(" ");
       mentionedChannel.send(argsresult);
     } else {
-      argsresult = args.join(' ');
+      argsresult = args.join(" ");
       message.channel.send(argsresult);
     }
   }

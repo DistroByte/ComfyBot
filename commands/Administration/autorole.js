@@ -7,8 +7,8 @@ class Autorole extends Command {
     super(client, {
       name: "autorole",
       description: "Toggle autorole on the server!",
-      usage: '[on/off] (role)',
-      examples: ['{{p}}autorole on @Members', '{{p}} autorole off'],
+      usage: "[on/off] (role)",
+      examples: ["{{p}}autorole on @Members", "{{p}} autorole off"],
       dirname: __dirname,
       enabled: true,
       guildOnly: true,
@@ -25,7 +25,7 @@ class Autorole extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (status !== "on" && status !== "off") {
-      return message.error('Please specify a valid value between`on` and`off`');
+      return message.error("Please specify a valid value between`on` and`off`");
     }
 
     if (status === "on") {
@@ -34,7 +34,7 @@ class Autorole extends Command {
         search: args.slice(1).join(" ")
       });
       if (!role) {
-        return message.error('Please specify a valid role!');
+        return message.error("Please specify a valid role!");
       }
 
       data.guild.plugins.autorole = {

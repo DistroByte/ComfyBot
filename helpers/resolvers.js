@@ -1,6 +1,6 @@
 const resolveChannel = async ({ message, search, channelType }) => {
   const contentToCheck = search || message.content;
-  if (!contentToCheck || typeof contentToCheck !== 'string') return;
+  if (!contentToCheck || typeof contentToCheck !== "string") return;
   // Try by parsing the search
   if (contentToCheck.match(/^<#([0-9]{18})>/)) {
     const [, channelID] = contentToCheck.match(/^<#([0-9]{18})>/);
@@ -31,7 +31,7 @@ const resolveChannel = async ({ message, search, channelType }) => {
 
 const resolveMember = async ({ message, search, useMessageContent = true }) => {
   const contentToCheck = search || (useMessageContent ? message.content : null);
-  if (!contentToCheck || typeof contentToCheck !== 'string') return;
+  if (!contentToCheck || typeof contentToCheck !== "string") return;
   // Try by parsing the search
   if (contentToCheck.match(/^<@!?(\d+)>$/)) {
     const [, userID] = contentToCheck.match(/^<@!?(\d+)>$/);
@@ -65,7 +65,7 @@ const resolveMember = async ({ message, search, useMessageContent = true }) => {
 
 const resolveRole = async ({ message, search }) => {
   const contentToCheck = search || message.content;
-  if (!contentToCheck || typeof contentToCheck !== 'string') return;
+  if (!contentToCheck || typeof contentToCheck !== "string") return;
   // Try by parsing the search
   if (contentToCheck.match(/^<@&([0-9]{18})>/)) {
     const [, roleID] = contentToCheck.match(/^<@&([0-9]{18})>/);

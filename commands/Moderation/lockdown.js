@@ -20,24 +20,24 @@ class Lockdown extends Command {
 
   async run(message, args, data) {
     const lockdownState = data.guild.lockdown;
-    const everyone = message.guild.roles.everyone
+    const everyone = message.guild.roles.everyone;
 
     try {
       message.guild.channels.cache.forEach(c => {
-        if (c.permissionOverwrites.get('762797547114070096').allow.toArray().includes("SEND_MESSAGES"))
-          c.updateOverwrite(everyone, { SEND_MESSAGES: lockdownState ? null : false })
-      })
+        if (c.permissionOverwrites.get("762797547114070096").allow.toArray().includes("SEND_MESSAGES"))
+          c.updateOverwrite(everyone, { SEND_MESSAGES: lockdownState ? null : false });
+      });
     } catch (err) {
       console.log(err);
     }
 
     data.guild.lockdown = !lockdownState;
-    data.guild.save()
+    data.guild.save();
 
     if (data.guild.lockdown) {
-      message.success("Server in lockdown")
+      message.success("Server in lockdown");
     } else {
-      message.error("Server no longer in lockdown")
+      message.error("Server no longer in lockdown");
     }
   }
 }

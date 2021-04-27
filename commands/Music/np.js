@@ -1,5 +1,4 @@
-const Command = require("../../base/Command.js"),
-  Discord = require("discord.js");
+const Command = require("../../base/Command.js");
 
 class Np extends Command {
 
@@ -19,32 +18,32 @@ class Np extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!this.client.player.getQueue(message)) return message.error(`No music currently playing!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!this.client.player.getQueue(message)) return message.error("No music currently playing!");
 
     const track = this.client.player.nowPlaying(message);
     const filters = [];
-    Object.keys(this.client.player.getQueue(message).filters).forEach((filterName) => this.client.player.getQueue(message).filters[filterName]) ? filters.push(filterName) : false;
+    Object.keys(this.client.player.getQueue(message).filters).forEach((filterName) => this.client.player.getQueue(message).filters[filterName] ? filters.push(filterName) : false);
 
     message.channel.send({
       embed: {
-        color: 'GREEN',
+        color: "GREEN",
         author: { name: track.title },
         fields: [
-          { name: 'Channel', value: track.author, inline: true },
-          { name: 'Requested by', value: track.requestedBy.username, inline: true },
-          { name: 'From playlist', value: track.fromPlaylist ? 'Yes' : 'No', inline: true },
+          { name: "Channel", value: track.author, inline: true },
+          { name: "Requested by", value: track.requestedBy.username, inline: true },
+          { name: "From playlist", value: track.fromPlaylist ? "Yes" : "No", inline: true },
 
-          { name: 'Views', value: track.views, inline: true },
-          { name: 'Duration', value: track.duration, inline: true },
-          { name: 'Filters activated', value: filters.length + '/' + this.client.filters.length, inline: true },
+          { name: "Views", value: track.views, inline: true },
+          { name: "Duration", value: track.duration, inline: true },
+          { name: "Filters activated", value: filters.length + "/" + this.client.filters.length, inline: true },
 
-          { name: 'Volume', value: this.client.player.getQueue(message).volume, inline: true },
-          { name: 'Repeat mode', value: this.client.player.getQueue(message).repeatMode ? 'Yes' : 'No', inline: true },
-          { name: 'Currently paused', value: this.client.player.getQueue(message).paused ? 'Yes' : 'No', inline: true },
+          { name: "Volume", value: this.client.player.getQueue(message).volume, inline: true },
+          { name: "Repeat mode", value: this.client.player.getQueue(message).repeatMode ? "Yes" : "No", inline: true },
+          { name: "Currently paused", value: this.client.player.getQueue(message).paused ? "Yes" : "No", inline: true },
 
-          { name: 'Progress bar', value: this.client.player.createProgressBar(message, { timecodes: true }), inline: true }
+          { name: "Progress bar", value: this.client.player.createProgressBar(message, { timecodes: true }), inline: true }
         ],
         thumbnail: { url: track.thumbnail },
         timestamp: new Date(),

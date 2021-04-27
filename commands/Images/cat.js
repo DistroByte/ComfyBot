@@ -1,6 +1,6 @@
 const Command = require("../../base/Command"),
-  { MessageEmbed } = require('discord.js'),
-  fetch = require('node-fetch');
+  { MessageEmbed } = require("discord.js"),
+  fetch = require("node-fetch");
 
 class Cat extends Command {
   constructor(client) {
@@ -21,15 +21,15 @@ class Cat extends Command {
   }
 
   async run(message, args, data) {
-    fetch('https://aws.random.cat/meow')
+    fetch("https://aws.random.cat/meow")
       .then(res => res.json())
       .then(res => {
         const embed = new MessageEmbed()
-          .setTitle('Random Cat')
+          .setTitle("Random Cat")
           .setImage(res.file)
-          .setColor('GREEN')
-        message.channel.send(embed)
-      })
+          .setColor("GREEN");
+        message.channel.send(embed);
+      });
   }
 }
 

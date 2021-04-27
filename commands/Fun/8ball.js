@@ -26,7 +26,7 @@ class Eightball extends Command {
 
     const options = ["I'm sure of it.", "it's definitely safe.", "yes, definitely.", "better not tell you now.",
       "ask again later.", "don't count on it.", "I don't think.", "my sources say no.", "no.", "outlook not so good."
-    ]
+    ];
 
     const answer = parseInt(Math.floor(Math.random() * 10), 10) + 1;
 

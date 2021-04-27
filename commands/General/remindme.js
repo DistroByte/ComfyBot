@@ -7,8 +7,8 @@ class Remindme extends Command {
     super(client, {
       name: "remindme",
       description: "Add a new personal reminder",
-      usage: '[time] [message]',
-      examples: ['{{p}}remindme 24h Work command', '{{p}}remindme 3m Check on the pasta!'],
+      usage: "[time] [message]",
+      examples: ["{{p}}remindme 24h Work command", "{{p}}remindme 3m Check on the pasta!"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
@@ -23,12 +23,12 @@ class Remindme extends Command {
   async run(message, args, data) {
     const time = args[0];
     if (!time || isNaN(ms(time))) {
-      return message.error('You must enter a valid time! Available units: `s`, `m`, `h` or`d`');
+      return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or`d`");
     }
 
     const msg = args.slice(1).join(" ");
     if (!msg) {
-      return message.error('You must enter a message!');
+      return message.error("You must enter a message!");
     }
 
     const rData = {

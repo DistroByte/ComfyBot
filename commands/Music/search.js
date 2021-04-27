@@ -20,9 +20,9 @@ class Search extends Command {
   }
 
   async run(message, args, data) {
-    if (!message.member.voice.channel) return message.error(`You're not in a voice channel!`);
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error(`You are not in the same voice channel!`);
-    if (!args[0]) return message.error(`Please indicate the title of a song!`);
+    if (!message.member.voice.channel) return message.error("You're not in a voice channel!");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.error("You are not in the same voice channel!");
+    if (!args[0]) return message.error("Please indicate the title of a song!");
     this.client.player.play(message, args.join(" "));
   }
 }

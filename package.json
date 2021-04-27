@@ -60,5 +60,8 @@
 		"ws": "^7.4.1",
 		"xmlhttprequest": "^1.8.0",
 		"ytdl-core": "^4.5.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.25.0"
 	}
 }
