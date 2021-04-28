@@ -10,6 +10,8 @@ module.exports = class {
 
   async run(message) {
     const data = {};
+    
+    if (message.partial) message = await message.fetch();
 
     if (message.author.bot) return;
 
