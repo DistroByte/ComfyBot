@@ -1,73 +1,67 @@
 const { Client, Collection } = require("discord.js"),
   { GiveawaysManager } = require("discord-giveaways"),
   { Player } = require("discord-player"),
-  Sentry = require("@sentry/node");
-
-const util = require("util"),
+  Sentry = require("@sentry/node"),
+  util = require("util"),
   path = require("path"),
   AmeClient = require("amethyste-api"),
   moment = require("moment");
+// all basic imorts
 
 class Comfy extends Client {
   constructor(options) {
     super(options);
-    this.config = require("../config");
-    this.emotes = this.config.emojis;
+    this.config = require("../config"); // gets config file and loads it to memory
+    this.emotes = this.config.emojis; // loads emojis
 
-    this.commands = new Collection();
-    this.aliases = new Collection();
+    this.commands = new Collection(); // creates a new collection for commands
+    this.aliases = new Collection(); // creates a new collection for aliases
 
-    this.logger = require("../helpers/logger");
-    this.functions = require("../helpers/functions");
-    this.wait = util.promisify(setTimeout);
+    this.logger = require("../helpers/logger"); // loads the logger function
+    this.functions = require("../helpers/functions"); // loads the functions file
+    this.wait = util.promisify(setTimeout); // adds a 1s timeout
 
-    this.guildsData = require("./Guild");
-    this.usersData = require("./User");
-    this.membersData = require("./Member");
-    this.logs = require("./Log");
+    this.guildsData = require("./Guild"); // loads guild schema
+    this.usersData = require("./User"); // loads user schema
+    this.membersData = require("./Member"); // loads member schema
+    this.logs = require("./Log"); // loads logs schema
 
-    this.queues = new Collection();
+    this.queues = new Collection(); // creates a collection for music player
 
-    this.dashboard = require("../dashboard/app");
-    this.states = {};
+    this.dashboard = require("../dashboard/app"); // requires in the dashboard
+    this.states = {}; // adds an object for states
 
-    this.knownGuilds = [];
+    this.knownGuilds = []; // creates a known guilds array
 
-    this.databaseCache = {};
+    this.databaseCache = {}; // starts database cache
     this.databaseCache.users = new Collection();
     this.databaseCache.guilds = new Collection();
     this.databaseCache.members = new Collection();
     this.databaseCache.usersReminds = new Collection();
-    this.databaseCache.mutedUsers = new Collection();
+    this.databaseCache.mutedUsers = new Collection(); // creates collections for all of the above
 
-    this.authCodes = new Map();
+    this.authCodes = new Map(); // creates a new map of auth codes
 
     Sentry.init({
       dsn: this.config.apiKeys.sentry,
       tracesSampleRate: 1.0,
     });
+    // creates a new sentry to monitor the bot for errors
 
-    this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste);
+    this.AmeAPI = new AmeClient(this.config.apiKeys.amethyste); // loads amethyste API
 
-    this.player = new Player(this, { leaveOnEmpty: true, leaveOnEnd: true, leaveOnEndCooldown: 12000, leaveOnStop: true, leaveOnEmptyCooldown: 12000 });
-    this.filters = this.config.filters;
+    this.player = new Player(this, { leaveOnEmpty: true, leaveOnEnd: true, leaveOnEndCooldown: 12000, leaveOnStop: true, leaveOnEmptyCooldown: 12000 }); // creates player
+    this.filters = this.config.filters; // loads filters
     this.player
-      .on("trackStart", (message, track) => {
-        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id && msg.content.includes("Now playing"));
-        let musicMessage = messages.last();
-        if (musicMessage) musicMessage.delete();
+      .on("trackStart", (message, track) => { // on new track start
+        let messages = message.channel.messages.cache.filter(msg => msg.author.id === this.user.id && msg.content.includes("Now playing")); // finds old track start messages
+        let musicMessage = messages.last(); // gets last one
+        if (musicMessage) musicMessage.delete(); // deletes it
 
-        message.channel.send(`${this.emotes?.music} - Now playing \`${track.title}\` into \`${message.member.voice.channel.name}\``);
+        message.channel.send(`${this.emotes?.music} - Now playing \`${track.title}\` into \`${message.member.voice.channel.name}\``); // sends new one
       })
-      .on("playlistStart", (message, queue, playlist, track) => {
-        message.channel.send(this.emotes?.success + " | " + message.translate("music/play:PLAYING_PLAYLIST", {
-          playlistTitle: playlist.title,
-          playlistEmoji: this.customEmojis.playlist,
-          songName: track.title
-        }));
-      })
-      .on("searchResults", (message, query, tracks) => {
-        if (tracks.length > 20) tracks = tracks.slice(0, 20);
+      .on("searchResults", (message, query, tracks) => { // when a query returns
+        if (tracks.length > 20) tracks = tracks.slice(0, 20); // if the res is longer than 20 items, slice it
         message.channel.send({
           embed: {
             color: "BLUE",
@@ -104,9 +98,8 @@ class Comfy extends Client {
       })
       .on("channelEmpty", (message) => {
         message.channel.send(`${this.client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
-        // leaveOnEmpty disabled, will do nothing
       })
-      .on("error", (message, error) => {
+      .on("error", (message, error) => { // general errors
         switch (error) {
           case "NotPlaying":
             message.channel.send(`${this.emotes?.error} - There is no music being played on this server!`);
@@ -128,7 +121,7 @@ class Comfy extends Client {
         }
       });
 
-    this.giveawaysManager = new GiveawaysManager(this, {
+    this.giveawaysManager = new GiveawaysManager(this, { // manager for giveaways
       storage: "./giveaways.json",
       updateCountdownEvery: 10000,
       default: {
@@ -140,22 +133,24 @@ class Comfy extends Client {
     });
   }
 
-  printDate(date) {
+  // from here down is some useful functions
+
+  printDate(date) { // print the date
     return moment(new Date(date))
       .locale("UTC")
       .format("hh:mm a, DD-MM-YYYY");
   }
 
-  loadCommand(commandPath, commandName) {
+  loadCommand(commandPath, commandName) { // load a command
     try {
-      const props = new (require(`.${commandPath}${path.sep}${commandName}`))(this);
-      props.conf.location = commandPath;
+      const props = new (require(`.${commandPath}${path.sep}${commandName}`))(this); // gets properties
+      props.conf.location = commandPath; // finds location
       if (props.init) {
         props.init(this);
       }
-      this.commands.set(props.help.name, props);
+      this.commands.set(props.help.name, props); // adds command to commands collection
       props.help.aliases.forEach((alias) => {
-        this.aliases.set(alias, props.help.name);
+        this.aliases.set(alias, props.help.name); // adds command to alias collection
       });
       return false;
     } catch (e) {
@@ -163,7 +158,7 @@ class Comfy extends Client {
     }
   }
 
-  async unloadCommand(commandPath, commandName) {
+  async unloadCommand(commandPath, commandName) { // unload a command
     let command;
     if (this.commands.has(commandName)) {
       command = this.commands.get(commandName);
@@ -180,11 +175,11 @@ class Comfy extends Client {
     return false;
   }
 
-  async findOrCreateGuild({ id: guildID }, isLean) {
-    if (this.databaseCache.guilds.get(guildID)) {
-      return isLean ? this.databaseCache.guilds.get(guildID).toJSON() : this.databaseCache.guilds.get(guildID);
+  async findOrCreateGuild({ id: guildID }, isLean) { // useful for always returning a guild
+    if (this.databaseCache.guilds.get(guildID)) { // if one exists
+      return isLean ? this.databaseCache.guilds.get(guildID).toJSON() : this.databaseCache.guilds.get(guildID); // and if its lean then get full one
     } else {
-      let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate("members").lean() : await this.guildsData.findOne({ id: guildID }).populate("members"));
+      let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate("members").lean() : await this.guildsData.findOne({ id: guildID }).populate("members")); // fill database up with members
       if (guildData) {
         if (!isLean) this.databaseCache.guilds.set(guildID, guildData);
         return guildData;
@@ -197,7 +192,7 @@ class Comfy extends Client {
     }
   }
 
-  async findOrCreateMember({ id: memberID, guildID }, isLean) {
+  async findOrCreateMember({ id: memberID, guildID }, isLean) { // same as above, but for members
     if (this.databaseCache.members.get(`${memberID}${guildID}`)) {
       return isLean ? this.databaseCache.members.get(`${memberID}${guildID}`).toJSON() : this.databaseCache.members.get(`${memberID}${guildID}`);
     } else {
@@ -219,7 +214,7 @@ class Comfy extends Client {
     }
   }
 
-  async findOrCreateUser({ id: userID }, isLean) {
+  async findOrCreateUser({ id: userID }, isLean) { // same as above but with users
     if (this.databaseCache.users.get(userID)) {
       return isLean ? this.databaseCache.users.get(userID).toJSON() : this.databaseCache.users.get(userID);
     } else {
@@ -236,13 +231,13 @@ class Comfy extends Client {
     }
   }
 
-  convertTime(time, type, noPrefix) {
+  convertTime(time, type, noPrefix) { // converts time
     if (!type) time = "to";
     const m = moment(time).locale("UTC");
     return (type === "to" ? m.toNow(noPrefix) : m.fromNow(noPrefix));
   }
 
-  async resolveUser(search) {
+  async resolveUser(search) { // finds a user
     let user = null;
     if (!search || typeof search !== "string") return;
     // Try ID search
@@ -251,13 +246,14 @@ class Comfy extends Client {
       user = this.users.fetch(id).catch(() => { });
       if (user) return user;
     }
-    // Try username search
+    // Try tag search
     if (search.match(/^!?(\w+)#(\d+)$/)) {
       const username = search.match(/^!?(\w+)#(\d+)$/)[0];
       const discriminator = search.match(/^!?(\w+)#(\d+)$/)[1];
       user = this.users.cache.find((u) => u.username === username && u.discriminator === discriminator);
       if (user) return user;
     }
+    // try username search
     if (search.match(/^!?(\w+)$/)) {
       user = this.users.cache.find((u) => u.username.toLowerCase() === search.toLowerCase());
       if (user) return user;
@@ -266,7 +262,7 @@ class Comfy extends Client {
     return user;
   }
 
-  async resolveMember(search, guild) {
+  async resolveMember(search, guild) { // finds a member
     let member = null;
     if (!search || typeof search !== "string") return;
     // Try ID search
@@ -285,7 +281,7 @@ class Comfy extends Client {
     return member;
   }
 
-  async resolveRole(search, guild) {
+  async resolveRole(search, guild) { // finds a role
     let role = null;
     if (!search || typeof search !== "string") return;
     // Try ID search
@@ -301,7 +297,7 @@ class Comfy extends Client {
     return role;
   }
 
-  bar(used, free) {
+  bar(used, free) { // generates a fancy bar for ram usage
     const full = "▰";
     const empty = "▱";
     const total = used + free;
@@ -310,7 +306,7 @@ class Comfy extends Client {
     return full.repeat(used) + empty.repeat(free);
   }
 
-  match(msg, i) {
+  match(msg, i) { // find a user or displayname from a string
     if (!msg) return undefined;
     if (!i) return undefined;
     let user = i.members.cache.find(

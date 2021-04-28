@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
+  // checks if user can be unmuted every second
   async init(client) {
     client.membersData.find({ "mute.muted": true }).then(members => {
       members.forEach(member => {

@@ -1,4 +1,5 @@
 module.exports = {
+  // standard responses
   "error": {
     "TIME": "Times up! Please run the command again!",
     "CHANNEL": "Please specify a channel!",
