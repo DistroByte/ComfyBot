@@ -100,15 +100,6 @@ async function Initialise(bot) {
   scheduler.scheduleJob("*/1 * * * *", () => {
     UpdateAssignmentsEmbed(bot);
   });
-  // Assignments.create({ moduleCode: 'CA169', moduleName: 'Net & Internet', description: "cat", dueDate: new Date(2021, 4, 6, 17, 50, 0, 0) }, function (err, new_instance) {
-  //   if (err) return console.log(err);
-  //   console.log('saved')
-  // });
-
-  // Assignments.find({ moduleCode: "CA169" }, function (err, docs) {
-  //   if (err) return console.log(err);
-  //   console.log(docs)
-  // });
 }
 
 module.exports.init = async (bot) => {

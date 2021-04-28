@@ -19,7 +19,7 @@ module.exports = class {
             .replace(/{user}/g, member.user.tag)
             .replace(/{server}/g, guild.name)
             .replace(/{membercount}/g, guild.memberCount);
-          channel.send(message);
+          channel.send(message); // sends goodbye messgae
         }
       }
     });

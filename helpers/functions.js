@@ -3,7 +3,7 @@ const smtpTransport = require("nodemailer-smtp-transport");
 const { emailUser, emailPass } = require("../config");
 
 module.exports = {
-  getPrefix(message, data) {
+  getPrefix(message, data) { // gets a prefix for any given guild
     if (message.channel.type !== "dm") {
       const prefixes = [
         `<@!${message.client.user.id}> `,
@@ -23,7 +23,7 @@ module.exports = {
     }
   },
 
-  async supportLink(client) {
+  async supportLink(client) { // gets the link to the support server
     const guild = client.guilds.cache.get(client.config.support.id);
     const member = guild.me;
     const channel = guild.channels.cache.find((ch) => ch.permissionsFor(member.id).has("CREATE_INSTANT_INVITE"));
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  sortByKey(array, key) {
+  sortByKey(array, key) { // sorts by key
     return array.sort(function (a, b) {
       const x = a[key];
       const y = b[key];
@@ -43,7 +43,7 @@ module.exports = {
     });
   },
 
-  shuffle(pArray) {
+  shuffle(pArray) { // shuffle function
     const array = [];
     pArray.forEach(element => array.push(element));
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -60,11 +60,11 @@ module.exports = {
     return array;
   },
 
-  randomNum(min, max) {
+  randomNum(min, max) { // gens a random number
     return Math.floor(Math.random() * (max - min)) + min;
   },
 
-  convertTime(guild, time) {
+  convertTime(guild, time) { // converts time to string format
     const absoluteSeconds = Math.floor((time / 1000) % 60);
     const absoluteMinutes = Math.floor((time / (1000 * 60)) % 60);
     const absoluteHours = Math.floor((time / (1000 * 60 * 60)) % 24);
@@ -100,18 +100,18 @@ module.exports = {
     return absoluteTime.join(", ");
   },
 
-  getLevel(xp) {
+  getLevel(xp) { // gets levels from xp
     return Math.floor((((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3) + 61 / (12 * ((3888 * xp ** 2 + 291600 * xp - 207025) ** (0.5) / (40 * 3 ** (3 / 2)) + ((3 * (3 * xp)) / 5 + 2457 / 4) / 6 - 729 / 8) ** (1 / 3)) - 9 / 2));
   },
 
-  getCommunitiveXp(lvl) {
+  getCommunitiveXp(lvl) { // gets xp to next level
     return Math.floor(((5 * lvl * lvl * lvl) / 3) + ((45 * lvl * lvl) / 2) + ((455 * lvl) / 6));
   },
 
-  getLevelXp(lvl) {
+  getLevelXp(lvl) { // gets the current xp of the level
     return 5 * Math.floor(lvl / 1) ** 2 + 50 * Math.floor(lvl / 1) + 100;
   },
-  sendEmail: function (emailAddress, contents, callback) {
+  sendEmail: function (emailAddress, contents, callback) { // function to send emails
     let transporter = nodemailer.createTransport(smtpTransport({
       service: "gmail",
       host: "smtp.gmail.com",
@@ -139,7 +139,7 @@ module.exports = {
     });
   },
 
-  timeDiff: function (FutureDate, NowDate) {
+  timeDiff: function (FutureDate, NowDate) { // calculates how far away something is in string format
     let diffInMilliSeconds = Math.abs(FutureDate - NowDate) / 1000;
 
     const days = Math.floor(diffInMilliSeconds / 86400);

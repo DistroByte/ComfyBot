@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports = {
+  // checks reminders of each user every second
   init(client) {
     client.usersData.find({ reminds: { $gt: [] } }).then(users => {
       for (const user of users) {

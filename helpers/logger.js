@@ -1,5 +1,7 @@
 const { bgBlue, black, green } = require("chalk");
 
+// makes logs look pretty and uniform
+
 function dateTimePad(value, digits) {
   let number = value;
   while (number.toString().length < digits) {

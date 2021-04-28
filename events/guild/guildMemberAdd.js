@@ -18,7 +18,7 @@ module.exports = class {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false,
             CONNECT: false
-          }).catch(() => { });
+          }).catch(() => { }); // creates new member
         });
       }
 
@@ -33,7 +33,7 @@ module.exports = class {
             .replace(/{user}/g, member)
             .replace(/{server}/g, guild.name)
             .replace(/{membercount}/g, guild.memberCount);
-          channel.send(message);
+          channel.send(message); // sends welcome message
         }
       }
     });
