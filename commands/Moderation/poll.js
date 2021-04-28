@@ -23,7 +23,7 @@ class Poll extends Command {
 
   async run(message, args, data) {
     const question = args.join(" ");
-    if (!question) return message.error("Please specify a question!");
+    if (!question) return message.error("EMPTY");
 
     message.delete().catch(() => { });
 
@@ -60,7 +60,7 @@ class Poll extends Command {
         });
         c.on("end", (collected, reason) => {
           if (reason === "time") {
-            return message.error("Time's up! Please send the command again!");
+            return message.error("TIME");
           }
         });
       }
@@ -68,7 +68,7 @@ class Poll extends Command {
 
     collector.on("end", (collected, reason) => {
       if (reason === "time") {
-        return message.error("Time's up! Please send the command again!");
+        return message.error("TIME");
       }
 
       const success = this.client.emotes?.success.split(":")[1];

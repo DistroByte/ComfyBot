@@ -32,7 +32,7 @@ class Phcomment extends Command {
     }
 
     if (!text) {
-      return message.error("Please specify some text!");
+      return message.error("EMPTY");
     }
 
     try {

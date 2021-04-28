@@ -60,7 +60,7 @@ class Welcome extends Command {
             message.sendM(`**Alright, done!**\n\n:arrow_right_hook: *Answer by sending \`${data.guild.prefix}welcome test\` to preview your custom welcome message!*`);
             return collector.stop();
           }
-          return message.error("Your message must not exceed 1800 characters!");
+          return message.error("EMBEDLENGTH");
         }
 
         // If the channel is not filled, it means the user sent it
@@ -70,7 +70,7 @@ class Welcome extends Command {
             channelType: "text"
           });
           if (!channel) {
-            return message.error("Please specify a valid channel!");
+            return message.error("CHANNEL");
           }
           welcome.channel = channel.id;
           message.sendM(`**Please enter your desired welcome message.**\n\n**If you want to:**\n*-* __Mention the user__: {user}\n*-* __Get the member count__: {membercount}\n*-* __Get the server name__: {server}\n\n**Usage example:**\nWelcome to {server}, {user}! We are now {membercount}!\n:fast_forward:\nWelcome to ${message.guild.name}, ${msg.author.tag}! We now have ${msg.guild.memberCount} members!`);
@@ -79,7 +79,7 @@ class Welcome extends Command {
 
       collector.on("end", (_, reason) => {
         if (reason === "time") {
-          return message.error("Time's up! Please send the command again!");
+          return message.error("TIME");
         }
       });
     }

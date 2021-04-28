@@ -24,7 +24,7 @@ class Automod extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (!status || (status !== "on" && status !== "off")) {
-      return message.error("Please enter a valid value between `on` and `off`");
+      return message.error("STATUS");
     }
 
     if (status === "on") {

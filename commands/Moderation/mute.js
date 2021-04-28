@@ -24,18 +24,18 @@ class Mute extends Command {
 
   async run(message, args, data) {
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) return message.error("Please specify a valid member to mute!");
+    if (!member) return message.error("USER");
     if (member.id === message.author.id) return message.error("You can't mute yourself!");
 
     const memberPosition = member.roles.highest.position;
     const moderationPosition = message.member.roles.highest.position;
     if (message.member.ownerID !== message.author.id && !(moderationPosition > memberPosition)) {
-      return message.error("You can't kick or update a kick for a member who has an higher or equal role hierarchy to yours!");
+      return message.error("You can't mute or update a mute for a member who has an higher or equal role hierarchy to yours!");
     }
 
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
     const time = args[1];
-    if (!time || isNaN(ms(time))) return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
+    if (!time || isNaN(ms(time))) return message.error("TIMEARGS");
 
     let reason = args.slice(2).join(" ");
     if (!reason) reason = "No reason provided";

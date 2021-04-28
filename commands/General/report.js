@@ -29,7 +29,7 @@ class Report extends Command {
 
     const member = await this.client.resolveMember(args[0], message.guild);
     if (!member) {
-      return message.error("Please mention the user you want report!");
+      return message.error("USER");
     }
 
     if (member.id === message.author.id) {

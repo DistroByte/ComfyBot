@@ -37,7 +37,7 @@ class Giveaway extends Command {
         return message.error(`You must enter the information like this: \n\n\`${data.guild.prefix}giveaway create [time] [winners count] [prize]\``);
       }
       if (isNaN(ms(time))) {
-        return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
+        return message.error("TIMEARGS`");
       }
       if (ms(time) > ms("15d")) {
         return message.error("The maximum duration of a giveaway is 15 days.");

@@ -60,7 +60,7 @@ class Goodbye extends Command {
             message.sendM(`**Alright, done!**\n\n:arrow_right_hook: *Answer by sending \`${data.guild.prefix}goodbye test\` to preview your custom goodbye message!*`);
             return collector.stop();
           }
-          return message.error("Your message must not exceed 1800 characters!");
+          return message.error("EMBEDLENGTH");
         }
 
         // If the channel is not filled, it means the user sent it
@@ -70,7 +70,7 @@ class Goodbye extends Command {
             channelType: "text"
           });
           if (!channel) {
-            return message.error("Please specify a valid channel!");
+            return message.error("CHANNEL");
           }
           goodbye.channel = channel.id;
           message.sendM(`**Please enter your desired goodbye message.**\n\n**If you want to:**\n*-* __Mention the user__: {user}\n*-* __Get the member count__: {membercount}\n*-* __Get the server name__: {server}\n\n**Usage example:**\nGoodbye {user}, we will miss you! We are now {membercount}.\n:fast_forward:\nGoodbye ${msg.author.tag}, we will miss you! We are now ${msg.guild.memberCount}.`);
@@ -79,7 +79,7 @@ class Goodbye extends Command {
 
       collector.on("end", (_, reason) => {
         if (reason === "time") {
-          return message.error("Time's up! Please send the command again!");
+          return message.error("TIME");
         }
       });
     }

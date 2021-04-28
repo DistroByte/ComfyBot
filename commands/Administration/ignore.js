@@ -23,7 +23,7 @@ class Ignore extends Command {
   async run(message, args, data) {
     const channel = message.mentions.channels.filter((ch) => ch.type === "text" && ch.guild.id === message.guild.id).first() || message.channel;
     if (!channel) {
-      return message.error("Please specify a valid channel!");
+      return message.error("CHANNEL");
     }
 
     const ignored = data.guild.ignoredChannels.includes(channel.id);

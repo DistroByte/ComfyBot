@@ -23,7 +23,7 @@ class Deletemod extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (!status || status !== "on" && status !== "off") {
-      return message.error("You must specify `on` or `off`");
+      return message.error("STATUS");
     }
     if (status === "on") {
       data.guild.autoDeleteModCommands = true;

@@ -25,14 +25,14 @@ class Lovecalc extends Command {
   async run(message) {
     const firstMember = message.mentions.members.filter(m => m.id !== message.author.id).first();
     if (!firstMember)
-      return message.error("You must mention at least one member!");
+      return message.error("USER");
     const secondMember =
       message.mentions.members
         .filter(m => m.id !== firstMember.id)
         .filter(m => m.id !== message.author.id)
         .first() || message.member;
     if (!secondMember)
-      return message.error("You must mention at least one member!");
+      return message.error("USER");
 
     const members = [firstMember, secondMember].sort(
       (a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)

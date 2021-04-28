@@ -25,7 +25,7 @@ class Lyrics extends Command {
   async run(message, args, data) {
     const songName = args.join(" ") || this.client.player.nowPlaying(message).title;
     if (!songName || !this.client.player.nowPlaying(message)) {
-      return message.error("Please specify a song name!");
+      return message.error("SEARCH");
     }
 
     const embed = new Discord.MessageEmbed()

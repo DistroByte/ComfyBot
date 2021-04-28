@@ -23,7 +23,7 @@ class Kick extends Command {
 
   async run(message, args, data) {
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) return message.error("Please specify a valid member to kick!");
+    if (!member) return message.error("USER");
     if (member.id === message.author.id) return message.error("You can't kick yourself!");
 
     const memberData = await this.client.findOrCreateMember({ id: member.id, guildID: message.guild.id });
@@ -39,7 +39,7 @@ class Kick extends Command {
     }
 
     if (!member.kickable) {
-      return message.error("An error has occurred... Please check that I have the permission to ban this specific member and try again!");
+      return message.error("An error has occurred... Please check that I have the permission to kick this specific member and try again!");
     }
 
     await member.send(`Hello ${member.user.tag},\nYou have just been kicked from **${message.guild.name}** by **${message.author.tag}** because of **${reason}**!`).catch(() => { });

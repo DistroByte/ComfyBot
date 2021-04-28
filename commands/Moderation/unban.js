@@ -23,7 +23,7 @@ class Unban extends Command {
   async run(message, args) {
     let user = null;
 
-    if (!args[0]) return message.error("Please specify the ID of the member you wish to unban!");
+    if (!args[0]) return message.error("ID");
     const isId = !isNaN(args[0]);
 
     if (isId) {
