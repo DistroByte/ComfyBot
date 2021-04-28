@@ -29,7 +29,7 @@ class Suggest extends Command {
 
     const sugg = args.join(" ");
     if (!sugg) {
-      return message.error("Please enter a suggestion!");
+      return message.error("EMPTY");
     }
 
     const embed = new Discord.MessageEmbed()

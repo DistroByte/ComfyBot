@@ -1,5 +1,6 @@
 const { Message, GuildMember } = require("discord.js"),
-  Member = require("../base/Member");
+  Member = require("../base/Member"),
+  res = require("./responses");
 
 Message.prototype.convertTime = function (time, type, noPrefix) {
   return this.client.convertTime(time, type, noPrefix, (this.guild && this.guild.data) ? this.guild.data.language : null);
@@ -7,6 +8,7 @@ Message.prototype.convertTime = function (time, type, noPrefix) {
 
 Message.prototype.error = function (string, options = {}) {
   options.prefixEmoji = "error";
+  string = res.error[string] ? res.error[string] : string;
   return this.sendM(string, options);
 };
 

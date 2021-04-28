@@ -31,7 +31,7 @@ class Tweet extends Command {
     }
 
     if (!text) {
-      return message.error("Please add some tweet content!");
+      return message.error("EMPTY");
     }
 
     const m = await message.sendM("Please wait...", { prefixEmoji: "loading" });

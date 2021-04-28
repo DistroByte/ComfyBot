@@ -44,7 +44,7 @@ class Xkcd extends Command {
         });
     } catch (e) {
       console.log(e);
-      return message.error("looks like I've broken! Try again.");
+      return message.error("ERROR");
     }
   }
 }

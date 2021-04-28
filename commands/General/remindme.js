@@ -23,12 +23,12 @@ class Remindme extends Command {
   async run(message, args, data) {
     const time = args[0];
     if (!time || isNaN(ms(time))) {
-      return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or`d`");
+      return message.error("TIMEARGS");
     }
 
     const msg = args.slice(1).join(" ");
     if (!msg) {
-      return message.error("You must enter a message!");
+      return message.error("EMPTY");
     }
 
     const rData = {

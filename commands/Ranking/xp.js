@@ -22,7 +22,7 @@ class XP extends Command {
   }
 
   async run(message, args, data) {
-    if (!args[1]) return message.error("Please specify a user!");
+    if (!args[1]) return message.error("USER");
     if (!args[2]) return message.error("Please specify amount of xp to add!");
     let user = data.guild.members.find(u => u.id === message.mentions.members.first().id);
     if (args[0] === "add") {

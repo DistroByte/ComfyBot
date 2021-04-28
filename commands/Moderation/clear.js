@@ -28,7 +28,7 @@ class Clear extends Command {
         time: 20000,
         errors: ["time"]
       }).catch(() => {
-        return message.error("Error: Time's up!");
+        return message.error("TIME");
       });
       const position = message.channel.position;
       const newChannel = await message.channel.clone();
@@ -39,7 +39,7 @@ class Clear extends Command {
 
     let amount = args[0];
     if (!amount || isNaN(amount) || parseInt(amount) < 1) {
-      return message.error("You must specify a number of messages to delete!");
+      return message.error("NUMBER");
     }
 
     await message.delete();

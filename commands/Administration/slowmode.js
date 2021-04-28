@@ -25,12 +25,12 @@ class Slowmode extends Command {
 
     const channel = message.mentions.channels.filter((ch) => ch.type === "text" && ch.guild.id === message.guild.id).first();
     if (!channel) {
-      return message.error("Please specify a valid channel!");
+      return message.error("CHANNEL");
     }
     const time = args[1];
     if (!time) {
       if (!data.guild.slowmode.channels.find((ch) => ch.id === channel.id)) {
-        return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
+        return message.error("TIMEARGS");
       }
       data.guild.slowmode.channels = data.guild.slowmode.channels.filter((ch) => ch.id !== channel.id);
       data.guild.markModified("slowmode.channels");
@@ -38,7 +38,7 @@ class Slowmode extends Command {
       message.success(`**Slow-mode has just been disabled in ${channel.name}!**\n\n:arrow_right_hook: *Send \`${data.guild.prefix}slowmode [#channel] (time)\` to enable it again!*`);
     } else {
       if (isNaN(ms(time))) {
-        return message.error("You must enter a valid time! Available units: `s`, `m`, `h` or `d`");
+        return message.error("TIMEARGS");
       }
       if (data.guild.slowmode.channels.find((ch) => ch.id === channel.id)) {
         data.guild.slowmode.channels = data.guild.slowmode.channels.filter((ch) => ch.id !== channel.id);

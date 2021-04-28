@@ -22,7 +22,7 @@ class Unmute extends Command {
 
   async run(message, args) {
     const member = await this.client.resolveMember(args[0], message.guild);
-    if (!member) return message.error("Please specify the member you want to unmute!");
+    if (!member) return message.error("USER");
 
     const memberPosition = member.roles.highest.position;
     const moderationPosition = message.member.roles.highest.position;

@@ -23,7 +23,7 @@ class Sanctions extends Command {
 
   async run(message, args, data) {
     const user = await this.client.resolveUser(args[0]);
-    if (!user) return message.error("You must specify a member!");
+    if (!user) return message.error("USER");
     const memberData = await this.client.findOrCreateMember({ id: user.id, guildID: message.guild.id });
     const embed = new Discord.MessageEmbed()
       .setAuthor(user.tag, user.displayAvatarURL())

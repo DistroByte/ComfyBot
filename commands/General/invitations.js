@@ -27,7 +27,7 @@ class Invitations extends Command {
 
     // Gets the invites
     const invites = await message.guild.fetchInvites().catch(() => { });
-    if (!invites) return message.error("Something went wrong...Please retry again later!");
+    if (!invites) return message.error("ERROR");
 
     const memberInvites = invites.filter((i) => i.inviter && i.inviter.id === member.user.id);
 

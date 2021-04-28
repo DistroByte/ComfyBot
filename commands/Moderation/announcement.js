@@ -68,14 +68,14 @@ class Announcement extends Command {
         });
         c.on("end", (collected, reason) => {
           if (reason === "time") {
-            return message.error("Time's up! Please send the command again!");
+            return message.error("TIME");
           }
         });
       }
     });
 
     collector.on("end", (collected, reason) => {
-      if (reason === "time") return message.error("Time's up! Please send the command again!");
+      if (reason === "time") return message.error("TIME");
       const embed = new Discord.MessageEmbed()
         .setAuthor("📢 Announcement")
         .setColor(data.config.embed.color)

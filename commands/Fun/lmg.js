@@ -21,7 +21,7 @@ class Lmg extends Command {
 
   async run(message, args) {
     const question = args.join(" ");
-    if (!question) return message.error("You must specify a search!");
+    if (!question) return message.error("SEARCH");
     const encodedQuestion = question.replace(/[' '_]/g, "+");
     await message.channel.send(`https://letmegooglethat.com/?q=${encodedQuestion}`);
     message.delete().catch(() => { });

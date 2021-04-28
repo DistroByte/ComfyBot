@@ -36,7 +36,7 @@ class Warn extends Command {
     }
 
     const reason = args.slice(1).join(" ");
-    if (!reason) return message.error("Please enter a reason!");
+    if (!reason) return message.error("EMPTY");
 
     // Gets current member sanctions
     const sanctions = memberData.sanctions.filter((s) => s.type === "warn").length;

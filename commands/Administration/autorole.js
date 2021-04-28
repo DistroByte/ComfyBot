@@ -25,7 +25,7 @@ class Autorole extends Command {
   async run(message, args, data) {
     const status = args[0];
     if (status !== "on" && status !== "off") {
-      return message.error("Please specify a valid value between`on` and`off`");
+      return message.error("STATUS");
     }
 
     if (status === "on") {
@@ -34,7 +34,7 @@ class Autorole extends Command {
         search: args.slice(1).join(" ")
       });
       if (!role) {
-        return message.error("Please specify a valid role!");
+        return message.error("ROLE");
       }
 
       data.guild.plugins.autorole = {

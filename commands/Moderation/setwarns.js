@@ -43,7 +43,7 @@ class Setwarns extends Command {
     }
 
     if (!number || isNaN(number)) {
-      return message.error("Please specify a valid number!");
+      return message.error("NUMBER");
     }
     if (number < 1 || number > 10) {
       return message.error("Please specify a valid number between **1** and **2** !");
