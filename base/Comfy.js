@@ -97,7 +97,7 @@ class Comfy extends Client {
         message.channel.send(`${this.emotes?.music} - ${track.title} has been added to the queue!`);
       })
       .on("channelEmpty", (message) => {
-        message.channel.send(`${this.client.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
+        message.channel.send(`${this.emotes?.error} - Music stopped as there is no more member in the voice channel!`);
       })
       .on("error", (message, error) => { // general errors
         switch (error) {
