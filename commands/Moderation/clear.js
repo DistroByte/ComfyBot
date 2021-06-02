@@ -13,7 +13,7 @@ class Clear extends Command {
       guildOnly: true,
       aliases: ["clear", "bulkdelete", "purge"],
       memberPermissions: ["MANAGE_MESSAGES"],
-      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS", "MANAGE_MESSAGES"],
+      botPermissions: ["SEND_MESSAGES", "EMBED_LINKS", "MANAGE_MESSAGES", "MANAGE_CHANNELS"],
       nsfw: false,
       ownerOnly: false,
       cooldown: 3000
@@ -42,10 +42,16 @@ class Clear extends Command {
       return message.error("NUMBER");
     }
 
-    await message.delete();
+    try {
+      await message.delete();
+    } catch (err) {
+      this.client.logger.log(err, "error");
+    }
+
     const user = message.mentions.users.first();
     let messages = await message.channel.messages.fetch({ limit: 100 });
     messages = messages.array();
+
     if (user) {
       messages = messages.filter((m) => m.author.id === user.id);
     }
@@ -55,7 +61,11 @@ class Clear extends Command {
     messages = messages.filter((m) => !m.pinned);
     amount++;
 
-    message.channel.bulkDelete(messages, true);
+    try {
+      message.channel.bulkDelete(messages, true);
+    } catch (err) {
+      this.client.logger.log(err, "error");
+    }
 
     let toDelete = null;
     if (user) {
@@ -65,7 +75,11 @@ class Clear extends Command {
     }
 
     setTimeout(function () {
-      toDelete.delete();
+      try {
+        toDelete.delete();
+      } catch (err) {
+        this.client.logger.log(err, "error");
+      }
     }, 2000);
   }
 }
