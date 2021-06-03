@@ -59,5 +59,9 @@ client.on("disconnect", () => client.logger.log("Bot is disconnecting...", "warn
   .on("warn", (info) => client.logger.log(info, "warn"));
 
 process.on("unhandledRejection", async (err) => {
-  console.error(err);
+  if (err.name == "DiscordAPIError") {
+    return client.logger.log("Discord API Error", "warn");
+  } else {
+    client.logger.log(err, "error");
+  }
 });
