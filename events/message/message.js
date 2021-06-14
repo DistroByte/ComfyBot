@@ -10,7 +10,7 @@ module.exports = class {
 
   async run(message) {
     const data = {};
-    
+
     if (message.partial) message = await message.fetch();
 
     if (message.author.bot) return;
@@ -214,11 +214,17 @@ module.exports = class {
 
     try {
       cmd.run(message, args, data);
+      const logs = await this.client.channels.cache.get("853810387404718081");
+      logs.send(`\`${(message.guild ? message.guild.name : "DMs")}\` | \`${message.author.tag}\` | \`${cmd.help.name + (args ? " " : "") + args.join(" ")}\``);
       if (cmd.help.category === "Moderation" && data.guild.autoDeleteModCommands) {
         message.delete();
       }
     } catch (e) {
       console.error(e);
+      const errors = await this.client.channels.cache.get("853810387404718081");
+      errors.send(e, {
+        code: "bash", split: true
+      });
       return message.channel.send("Something went wrong... Please retry again later!");
     }
   }
