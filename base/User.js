@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
   birthdate: { type: Number },
   lover: { type: String },
 
+  money: {
+    type: Number,
+    default: 2000
+  },
+
   registeredAt: { type: Number, default: Date.now() },
 
   cooldowns: {

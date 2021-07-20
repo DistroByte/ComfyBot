@@ -4,10 +4,6 @@ module.exports = mongoose.model("Member", new mongoose.Schema({
 
   id: { type: String },
   guildID: { type: String },
-  money: {
-    type: Number,
-    default: 2000
-  },
   daily: {
     type: Number,
     default: new Date() - 86400000
