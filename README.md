@@ -8,7 +8,7 @@
 [![](https://www.codefactor.io/repository/github/distrobyte/comfybot/badge)](https://www.codefactor.io/repository/github/distrobyte/comfybot)
 ![](https://img.shields.io/github/checks-status/DistroByte/ComfyBot/dev?label=checks&logo=github)
 
-> This bot is used by over 10,000 Discord users and more than 30 servers!
+> This bot is used by over 20,000 Discord users and more than 40 servers!
 
 ComfyBot is a multi-purpose, open-source Discord bot with functions ranging from music to ranking, from economy to custom commands.
 
