@@ -22,7 +22,7 @@ class Invite extends Command {
   }
 
   async run(message, args, data) {
-    const inviteLink = this.client.config.inviteURL || `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=2146958847`;
+    const inviteLink = this.client.config.inviteURL || "https://discord.com/oauth2/authorize?client_id=666393146351026176&permissions=8&scope=applications.commands%20bot";
     // const voteURL = this.client.config.voteURL || `https://discordbots.org/bot/${this.client.user.id}/vote`;
     const supportURL = this.client.config.supportURL || await this.client.functions.supportLink(this.client);
 
