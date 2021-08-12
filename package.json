@@ -1,0 +1,25 @@
+{
+  "name": "comfybot-v3",
+  "version": "3.0.0",
+  "description": "a simple discord bot",
+  "main": "src/index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+htpps://github.com/DistroByte/ComfyBot.git"
+  },
+  "author": "DistroByte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DistroByte/ComfyBot/issues"
+  },
+  "dependencies": {
+    "discord.js": "^13.0.1",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
