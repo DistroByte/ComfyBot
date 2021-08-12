@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-next-line -->
 <img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="Comfy" src="https://i.dbyte.xyz/2021-04-yH.png">
 
 # ComfyBot
@@ -14,6 +15,7 @@ ComfyBot is a multi-purpose, open-source Discord bot with functions ranging from
 
 ComfyBot was developed by @DistroByte#0001
 
+<!-- markdownlint-disable-next-line -->
 ### Invite ComfyBot
 
 If you don't want to edit the code of the bot, a permanent online version is available, which you can invite to your own Discord server!
