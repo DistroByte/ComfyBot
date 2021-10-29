@@ -1,7 +1,7 @@
 module.exports = {
   token: "", // bot token
   prefix: "!", // default prefix
-  inviteURL: "https://discord.com/api/oauth2/authorize?client_id=666393146351026176&permissions=8&scope=bot", // bot invite link
+  inviteURL: "https://discord.com/oauth2/authorize?client_id=666393146351026176&permissions=8&scope=applications.commands%20bot", // bot invite link
   supportURL: "https://discord.gg/P5qRX8h", // support invite link
   mongoDB: "", // mongodb connection uri
   dbOptions: { // database options
