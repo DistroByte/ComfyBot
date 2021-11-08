@@ -21,8 +21,8 @@
   "dependencies": {
     "@discordjs/opus": "^0.4.0",
     "@influxdata/influxdb-client": "^1.10.0",
-    "@sentry/node": "^6.3.0",
-    "@sentry/tracing": "^6.3.0",
+    "@sentry/node": "^6.14.1",
+    "@sentry/tracing": "^6.14.1",
     "@sindresorhus/slugify": "^1.1.0",
     "amethyste-api": "^1.1.5",
     "async-eval": "^0.1.5",
