@@ -51,10 +51,10 @@ module.exports = class {
 
       let cacorrect = caSend.get_storage();
       if (message.guild.id === "759921793422458901") {
-        for (var key in cacorrect) {
-          var value = cacorrect[key];
-          if (message.content.toLowerCase().includes(key)) {
-            message.channel.send(value);
+        for (var cakey in cacorrect) {
+          var cavalue = cacorrect[cakey];
+          if (message.content.toLowerCase().includes(cakey)) {
+            message.channel.send(cavalue);
           }
         }
       }
@@ -62,11 +62,11 @@ module.exports = class {
       let caseCorrect = CASESend.get_storage();
       if (message.guild.id === "713522800081764392") {
         // eslint-disable-next-line no-redeclare
-        for (var key in cacorrect) {
+        for (var casekey in caseCorrect) {
           // eslint-disable-next-line no-redeclare
-          var value = caseCorrect[key];
-          if (message.content.toLowerCase().includes(key)) {
-            message.channel.send(value);
+          var casevalue = caseCorrect[casekey];
+          if (message.content.toLowerCase().includes(casekey)) {
+            message.channel.send(casevalue);
           }
         }
       }
