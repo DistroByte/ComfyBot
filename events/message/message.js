@@ -1,7 +1,8 @@
 const xpCooldown = {},
   cmdCooldown = {},
   storage = require("storage-to-json"),
-  caSend = new storage("computerAppsCorrect");
+  caSend = new storage("computerAppsCorrect"),
+  CASESend = new storage("caseCorrect");
 
 module.exports = class {
   constructor(client) {
@@ -52,6 +53,18 @@ module.exports = class {
       if (message.guild.id === "759921793422458901") {
         for (var key in cacorrect) {
           var value = cacorrect[key];
+          if (message.content.toLowerCase().includes(key)) {
+            message.channel.send(value);
+          }
+        }
+      }
+
+      let caseCorrect = CASESend.get_storage();
+      if (message.guild.id === "713522800081764392") {
+        // eslint-disable-next-line no-redeclare
+        for (var key in cacorrect) {
+          // eslint-disable-next-line no-redeclare
+          var value = caseCorrect[key];
           if (message.content.toLowerCase().includes(key)) {
             message.channel.send(value);
           }
@@ -242,8 +255,8 @@ async function updateXp(msg, data) {
   xpCooldown[msg.author.id] = toWait;
 
   let xpToAdd = Number(Math.floor((Math.random() * 15) + 15));
-  if (msg.author.id === '179307238601654273') {
-          xpToAdd = Number(60);
+  if (msg.author.id === "179307238601654273") {
+    xpToAdd = Number(60);
   }
   const newXp = xp + xpToAdd;
 
