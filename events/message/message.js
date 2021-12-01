@@ -71,9 +71,9 @@ module.exports = class {
         }
       }
 
-      if (message.author === "329729744784326668") {
+      if (message.author.id === "329729744784326668") {
         if (args.length < 2) {
-          message.channel.send("THINK. TYPE. THEN PRESS ENTER.");
+          message.channel.send(`THINK. TYPE. THEN PRESS ENTER. DON'T JUST SEND ${args[0]}.`);
         }
       }
 
