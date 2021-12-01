@@ -71,6 +71,12 @@ module.exports = class {
         }
       }
 
+      if (message.author === "329729744784326668") {
+        if (args.length < 2) {
+          message.channel.send("THINK. TYPE. THEN PRESS ENTER.");
+        }
+      }
+
       if (!message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES") && !message.editedAt) {
         const channelSlowmode = data.guild.slowmode.channels.find(ch => ch.id === message.channel.id);
         if (channelSlowmode) {
