@@ -73,7 +73,7 @@ module.exports = class {
 
       if (message.author.id === "329729744784326668") {
         if (message.content.split(/ +/g).length < 2) {
-          message.channel.send(`THINK. TYPE. THEN PRESS ENTER. DON'T JUST SEND ${args[0]}.`);
+          message.channel.send(`THINK. TYPE. THEN PRESS ENTER. DON'T JUST SEND ${message.content.split(/ +/g)[0]}.`);
         }
       }
 
