@@ -206,7 +206,7 @@ module.exports = class {
     }
 
     if (cmd.conf.ownerOnly && message.author.id !== client.config.owner.id) {
-      return message.channel.send("Only the owner of ComfyBot can run this commands!");
+      return message.channel.send("Only the owner of ComfyBot can run this command!");
     }
 
     let uCooldown = cmdCooldown[message.author.id];

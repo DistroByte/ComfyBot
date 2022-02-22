@@ -80,8 +80,8 @@ async function UpdateAssignmentsEmbed(client) {
   }
 
   try {
-    let AssignmentsChannel = await client.channels.cache.get("829045215679610891");
-    let ExistingEmbed = await AssignmentsChannel.messages.fetch("829045217818574848");
+    let AssignmentsChannel = await client.channels.cache.get("945506017712697374");
+    let ExistingEmbed = await AssignmentsChannel.messages.fetch("945507067651825765");
 
 
     const AssignmentEmbed = new Discord.MessageEmbed()
