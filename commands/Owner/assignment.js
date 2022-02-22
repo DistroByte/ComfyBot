@@ -8,7 +8,7 @@ class Assignment extends Command {
       name: "assignment",
       description: "Adds a new assignment to CA Server",
       usage: "([new] [module code] [due date] [due time] [description])/([update/delete] [id])",
-      examples: ["{{p}}assignment new CA117 2020-06-27 10:00:00 Final Exam", "{{p}}assignment edit 2", "{{p}}assignment delete 1"],
+      examples: ["{{p}}assignment new CA117 2020-06-27 10:00:00 Final Exam", "{{p}}assignment edit-description 2", "{{p}}assignment edit-date 6", "{{p}}assignment delete 1"],
       dirname: __dirname,
       enabled: true,
       guildOnly: false,
@@ -62,7 +62,7 @@ class Assignment extends Command {
 
                         Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": AssignmentDescription, "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
                           if (err) return console.log(err);
-                          message.success("New assignment created.");
+                          message.success("New assignment created!");
                           UpdateAssignmentsEmbed(message.client);
                         });
                       })
@@ -80,9 +80,74 @@ class Assignment extends Command {
       }
     }
 
-    if (action == "edit") {
+    if (action == "edit-description") {
+      let id = args[0];
+
+      // edit the assignment description with the given id
+      Assignments.findOne({ "assignmentID": id }, function (err, assignment) {
+        if (err) return console.log(err);
+        if (!assignment) return message.error("Assignment not found!");
+
+        message.sendM("Please enter a new description for this assignment.", { prefixEmoji: "loading" })
+          .then(() => {
+            message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
+              .then(ConfirmationResponse => {
+                let newDescription = ConfirmationResponse.first().content;
+                message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${assignment.moduleCode}\n**Module Name:** ${assignment.moduleName}\n**Due Date:** ${assignment.dueDate.toString().slice(0, 24)}\n**Description:** ${newDescription}`, { prefixEmoji: "loading" })
+                  .then(() => {
+                    Assignment.updateOne({ "assignmentID": id }, { "description": newDescription }, function (err, assignment) {
+                      if (err) return console.log(err);
+                      message.success("Assignment description updated!");
+                      UpdateAssignmentsEmbed(message.client);
+                    });
+                  });
+              })
+              .catch(err => {
+                console.log(err);
+                message.error(`Command timed out. \n ${err}`);
+              });
+          });
+      });
+    }
+
+    if (action == "edit-date") {
       // eslint-disable-next-line no-unused-vars
       let id = args[0];
+
+      // edit the assignment date with the given ID
+      Assignments.findOne({ "assignmentID": id }, function (err, assignment) {
+        if (err) return console.log(err);
+        if (!assignment) return message.error("Assignment not found.");
+
+        message.sendM("Please enter a new due date.", { prefixEmoji: "loading" })
+          .then(() => {
+            message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
+              .then(ConfirmationResponse => {
+                let DueDate = ConfirmationResponse.first().content;
+                message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Due Date:** ${DueDate.toString().slice(0, 24)}`, { prefixEmoji: "loading" })
+                  .then(() => {
+                    Assignments.updateOne({ "assignmentID": id }, { "dueDate": new Date(DueDate) }, function (err, assignment) {
+                      if (err) return console.log(err);
+                      message.success("Due date updated!");
+                      UpdateAssignmentsEmbed(message.client);
+                    });
+                  });
+              })
+              .catch(err => {
+                console.log(err);
+                message.error(`Command timed out. \n ${err}`);
+              });
+          });
+      });
+    }
+
+    if (action == "delete") {
+      Assignments.findOneAndDelete({ "assignmentID": args[0] }, function (err, assignment) {
+        if (err) return console.log(err);
+        if (!assignment) return message.error("Could not find assignment with that ID.");
+        message.success("Assignment deleted!");
+        UpdateAssignmentsEmbed(message.client);
+      });
     }
   }
 }
