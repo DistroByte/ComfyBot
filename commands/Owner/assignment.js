@@ -95,7 +95,7 @@ class Assignment extends Command {
                 let newDescription = ConfirmationResponse.first().content;
                 message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${assignment.moduleCode}\n**Module Name:** ${assignment.moduleName}\n**Due Date:** ${assignment.dueDate.toString().slice(0, 24)}\n**Description:** ${newDescription}`, { prefixEmoji: "loading" })
                   .then(() => {
-                    Assignment.updateOne({ "assignmentID": id }, { "description": newDescription }, function (err, assignment) {
+                    Assignments.updateOne({ "assignmentID": id }, { "description": newDescription }, function (err, assignment) {
                       if (err) return console.log(err);
                       message.success("Assignment description updated!");
                       UpdateAssignmentsEmbed(message.client);
