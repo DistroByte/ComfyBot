@@ -123,7 +123,7 @@ class Assignment extends Command {
           .then(() => {
             message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
               .then(ConfirmationResponse => {
-                let DueDate = ConfirmationResponse.first().content;
+                let DueDate = new Date(ConfirmationResponse.first().content);
                 message.sendM(`**Due Date:** ${DueDate.toString().slice(0, 24)}`, { prefixEmoji: "loading" })
                   .then(() => {
                     Assignments.updateOne({ "assignmentID": id }, { "dueDate": new Date(DueDate) }, function (err, assignment) {
