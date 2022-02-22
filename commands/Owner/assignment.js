@@ -16,13 +16,14 @@ class Assignment extends Command {
       memberPermissions: [],
       botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
       nsfw: false,
-      ownerOnly: true,
+      ownerOnly: false,
       args: true,
       cooldown: 3000
     });
   }
 
   async run(message, args, data) {
+    if (message.guild.id !== "781476491895898113") return message.channel.send("This command is only available in certain servers!");
     const AwaitFilter = response => { return response.author.id === message.author.id; };
 
     let action = args.shift();
