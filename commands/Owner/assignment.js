@@ -93,7 +93,7 @@ class Assignment extends Command {
             message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
               .then(ConfirmationResponse => {
                 let newDescription = ConfirmationResponse.first().content;
-                message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Module Code:** ${assignment.moduleCode}\n**Module Name:** ${assignment.moduleName}\n**Due Date:** ${assignment.dueDate.toString().slice(0, 24)}\n**Description:** ${newDescription}`, { prefixEmoji: "loading" })
+                message.sendM(`**Module Code:** ${assignment.moduleCode}\n**Module Name:** ${assignment.moduleName}\n**Due Date:** ${assignment.dueDate.toString().slice(0, 24)}\n**Description:** ${newDescription}`, { prefixEmoji: "loading" })
                   .then(() => {
                     Assignments.updateOne({ "assignmentID": id }, { "description": newDescription }, function (err, assignment) {
                       if (err) return console.log(err);
@@ -124,7 +124,7 @@ class Assignment extends Command {
             message.channel.awaitMessages(AwaitFilter, { max: 1, time: 30000, errors: ["time"] })
               .then(ConfirmationResponse => {
                 let DueDate = ConfirmationResponse.first().content;
-                message.sendM(`Type "confirm" or "cancel" to confirm or cancel this submission: \n**Due Date:** ${DueDate.toString().slice(0, 24)}`, { prefixEmoji: "loading" })
+                message.sendM(`**Due Date:** ${DueDate.toString().slice(0, 24)}`, { prefixEmoji: "loading" })
                   .then(() => {
                     Assignments.updateOne({ "assignmentID": id }, { "dueDate": new Date(DueDate) }, function (err, assignment) {
                       if (err) return console.log(err);
