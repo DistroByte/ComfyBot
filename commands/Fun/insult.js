@@ -23,7 +23,7 @@ class Insult extends Command {
     fetch("https://evilinsult.com/generate_insult.php?lang=en&type=json")
       .then(res => res.json())
       .then(res => {
-        message.channel.send(`${args ? message.channel.mentions.first() : message.author} ${res.insult.toString()}`);
+        message.channel.send(`${args ? message.mentions.first() : message.author} ${res.insult.toString()}`);
       });
   }
 }
