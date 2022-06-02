@@ -32,7 +32,7 @@ class Eval extends Command {
       fetchedChan.messages.fetch({ limit }).then(fetched => {
         let buffer = [];
         fetched.forEach(msg => {
-          let msgString = `${new Date(msg.createdTimestamp).toUTCString()} # ${msg.member.displayName}: ${msg.content}`;
+          let msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content}`;
           buffer.push(msgString);
         });
         message.channel.send(buffer.slice().reverse(), { split: true });
