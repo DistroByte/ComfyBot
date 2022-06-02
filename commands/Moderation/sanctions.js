@@ -31,7 +31,7 @@ class Sanctions extends Command {
       .setFooter(data.config.embed.footer);
 
     if (memberData.sanctions.length < 1) {
-      embed.setDescription(`**${user.tag}** does have any sanctions.`);
+      embed.setDescription(`**${user.tag}** does not have any sanctions.`);
       return message.channel.send(embed);
     } else {
       memberData.sanctions.forEach((s) => {

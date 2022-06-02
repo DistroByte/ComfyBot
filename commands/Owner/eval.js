@@ -27,6 +27,18 @@ class Eval extends Command {
     // eslint-disable-next-line no-unused-vars
     const guildsData = this.client.guildsData;
 
+    // eslint-disable-next-line no-unused-vars
+    function prettyPrint(fetchedChan, limit = 10) {
+      fetchedChan.messages.fetch({ limit }).then(fetched => {
+        let buffer = [];
+        fetched.forEach(msg => {
+          let msgString = `${new Date(msg.createdTimestamp).toISOString()} ${msg.author.username}: ${msg.content}`;
+          buffer.push(msgString);
+        });
+        message.channel.send(buffer.slice().reverse());
+      });
+    }
+
     const content = message.content.split(" ").slice(1).join(" ");
     const result = new Promise((resolve) => resolve(eval(content)));
 
