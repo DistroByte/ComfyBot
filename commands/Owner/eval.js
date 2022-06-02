@@ -33,6 +33,11 @@ class Eval extends Command {
         let buffer = [];
         fetched.forEach(msg => {
           let msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
+          if (msg.attachments.first()) {
+            msg.attachments.forEach(attach => {
+              msgString += attach.attachments;
+            });
+          }
           buffer.push(msgString);
         });
         message.channel.send(buffer.slice().reverse(), { split: true });
