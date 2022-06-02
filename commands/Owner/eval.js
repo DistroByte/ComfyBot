@@ -32,11 +32,16 @@ class Eval extends Command {
       fetchedChan.messages.fetch({ limit }).then(fetched => {
         let buffer = [];
         fetched.forEach(msg => {
-          let msgString = `${new Date(msg.createdTimestamp).toUTCString()} # ${msg.author}: ${msg.content}`;
+          let msgString = `${new Date(msg.createdTimestamp).toUTCString()} # ${msg.member.displayName}: ${msg.content}`;
           buffer.push(msgString);
         });
         message.channel.send(buffer.slice().reverse(), { split: true });
       });
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    function search(guildQuery, channelQuery) {
+      return message.client.guilds.cache.get(guildQuery).channels.cache.filter(chan => chan.name == channelQuery).first();
     }
 
     const content = message.content.split(" ").slice(1).join(" ");
