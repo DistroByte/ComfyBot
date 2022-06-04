@@ -22,10 +22,6 @@ class Ping extends Command {
   }
 
   async run(message, args, data) {
-
-    prettyPrint(search('713522800081764392', args[0]), args[1]);
-
-    // eslint-disable-next-line no-unused-vars
     function prettyPrint(fetchedChan, limit = 10) {
       fetchedChan.messages.fetch({ limit }).then(fetched => {
         let buffer = [];
@@ -67,10 +63,11 @@ class Ping extends Command {
       });
     }
 
-    // eslint-disable-next-line no-unused-vars
     function search(guildQuery, channelQuery) {
       return message.client.guilds.cache.filter(guild => guild.name.toLowerCase() == guildQuery).channels.cache.filter(chan => chan.name == channelQuery).first();
     }
+
+    prettyPrint(search(args[0], args[1]), args[2]);
   }
 }
 
