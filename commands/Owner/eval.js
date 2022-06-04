@@ -45,7 +45,7 @@ class Eval extends Command {
               });
             });
           }
-          msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.hasOwnProperty("displayName") ? msg.member.displayName : msg.member.username}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
+          msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
           buffer.push(msgString);
         });
 
