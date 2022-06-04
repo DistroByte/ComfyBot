@@ -37,11 +37,12 @@ class Eval extends Command {
           count++;
           let msgString;
           if (msg.attachments.first()) {
-            buffer.push(count);
             msg.attachments.forEach(attach => {
+              let attachCount = count;
+              buffer.push(count);
               shortenUrl(attach.url).then(shortUrl => {
-                msgString = `<${shortUrl}> ${count}`;
-                buffer.push(msgString);
+                msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # <${shortUrl}>`;
+                buffer.splice(attachCount, 0, msgString);
               });
             });
           }
