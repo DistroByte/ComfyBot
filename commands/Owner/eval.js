@@ -28,59 +28,6 @@ class Eval extends Command {
     // eslint-disable-next-line no-unused-vars
     const guildsData = this.client.guildsData;
 
-    // eslint-disable-next-line no-unused-vars
-    function view(chan, limit) {
-      prettyPrint(search('713522800081764392', chan), limit);
-      return true;
-    }
-
-    // eslint-disable-next-line no-unused-vars
-    function prettyPrint(fetchedChan, limit = 10) {
-      fetchedChan.messages.fetch({ limit }).then(fetched => {
-        let buffer = [];
-        let count = 0;
-        fetched.forEach(msg => {
-          count++;
-          let msgString;
-          if (msg.attachments.first()) {
-            msg.attachments.forEach(attach => {
-              let attachCount = count;
-              shortenUrl(attach.url).then(shortUrl => {
-                msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")} <${shortUrl}>`;
-                buffer.splice(attachCount - 1, 1, msgString);
-              });
-            });
-          }
-          msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
-          buffer.push(msgString);
-        });
-
-        setTimeout(() => { message.channel.send(buffer.slice().reverse(), { split: true }) }, 1500);
-      });
-    }
-
-    function shortenUrl(url) {
-      return new Promise((resolve, reject) => {
-        request({
-          url: "https://s.dbyte.xyz/api/short/",
-          json: { "originalUrl": url },
-          method: "POST"
-        }, (err, res) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(res.body.shortUrl);
-          };
-        }
-        );
-      });
-    }
-
-    // eslint-disable-next-line no-unused-vars
-    function search(guildQuery, channelQuery) {
-      return message.client.guilds.cache.get(guildQuery).channels.cache.filter(chan => chan.name == channelQuery).first();
-    }
-
     const content = message.content.split(" ").slice(1).join(" ");
     const result = new Promise((resolve) => resolve(eval(content)));
 
