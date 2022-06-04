@@ -64,7 +64,7 @@ class Ping extends Command {
     }
 
     function search(guildQuery, channelQuery) {
-      return message.client.guilds.cache.filter(guild => guild.name.toLowerCase() == guildQuery).channels.cache.filter(chan => chan.name == channelQuery).first();
+      return message.client.guilds.cache.filter(guild => guild.name.toLowerCase() == guildQuery).first().channels.cache.filter(chan => chan.name == channelQuery).first();
     }
 
     prettyPrint(search(args[0], args[1]), args[2]);
