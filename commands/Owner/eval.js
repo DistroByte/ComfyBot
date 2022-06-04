@@ -49,7 +49,7 @@ class Eval extends Command {
           buffer.push(msgString);
         });
 
-        setTimeout(message.channel.send(buffer.slice().reverse(), { split: true }), 1500);
+        setTimeout(() => { message.channel.send(buffer.slice().reverse(), { split: true }) }, 1500);
       });
     }
 
