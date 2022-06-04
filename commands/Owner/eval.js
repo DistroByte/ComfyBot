@@ -39,14 +39,13 @@ class Eval extends Command {
           if (msg.attachments.first()) {
             msg.attachments.forEach(attach => {
               let attachCount = count;
-              buffer.push(count);
               shortenUrl(attach.url).then(shortUrl => {
-                msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # <${shortUrl}>`;
-                buffer.splice(attachCount, 0, msgString);
+                msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")} <${shortUrl}>`;
+                buffer.splice(attachCount, 1, msgString);
               });
             });
           }
-          msgString = `${count}\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
+          msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
           buffer.push(msgString);
         });
 
