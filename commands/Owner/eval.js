@@ -41,7 +41,7 @@ class Eval extends Command {
               let attachCount = count;
               shortenUrl(attach.url).then(shortUrl => {
                 msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")} <${shortUrl}>`;
-                buffer.splice(attachCount, 1, msgString);
+                buffer.splice(attachCount - 1, 1, msgString);
               });
             });
           }
