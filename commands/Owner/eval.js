@@ -1,4 +1,5 @@
 const Command = require("../../base/Command.js");
+const request = require("request");
 
 class Eval extends Command {
   constructor(client) {
@@ -31,16 +32,41 @@ class Eval extends Command {
     function prettyPrint(fetchedChan, limit = 10) {
       fetchedChan.messages.fetch({ limit }).then(fetched => {
         let buffer = [];
+        let count = 0;
         fetched.forEach(msg => {
-          let msgString = `\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
+          count++;
+          let msgString;
           if (msg.attachments.first()) {
+            buffer.push(count);
             msg.attachments.forEach(attach => {
-              msgString += attach.attachments;
+              shortenUrl(attach.url).then(shortUrl => {
+                msgString = `<${shortUrl}> ${count}`;
+                buffer.push(msgString);
+              });
             });
           }
+          msgString = `${count}\`${new Date(msg.createdTimestamp).toUTCString()}\` # ${msg.member.displayName}: ${msg.content.replace(/((https?:\/\/)?[^\s.]+\.[\w][^\s]+)/gm, "<$&>")}`;
           buffer.push(msgString);
         });
-        message.channel.send(buffer.slice().reverse(), { split: true });
+
+        setTimeout(message.channel.send(buffer.slice().reverse(), { split: true }), 1500);
+      });
+    }
+
+    function shortenUrl(url) {
+      return new Promise((resolve, reject) => {
+        request({
+          url: "https://s.dbyte.xyz/api/short/",
+          json: { "originalUrl": url },
+          method: "POST"
+        }, (err, res) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(res.body.shortUrl);
+          };
+        }
+        );
       });
     }
 
