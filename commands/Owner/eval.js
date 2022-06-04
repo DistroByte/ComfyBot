@@ -29,6 +29,12 @@ class Eval extends Command {
     const guildsData = this.client.guildsData;
 
     // eslint-disable-next-line no-unused-vars
+    function view(chan, limit) {
+      prettyPrint(search('713522800081764392', chan), limit);
+      return true;
+    }
+
+    // eslint-disable-next-line no-unused-vars
     function prettyPrint(fetchedChan, limit = 10) {
       fetchedChan.messages.fetch({ limit }).then(fetched => {
         let buffer = [];
