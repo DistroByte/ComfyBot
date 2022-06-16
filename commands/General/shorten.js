@@ -38,7 +38,7 @@ class Setafk extends Command {
       });
     }
 
-    shortenUrl(args[0]).then(res => { message.channel.send(`Your shortened URL: <${res.shortUrl}>, accessed ${res.clicks} times.`) })
+    shortenUrl(args[0]).then(res => { message.channel.send(`Shortened URL:\n<${res.shortUrl}>\nTotal clicks: \`${res.clicks}\`.`) })
   }
 }
 
