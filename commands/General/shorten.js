@@ -1,4 +1,5 @@
 const Command = require("../../base/Command.js");
+const request = require("request");
 
 class Setafk extends Command {
 
