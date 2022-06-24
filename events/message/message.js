@@ -71,7 +71,7 @@ module.exports = class {
           }
         }
 
-        if ("u" in message.content.toLowerCase().trim().split(/ +/g)) {
+        if (message.content.toLowerCase().trim().split(/ +/g).includes("u")) {
           let insult = generateInsult(message.author);
 
           if (insultCooldown > Date.now()) return;
