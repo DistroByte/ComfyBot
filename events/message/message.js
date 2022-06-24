@@ -1,9 +1,9 @@
 const xpCooldown = {},
   cmdCooldown = {},
-  insultCooldown = 0,
   storage = require("storage-to-json"),
   caSend = new storage("computerAppsCorrect"),
   CASESend = new storage("caseCorrect");
+let insultCooldown = 0;
 
 module.exports = class {
   constructor(client) {
