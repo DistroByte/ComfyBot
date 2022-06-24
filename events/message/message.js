@@ -1,5 +1,6 @@
 const xpCooldown = {},
   cmdCooldown = {},
+  insultCooldown = 0,
   storage = require("storage-to-json"),
   caSend = new storage("computerAppsCorrect"),
   CASESend = new storage("caseCorrect");
@@ -68,6 +69,15 @@ module.exports = class {
           if (message.content.toLowerCase().includes(casekey)) {
             message.channel.send(casevalue);
           }
+        }
+
+        if ("u" in message.content.toLowerCase().trim().split(/ +/g)) {
+          let insult = generateInsult(message.author);
+
+          if (insultCooldown > Date.now()) return;
+
+          insultCooldown = Date.now() + 120000;
+          message.channel.send(insult)
         }
       }
 
@@ -262,4 +272,11 @@ async function updateXp(msg, data) {
 
   data.memberData.xp = newXp;
   await data.memberData.save();
+}
+
+function generateInsult(author) {
+  const one = require('../../helpers/partone.json');
+  const two = require('../../helpers/parttwo.json');
+
+  return `${author}: "you" ${one[Math.floor(Math.random() * one.length)]}${two[Math.floor(Math.random() * two.length)]}. "You".`
 }

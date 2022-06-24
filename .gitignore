@@ -111,3 +111,5 @@ config.js
 
 ComfyBot.*
 giveaways.json
+
+helpers/*.json
