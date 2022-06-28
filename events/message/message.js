@@ -72,12 +72,21 @@ module.exports = class {
         }
 
         if (message.content.toLowerCase().trim().split(/ +/g).includes("u")) {
-          let insult = generateInsult(message.author);
-
+          let insult = generateInsult();
           if (insultCooldown > Date.now()) return;
-
           insultCooldown = Date.now() + 120000;
-          message.channel.send(insult)
+          message.reply(`"You" ${insult}, "you"`)
+        }
+
+        if (message.content.toLowerCase().trim().split(/ +/g).includes("y")) {
+          let insult = generateInsult();
+          if (insultCooldown > Date.now()) return;
+          insultCooldown = Date.now() + 120000;
+          message.reply(`"Why" ${insult}, "why"`)
+        }
+
+        if (message.content.toLowerCase().includes("finland has an army?")) {
+          return message.channel.send("Fought off the Russians in WWII");
         }
       }
 
@@ -274,9 +283,9 @@ async function updateXp(msg, data) {
   await data.memberData.save();
 }
 
-function generateInsult(author) {
+function generateInsult() {
   const one = require('../../helpers/partone.json');
   const two = require('../../helpers/parttwo.json');
 
-  return `${author}: "you" ${one[Math.floor(Math.random() * one.length)]}${two[Math.floor(Math.random() * two.length)]}. "You".`
+  return `${one[Math.floor(Math.random() * one.length)]}${two[Math.floor(Math.random() * two.length)]}`
 }
