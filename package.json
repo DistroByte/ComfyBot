@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/James-Hackett/DiscordBot#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.4.0",
+    "@discordjs/opus": "^0.8.0",
     "@influxdata/influxdb-client": "^1.10.0",
     "@sentry/node": "^6.14.1",
     "@sentry/tracing": "^6.14.1",
