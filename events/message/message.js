@@ -74,14 +74,14 @@ module.exports = class {
         // if (message.content.toLowerCase().trim().split(/ +/g).includes("u")) {
         //   let insult = generateInsult();
         //   if (insultCooldown > Date.now()) return;
-        //   insultCooldown = Date.now() + 120000;
+        //   insultCooldown = Date.now() + 900000;
         //   message.reply(`"You" ${insult}, "you"`)
         // }
 
         // if (message.content.toLowerCase().trim().split(/ +/g).includes("y")) {
         //   let insult = generateInsult();
         //   if (insultCooldown > Date.now()) return;
-        //   insultCooldown = Date.now() + 120000;
+        //   insultCooldown = Date.now() + 900000;
         //   message.reply(`"Why" ${insult}, "why"`)
         // }
 
@@ -284,8 +284,8 @@ async function updateXp(msg, data) {
 }
 
 function generateInsult() {
-  const one = require('../../helpers/partone.json');
-  const two = require('../../helpers/parttwo.json');
+  const one = require("../../helpers/partone.json");
+  const two = require("../../helpers/parttwo.json");
 
-  return `${one[Math.floor(Math.random() * one.length)]}${two[Math.floor(Math.random() * two.length)]}`
+  return `${one[Math.floor(Math.random() * one.length)]}${two[Math.floor(Math.random() * two.length)]}`;
 }
