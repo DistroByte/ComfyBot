@@ -76,12 +76,12 @@ async function UpdateAssignmentsEmbed(client) {
   for (var i in assignmentsData) {
     let NewAssignment = assignmentsData[i];
     let moduleName = NewAssignment.moduleName || await FetchModuleNameFromCode(NewAssignment.moduleCode);
-    embedContent += `${NewAssignment.assignmentID}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`;
+    embedContent += `${NewAssignment.assignmentID - 33}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`;
   }
 
   try {
-    let AssignmentsChannel = await client.channels.cache.get("945506017712697374");
-    let ExistingEmbed = await AssignmentsChannel.messages.fetch("945507067651825765");
+    let AssignmentsChannel = await client.channels.cache.get("829045215679610891");
+    let ExistingEmbed = await AssignmentsChannel.messages.fetch("829045217818574848");
 
 
     const AssignmentEmbed = new Discord.MessageEmbed()
