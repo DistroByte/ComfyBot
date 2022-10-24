@@ -48,7 +48,7 @@
     "influx": "^5.7.0",
     "mathjs": "^9.3.0",
     "md5": "^2.3.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.32",
     "mongoose": "^5.11.8",
     "node-fetch": "^2.6.1",
