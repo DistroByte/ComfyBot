@@ -71,26 +71,44 @@ async function UpdateAssignmentsEmbed(client) {
   let assignmentsData = await FetchAllAssignments().catch(err => { console.log(err); });
   if (!assignmentsData) return;
 
-  let embedContent = "";
+  let comsci1EmbedContent = "";
+  let case3EmbedContent = "";
 
   for (var i in assignmentsData) {
     let NewAssignment = assignmentsData[i];
     let moduleName = NewAssignment.moduleName || await FetchModuleNameFromCode(NewAssignment.moduleCode);
-    embedContent += `${NewAssignment.assignmentID - 33}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`;
+    if (NewAssignment.moduleCode.startsWith("CA3")) {
+      case3EmbedContent += `${NewAssignment.assignmentID}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`;
+    } else {
+      comsci1EmbedContent += `${NewAssignment.assignmentID}. **${NewAssignment.moduleCode} - ${moduleName.slice(9)}**\n${NewAssignment.description}\nDue *${NewAssignment.dueDate.toString().slice(0, "Fri Apr 09 2021 23:59".length)}* - in ${NewAssignment.Countdown}.\n\n`;
+    }
   }
 
   try {
-    let AssignmentsChannel = await client.channels.cache.get("829045215679610891");
-    let ExistingEmbed = await AssignmentsChannel.messages.fetch("829045217818574848");
+    let case3Channel = await client.channels.cache.get("829045215679610891");
+    let case3ExistEmbed = await case3Channel.messages.fetch("829045217818574848");
+    let fugitivesChannel = await client.channels.cache.get("945506017712697374");
+    let fugitivesExistEmbed = await fugitivesChannel.messages.fetch("945507067651825765");
+    let comsci1Channel = await client.channels.cache.get("1033055865072263289");
+    let comsci1ExistEmbed = await comsci1Channel.messages.fetch("1034253241984241744");
 
 
-    const AssignmentEmbed = new Discord.MessageEmbed()
+    const case3Embed = new Discord.MessageEmbed()
       .setColor(0x36393e)
       .setTitle("Upcoming Assignments (Earliest due first)")
-      .setDescription(embedContent)
+      .setDescription(case3EmbedContent)
       .setFooter(`Last updated at ${new Date().toString().slice(0, 24)}`);
     // AssignmentsChannel.send(AssignmentEmbed);
-    ExistingEmbed.edit(AssignmentEmbed);
+    case3ExistEmbed.edit(case3Embed);
+    fugitivesExistEmbed.edit(case3Embed);
+
+    const comsci1Embed = new Discord.MessageEmbed()
+      .setColor(0x36393e)
+      .setTitle("Upcoming Assignments (Earliest due first)")
+      .setDescription(comsci1EmbedContent)
+      .setFooter(`Last updated at ${new Date().toString().slice(0, 24)}`);
+    // AssignmentsChannel.send(AssignmentEmbed);
+    comsci1ExistEmbed.edit(comsci1Embed);
   } catch (error) { }
 }
 
