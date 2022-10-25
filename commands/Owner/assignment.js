@@ -23,7 +23,9 @@ class Assignment extends Command {
   }
 
   async run(message, args, data) {
-    if (message.guild.id !== "759921793422458901") return message.channel.send("This command is only available in certain servers!");
+    let allowedGuilds = ["759921793422458901", "1017454386789757040", "781476491895898113"];
+
+    if (!allowedGuilds.includes(message.guild.id)) return message.channel.send("This command is only available in certain servers!");
     const AwaitFilter = response => { return response.author.id === message.author.id; };
 
     let action = args.shift();
