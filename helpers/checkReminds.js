@@ -18,13 +18,13 @@ module.exports = {
           const reminds = user.reminds,
             mustSend = reminds.filter(r => r.sendAt < dateNow);
           if (mustSend.length > 0) {
-            mustSend.forEach(r => {
+            mustSend.forEach(reminder => {
               const embed = new Discord.MessageEmbed()
                 .setAuthor("ComfyBot Reminder")
-                .addField("Created", `Message created ${client.convertTime(r.createdAt, "from")}`)
-                .addField("Message", r.message)
+                .addField("Created", `Message created ${client.convertTime(reminder.createdAt, "from")}`)
+                .addField("Message", reminder.message)
                 .setColor(client.config.embed.color)
-                .setFooter(client.config.embed.footer);
+                .setFooter(client.config.embed.footer, reminder.messageURL);
               dUser.send(embed);
             });
             user.reminds = user.reminds.filter(r => r.sendAt >= dateNow);

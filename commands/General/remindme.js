@@ -33,6 +33,7 @@ class Remindme extends Command {
 
     const rData = {
       message: msg,
+      messageURL: message.url,
       createdAt: Date.now(),
       sendAt: Date.now() + ms(time)
     };
@@ -47,7 +48,7 @@ class Remindme extends Command {
     this.client.databaseCache.usersReminds.set(message.author.id, data.userData);
 
     // Send success message
-    message.success(`Reminder set! I will send you \`${msg}\` in \`${time}\``);
+    message.success(`Reminder set! I will remind you in \`${time}\``);
   }
 }
 
