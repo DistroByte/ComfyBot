@@ -33,7 +33,7 @@ class Invite extends Command {
     const embed = new Discord.MessageEmbed()
       .setAuthor("ComfyBot links")
       .setDescription(`Send \`${data.guild.prefix}invite copy\` to be able to copy the invite link!`)
-      .addField("Invite ComfyBot", inviteLink)
+      .addField("Invite ComfyBot", `[Invite](${inviteLink})`)
       // .addField(message.translate("general/invite:VOTE"), voteURL)
       .addField("Get Support", supportURL)
       .setColor(data.config.embed.color)

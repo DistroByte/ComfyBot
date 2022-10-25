@@ -2,7 +2,8 @@ const xpCooldown = {},
   cmdCooldown = {},
   storage = require("storage-to-json"),
   caSend = new storage("computerAppsCorrect"),
-  CASESend = new storage("caseCorrect");
+  CASESend = new storage("caseCorrect"),
+  Discord = require("discord.js");
 let insultCooldown = 0;
 
 module.exports = class {
@@ -245,6 +246,13 @@ module.exports = class {
     log.save();
 
     try {
+      /**
+       * The command is now loaded and we can run it with the parameters we want to give to it.
+       * If any error occurs, it will be caught in the catch block below.
+       * @param {Discord.Message} message - The message object.
+       * @param {Array} args - The arguments of the command.
+       * @param {Object} data - The data of the guild.
+       */
       cmd.run(message, args, data);
       const logs = await this.client.channels.cache.get("853810387404718081");
       logs.send(`\`${(message.guild ? message.guild.name : "DMs")}\` | \`${message.author.tag}\` | \`${cmd.help.name + (args ? " " : "") + args.join(" ")}\``);

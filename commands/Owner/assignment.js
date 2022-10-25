@@ -1,6 +1,7 @@
 const Command = require("../../base/Command"),
   { UpdateAssignmentsEmbed, FetchModuleNameFromCode } = require("../../helpers/assignmentsHelper"),
-  Assignments = require("../../base/Assignment");
+  Assignments = require("../../base/Assignment"),
+  Discord = require("discord.js");
 
 class Assignment extends Command {
   constructor(client) {
@@ -22,6 +23,11 @@ class Assignment extends Command {
     });
   }
 
+  /**
+  * @param {Discord.Message} message
+  * @param {Array} args
+  * @param {Object} data
+  */
   async run(message, args, data) {
     let allowedGuilds = ["759921793422458901", "1017454386789757040", "781476491895898113", "762742746405535774"];
 
@@ -50,6 +56,15 @@ class Assignment extends Command {
           }
         });
       });
+
+      if (ModuleName && DueDate && args.length > 2) {
+        Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": args.slice(3).join(" "), "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
+          if (err) return console.log(err);
+          message.success("New assignment created!");
+          UpdateAssignmentsEmbed(message.client);
+        });
+        return;
+      }
 
       if (ModuleName) {
         message.sendM("Please enter a description for this assignment.", { prefixEmoji: "loading" })
