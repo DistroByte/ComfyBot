@@ -57,7 +57,7 @@ class Assignment extends Command {
         });
       });
 
-      if (ModuleName && DueDate && args.length > 2) {
+      if (ModuleName && DueDate && args.length > 3) {
         Assignments.create({ "moduleCode": ModCode, "moduleName": ModuleName, "description": args.slice(3).join(" "), "dueDate": new Date(DueDate), "uploader": message.author.username, "assignmentID": AssignmentID + 1 }, function (err, new_instance) {
           if (err) return console.log(err);
           message.success("New assignment created!");
