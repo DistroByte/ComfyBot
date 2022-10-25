@@ -23,8 +23,9 @@ module.exports = {
                 .setAuthor("ComfyBot Reminder")
                 .addField("Created", `Message created ${client.convertTime(reminder.createdAt, "from")}`)
                 .addField("Message", reminder.message)
+                .addField("Message link", `[Click here](${reminder.messageURL})`)
                 .setColor(client.config.embed.color)
-                .setFooter(client.config.embed.footer, reminder.messageURL);
+                .setFooter(client.config.embed.footer);
               dUser.send(embed);
             });
             user.reminds = user.reminds.filter(r => r.sendAt >= dateNow);
