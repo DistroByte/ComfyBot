@@ -40,7 +40,7 @@ class Assignment extends Command {
         return message.error("Please specify a due date!");
       }
 
-      let ModCode = args[0];
+      let ModCode = args[0].toUpperCase();
       let DueDate = args[1] + " " + (args[2] ? args[2] : "00:00");
       let ModuleName = await FetchModuleNameFromCode(ModCode)
         .catch(err => {
