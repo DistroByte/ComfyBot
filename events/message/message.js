@@ -2,7 +2,6 @@ const xpCooldown = {},
   cmdCooldown = {},
   storage = require("storage-to-json"),
   caSend = new storage("computerAppsCorrect"),
-  CASESend = new storage("caseCorrect"),
   Discord = require("discord.js");
 let insultCooldown = 0;
 
@@ -58,36 +57,6 @@ module.exports = class {
           if (message.content.toLowerCase().includes(cakey)) {
             message.channel.send(cavalue);
           }
-        }
-      }
-
-      let caseCorrect = CASESend.get_storage();
-      if (message.guild.id === "713522800081764392") {
-        // eslint-disable-next-line no-redeclare
-        for (var casekey in caseCorrect) {
-          // eslint-disable-next-line no-redeclare
-          var casevalue = caseCorrect[casekey];
-          if (message.content.toLowerCase().includes(casekey)) {
-            message.channel.send(casevalue);
-          }
-        }
-
-        // if (message.content.toLowerCase().trim().split(/ +/g).includes("u")) {
-        //   let insult = generateInsult();
-        //   if (insultCooldown > Date.now()) return;
-        //   insultCooldown = Date.now() + 900000;
-        //   message.reply(`"You" ${insult}, "you"`)
-        // }
-
-        // if (message.content.toLowerCase().trim().split(/ +/g).includes("y")) {
-        //   let insult = generateInsult();
-        //   if (insultCooldown > Date.now()) return;
-        //   insultCooldown = Date.now() + 900000;
-        //   message.reply(`"Why" ${insult}, "why"`)
-        // }
-
-        if (message.content.toLowerCase().includes("finland has an army?")) {
-          return message.channel.send("Fought off the Russians in WWII");
         }
       }
 
